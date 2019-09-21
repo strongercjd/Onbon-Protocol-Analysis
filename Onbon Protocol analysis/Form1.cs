@@ -20,9 +20,13 @@ namespace Onbon_Protocol_analysis
         int Protocol_type;//0是字库卡  1是6代点阵协议   2是6代字库协议
 
         string[][] data_header = new string[100][];
+        int data_header_len;
         string[][] dynamic_cmd = new string[100][];
+        int dynamic_cmd_len;
         string[][] area_data = new string[100][];
+        int area_data_len;
         string[][] data_crc = new string[100][];
+        int data_crc_len;
 
         int data_value;
         string data;
@@ -37,8 +41,9 @@ namespace Onbon_Protocol_analysis
             data_header[num++] = new string[] { "1", "设备类型", "设备类型","BX-5K1", "BX-5K2", "BX-5MK2", "BX-5MK1", "BX-5K1Q-YY", "BX-5KX", "通配符" };
             data_header[num++] = new string[] { "1", "协议版本号", "协议版本号" };
             data_header[num++] = new string[] { "2", "数据域长度", "数据域长度" };
-			
-			num = 0;
+            data_header_len = num;
+
+            num = 0;
 			dynamic_cmd[num++] = new string[] { "1", "命令分组", "命令分组" };
             dynamic_cmd[num++] = new string[] { "1", "命令编号", "命令编号" };
             dynamic_cmd[num++] = new string[] { "1", "控制是否回复", "回复", "不回复" };
@@ -46,7 +51,7 @@ namespace Onbon_Protocol_analysis
             dynamic_cmd[num++] = new string[] { "1", "删除区域个数", "删除区域" };
             dynamic_cmd[num++] = new string[] { "1", "删除区域ID", "删除区域ID" };
             dynamic_cmd[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
-			
+            dynamic_cmd_len = num;
 			
 			num = 0;
             area_data[num++] = new string[] { "2", "区域数据长度", "区域数据长度" };
@@ -66,7 +71,7 @@ namespace Onbon_Protocol_analysis
             area_data[num++] = new string[] { "4", "读音数据长度", "数据长度" };
             area_data[num++] = new string[] { "N", "读音数据", "读音数据" };
             area_data[num++] = new string[] { "1", "扩展位个数", "扩展位个数" };
-            area_data[num++] = new string[] { "1", "扩展位保留位置", "扩展位保留位置" };
+            area_data[num++] = new string[] { "1", "扩展位保留位", "扩展位保留位" };
             area_data[num++] = new string[] { "1", "排版方式", "排版方式" };
             area_data[num++] = new string[] { "1", "字体对齐", "字体对齐方式" };
             area_data[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
@@ -77,9 +82,11 @@ namespace Onbon_Protocol_analysis
             area_data[num++] = new string[] { "1", "停留时间", "停留时间" };
             area_data[num++] = new string[] { "4", "数据长度", "数据长度" };
             area_data[num++] = new string[] { "N", "数据", "数据" };
+            area_data_len = num;
 
             num = 0;
             data_crc[num++] = new string[] { "2", "CRC校验", "CRC校验正确", "CRC校验错误","不进行CRC校验" };
+            data_crc_len = num;
 
         }
         public Form1()
@@ -141,7 +148,7 @@ namespace Onbon_Protocol_analysis
             ListViewItem Protocol_data;
 
             /*包头数据*/
-            for(num = 0;num<7;num++)
+            for(num = 0;num< data_header_len; num++)
             {
                 Protocol_data = new ListViewItem();
                 Protocol_data.Group = group_data_header;
@@ -191,7 +198,7 @@ namespace Onbon_Protocol_analysis
             }
 
             /*命令数据*/
-            for (num = 0; num < 7; num++)
+            for (num = 0; num < dynamic_cmd_len; num++)
             {
                 Protocol_data = new ListViewItem();
                 Protocol_data.Group = group_cmd;
@@ -213,11 +220,18 @@ namespace Onbon_Protocol_analysis
                 Protocol_data.SubItems.Add(dynamic_cmd[num][2]);
                 data_listView.Items.Add(Protocol_data);
 
-                if ((num == 4))
+                if (dynamic_cmd[num][1] == "更新区域个数")
                 {
+                    area_num = data_value;
+                }
+
+                if (dynamic_cmd[num][1] == "删除区域个数")
+                {
+                    num++;
                     /*删除区域ID*/
                     if (data_value != 0)
                     {
+                        
                         for (num1 = 1; num1 < data_value + 1; num1++)
                         {
                             Protocol_data = new ListViewItem();
@@ -228,14 +242,8 @@ namespace Onbon_Protocol_analysis
                             Protocol_data.SubItems.Add(dynamic_cmd[num][2]);
                             data_listView.Items.Add(Protocol_data);
                         }
-                    }
-                    num++;
+                    } 
                 }
-                if (num == 6)
-                {
-                    area_num = data_value;
-                }
-                
             }
 
             /*数据格式*/
@@ -246,71 +254,11 @@ namespace Onbon_Protocol_analysis
                 grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                 this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
 
-                for (num1 = 0; num1 < 28; )
+                for (num1 = 0; num1 < area_data_len; )
                 {
-                    Protocol_data = new ListViewItem();
-                    Protocol_data.Group = grou_area_data;
-                    Protocol_data.Text = area_data[num1][1];
 
-                    if (num1 == 26)
-                        num1 = 26;
 
-                    if (area_data[num1][0] != "N")
-                    {
-                        int len = Convert.ToInt32(area_data[num1][0]);
-                        data = "";
-                        data_value = 0;
-                        for (num2 = 0; num2 < len; num2++)
-                        {
-                            data += myarray[i + len - num2 - 1].ToString("X2");
-                            data_value = data_value | (int)((myarray[i + len - num2 - 1] & 0xff) << (8 * (len - num2 - 1)));
-                        }
-                        i += len;
-                    }
-                    if (area_data[num1][0] == "N")
-                    {
-                        data = "";
-                        for (num2 = 0; num2 < data_value; num2++)
-                        {
-                            data = data + myarray[i++].ToString("X2");
-                        }
-                    }
-                    Protocol_data.SubItems.Add(data);
-
-                    if (area_data[num1][0] == "N")
-                    {
-                        i = i - data_value;
-                        data = "";
-                        for (num2 = 0; num2 < data_value; )
-                        {
-                            if (myarray[i] < 0x81)
-                            {
-                                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
-                                byte[] byteArray = new byte[] { (byte)myarray[i++] };
-                                string strCharacter = asciiEncoding.GetString(byteArray);
-                                data = data + strCharacter;
-                                num2++;
-                            }
-                            else
-                            {
-                                byte[] bytes = new byte[2];
-                                bytes[0] = myarray[i++];
-                                bytes[1] = myarray[i++];
-                                System.Text.Encoding chs = System.Text.Encoding.GetEncoding("gb2312");
-                                data = data + chs.GetString(bytes);
-                                num2 = num2 + 2;
-                            }
-                        }
-                        Protocol_data.SubItems.Add(data);
-                    }
-                    else
-                    {
-                        Protocol_data.SubItems.Add(area_data[num1][2]);
-                    }  
-                    data_listView.Items.Add(Protocol_data);
-                    num1++;
-
-                    if (num1 == 17)
+                    if (area_data[num1][1] == "扩展位保留位")
                     {
                         /*判断扩展位个数*/
                         if (data_value == 0)//无扩展位
@@ -319,7 +267,6 @@ namespace Onbon_Protocol_analysis
                         }
                         else
                         {
-                            
                             /*排版方式*/
                             Protocol_data = new ListViewItem();
                             Protocol_data.Group = grou_area_data;
@@ -329,7 +276,7 @@ namespace Onbon_Protocol_analysis
                             Protocol_data.SubItems.Add(area_data[num1][2]);
                             data_listView.Items.Add(Protocol_data);
                             num1++;
-                            if (data_value>1)//扩展位大于1
+                            if (data_value > 1)//扩展位大于1
                             {
                                 MessageBox.Show("目前版本不支持扩展位大于1的情况");
                                 return 0;
@@ -337,7 +284,7 @@ namespace Onbon_Protocol_analysis
                         }
                     }
 
-                    if (num1 == 11)
+                    if (area_data[num1][1] == "发音人/发音次数")
                     {
                         /*判断是否有语音*/
                         if (data_value == 0)//无语音
@@ -415,7 +362,7 @@ namespace Onbon_Protocol_analysis
                                 {
                                     i = i - data_value;
                                     data = "";
-                                    for (num2 = 0; num2 < data_value; )
+                                    for (num2 = 0; num2 < data_value;)
                                     {
                                         if (myarray[i] < 0x81)
                                         {
@@ -450,6 +397,69 @@ namespace Onbon_Protocol_analysis
                             }
                         }
                     }
+
+
+
+                    Protocol_data = new ListViewItem();
+                    Protocol_data.Group = grou_area_data;
+                    Protocol_data.Text = area_data[num1][1];
+
+
+                    if (area_data[num1][0] != "N")
+                    {
+                        int len = Convert.ToInt32(area_data[num1][0]);
+                        data = "";
+                        data_value = 0;
+                        for (num2 = 0; num2 < len; num2++)
+                        {
+                            data += myarray[i + len - num2 - 1].ToString("X2");
+                            data_value = data_value | (int)((myarray[i + len - num2 - 1] & 0xff) << (8 * (len - num2 - 1)));
+                        }
+                        i += len;
+                    }
+                    if (area_data[num1][0] == "N")
+                    {
+                        data = "";
+                        for (num2 = 0; num2 < data_value; num2++)
+                        {
+                            data = data + myarray[i++].ToString("X2");
+                        }
+                    }
+                    Protocol_data.SubItems.Add(data);
+
+                    if (area_data[num1][0] == "N")
+                    {
+                        i = i - data_value;
+                        data = "";
+                        for (num2 = 0; num2 < data_value; )
+                        {
+                            if (myarray[i] < 0x81)
+                            {
+                                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                                byte[] byteArray = new byte[] { (byte)myarray[i++] };
+                                string strCharacter = asciiEncoding.GetString(byteArray);
+                                data = data + strCharacter;
+                                num2++;
+                            }
+                            else
+                            {
+                                byte[] bytes = new byte[2];
+                                bytes[0] = myarray[i++];
+                                bytes[1] = myarray[i++];
+                                System.Text.Encoding chs = System.Text.Encoding.GetEncoding("gb2312");
+                                data = data + chs.GetString(bytes);
+                                num2 = num2 + 2;
+                            }
+                        }
+                        Protocol_data.SubItems.Add(data);
+                    }
+                    else
+                    {
+                        Protocol_data.SubItems.Add(area_data[num1][2]);
+                    }  
+                    data_listView.Items.Add(Protocol_data);
+                    num1++;
+
                 }
             }
 
@@ -490,7 +500,6 @@ namespace Onbon_Protocol_analysis
                     
             }  
             data_listView.Items.Add(Protocol_data);
-
 
             return 0;
         }
