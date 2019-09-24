@@ -89,8 +89,44 @@ namespace Onbon_Protocol_analysis
             num = 0;
             Protol_cmd_str[num++] = new string[] { "1", "命令分组", "格式化命令" };
             Protol_cmd_str[num++] = new string[] { "1", "命令编号", "格式化命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Prototol_CMD_len = num;
+        }
+
+        public void Font_Card_Protocol_A2_00_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "ping命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "ping命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Prototol_CMD_len = num;
+        }
+        public void Font_Card_Protocol_A2_01_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "系统复位命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "系统复位命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Prototol_CMD_len = num;
+        }
+        public void Font_Card_Protocol_A1_01_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "删除文件命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "删除文件命令" };
             Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
             Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "2", "删除文件个数", "删除文件个数" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
             Prototol_CMD_len = num;
         }
 		
@@ -114,6 +150,71 @@ namespace Onbon_Protocol_analysis
 			Protol_cmd_str[num++] = new string[] { "N", "动态区ID", "动态区ID" };
 			Protol_cmd_str[num++] = new string[] { "16", "条码", "条码" };
 			Protol_cmd_str[num++] = new string[] { "12", "网络ID", "网络ID" };
+            Prototol_CMD_len = num;
+        }
+		
+		public void Font_Card_Protocol_A3_00_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "强制开关机命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "强制开关机命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "1", "开关机状态", "0x01开机  0x02关机" };
+            Prototol_CMD_len = num;
+        }
+		public void Font_Card_Protocol_A3_01_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "定时开关机" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "定时开关机" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "1", "定时器组数", "定时器组数" };
+			Protol_cmd_str[num++] = new string[] { "2", "开机时间", "开机时间（BCD码）" };
+			Protol_cmd_str[num++] = new string[] { "2", "关机时间", "关机时间（BCD码）" };
+            Prototol_CMD_len = num;
+        }
+		
+		public void Font_Card_Protocol_A3_04_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "锁定/解锁节目" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "锁定/解锁节目" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "1", "锁定状态保存方式", "0x00掉电不保存  0x01掉电保存" };
+			Protol_cmd_str[num++] = new string[] { "1", "锁定状态", "0x00解锁  0x01锁定" };
+			Protol_cmd_str[num++] = new string[] { "4", "节目名", "节目名" };
+            Prototol_CMD_len = num;
+        }
+		public void Font_Card_Protocol_A3_08_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "取消定时开关机命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "取消定时开关机命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Prototol_CMD_len = num;
+        }
+		
+		public void Font_Card_Protocol_A3_10_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "清屏命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "清屏命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
             Prototol_CMD_len = num;
         }
 		
@@ -375,7 +476,58 @@ namespace Onbon_Protocol_analysis
         }
 
 
-        public UInt32 Font_Card_A1_00_Protocol(byte[] myarray, UInt32 i)
+        public UInt32 Font_Card_A1_01_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            data_value = (int)(((myarray[i + 7] & 0xff) << 8) |//需要删除的文件个数
+                               ((myarray[i + 6] & 0xff) << 0));
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len+data_value-1];
+
+            for (num = 0; num < Prototol_CMD_len + data_value - 1; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                if (num > Prototol_CMD_len)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].para = "文件名";
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = 4;
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[4];
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = "文件名";
+                }
+                else
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+                }
+            }
+
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                }
+            }
+
+            return i;
+
+        }
+
+        public UInt32 Font_Card_A2_00_Protocol(byte[] myarray, UInt32 i)
         {
             UInt32 num, num1, num2, num3;
             string data_str;
@@ -742,6 +894,64 @@ namespace Onbon_Protocol_analysis
             return i;
 
 		}
+
+        public UInt32 Font_Card_A3_01_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            data_value = (int)(myarray[i + 5]);// 定时开关机组数
+  
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len + (data_value*2) - 2];
+
+            for (num = 0; num < Prototol_CMD_len + (data_value * 2) - 2; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                if (num > Prototol_CMD_len)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].para = "开机时间";
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = 2;
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[2];
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = "开机时间";
+                    num++;
+
+                    m_oonbon_Protocol.Prototol_CMD[num].para = "关机时间";
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = 2;
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[2];
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = "关机时间";
+                }
+                else
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+                }
+            }
+
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                }
+            }
+
+            return i;
+
+        }
+
         public UInt32 Font_Card_A3_06_Protocol(byte[] myarray,UInt32 i)
         {
             UInt32 num, num1, num2, num3;
@@ -1084,7 +1294,11 @@ namespace Onbon_Protocol_analysis
                     {
                         case 0x00://格式化
                             Font_Card_Protocol_A1_00_cmd_string_init();
-                            i = Font_Card_A1_00_Protocol(myarray, i);
+                            i = Font_Card_A2_00_Protocol(myarray, i);//可以调用ping命令格式
+                            break;
+                        case 0x01://删除文件
+                            Font_Card_Protocol_A1_01_cmd_string_init();
+                            i = Font_Card_A1_01_Protocol(myarray, i);
                             break;
                         case 0x02://控制器状态命令
                             Font_Card_Protocol_A1_02_cmd_string_init();
@@ -1098,6 +1312,14 @@ namespace Onbon_Protocol_analysis
                 case 0xa2:
                     switch (myarray[i + 1])
                     {
+                        case 0x00://ping命令
+                            Font_Card_Protocol_A2_00_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
+                            break;
+                        case 0x01://系统复位命令
+                            Font_Card_Protocol_A2_01_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
+                            break;
                         case 0x03://校时命令
                             Font_Card_Protocol_A2_03_cmd_string_init();
                             i = Font_Card_A2_03_Protocol(myarray, i);
@@ -1111,10 +1333,30 @@ namespace Onbon_Protocol_analysis
                 case 0xa3:
                     switch (myarray[i + 1])
                     {
+                        case 0x00://强制开关机命令
+                            Font_Card_Protocol_A3_00_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
+                            break;
+                        case 0x01://定制开关机命令
+                            Font_Card_Protocol_A3_01_cmd_string_init();
+                            i = Font_Card_A3_01_Protocol(myarray, i);
+                            break;
+                        case 0x04://锁定/解锁节目
+                            Font_Card_Protocol_A3_04_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
+                            break;
                         case 0x06://更新动态区命令
                             Font_Card_Protocol_A3_06_cmd_string_init();
                             Font_Card_Protocol_area_data_string_init();
                             i = Font_Card_A3_06_Protocol(myarray, i);
+                            break;
+                        case 0x08://取消定时开关机命令
+                            Font_Card_Protocol_A3_08_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
+                            break;
+                        case 0x10://清屏命令
+                            Font_Card_Protocol_A3_10_cmd_string_init();
+                            i = Font_Card_A2_00_Protocol(myarray, i);
                             break;
                         default:
                             flg = 1;
