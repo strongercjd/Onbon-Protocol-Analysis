@@ -73,6 +73,7 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.data_listView.FullRowSelect = true;
             this.data_listView.HideSelection = false;
             this.data_listView.Location = new System.Drawing.Point(518, 13);
             this.data_listView.Name = "data_listView";
@@ -80,6 +81,7 @@
             this.data_listView.TabIndex = 4;
             this.data_listView.UseCompatibleStateImageBehavior = false;
             this.data_listView.View = System.Windows.Forms.View.Details;
+            this.data_listView.SelectedIndexChanged += new System.EventHandler(this.data_listView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
