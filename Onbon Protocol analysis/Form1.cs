@@ -68,7 +68,7 @@ namespace Onbon_Protocol_analysis
 
 
 
-        public void Font_Card_Protocol_string_init()
+        public void Font_Card_Protocol_header_string_init()
         {
 			int num = 0;
 
@@ -80,16 +80,38 @@ namespace Onbon_Protocol_analysis
             Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
             Protol_header_str[num++] = new string[] { "2", "数据域长度", "数据域长度" };
             Protol_header_str_len = num;
+        }
+		
+		public void Font_Card_Protocol_A3_06_cmd_string_init()
+        {
+			int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "命令分组" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "命令编号" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "动态区更新命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "动态区更新命令" };
             Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
             Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
             Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域" };
             Protol_cmd_str[num++] = new string[] { "N", "删除区域ID", "删除区域ID" };
             Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
             Prototol_CMD_len = num;
+        }
+		public void Font_Card_Protocol_A2_03_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "校时命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "校时命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
+            Prototol_CMD_len = num;
+        }
+		
+		public void Font_Card_Protocol_area_data_string_init()
+        {
+			int num = 0;
 
             num = 0;
             Protol_area_data_str[num++] = new string[] { "2", "区域数据长度", "区域数据长度" };
@@ -121,13 +143,17 @@ namespace Onbon_Protocol_analysis
             Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "数据长度" };
             Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
             Protol_area_data_str_len = num;
+        }
+		
+		public void Font_Card_Protocol_CRC_string_init()
+        {
+			int num = 0;
 
             num = 0;
             Protol_crc_str[num++] = new string[] { "2", "CRC校验", "CRC校验" };
             Protol_crc_str_len = num;
-
-
         }
+		
         public Form1()
         {
             InitializeComponent();
@@ -136,7 +162,6 @@ namespace Onbon_Protocol_analysis
             Protocol_selection.Items.Add("6代字库动态区协议");
             Protocol_selection.SelectedIndex = 0;
             Protocol_type = 0;
-            Font_Card_Protocol_string_init();
 
         }
         public static int crc16(byte[] data, int size)
@@ -298,6 +323,10 @@ namespace Onbon_Protocol_analysis
                     i++;
                 }
                 Protocol_data.SubItems.Add(data);
+                if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC校验错误")
+                {
+                    Protocol_data.ForeColor = Color.Red;
+                }
                 Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CRC.describe);
                 data_listView.Items.Add(Protocol_data);
 
@@ -309,45 +338,117 @@ namespace Onbon_Protocol_analysis
 
             return 0;
         }
-
-        public int Font_Card_Protocol_Dynamic(byte[] myarray)
-        {
-            UInt32 i,num, num1, num2, num3;
+		public UInt32 Font_Card_A2_03_Protocol(byte[] myarray,UInt32 i)
+		{
+			UInt32 num, num1, num2, num3;
             string data_str;
+            int flg = 0;
 
-            i = 0;
             num = 0;
             num1 = 0;
             num2 = 0;
             num3 = 0;
             data_str = "";
 
-            m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
-            for (num = 0; num < Protol_header_str_len; num++)
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
+            for (num = 0; num < Prototol_CMD_len; num++)
             {
-                m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
-                m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
-                m_oonbon_Protocol.Prototol_Header[num].Leng = Convert.ToUInt32(Protol_header_str[num][0]);
-                m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
-                m_oonbon_Protocol.Prototol_Header[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_Header[num].Leng];
-                m_oonbon_Protocol.Prototol_Header[num].describe = Protol_header_str[num][2];
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+
+                m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+
+                m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
             }
 
-            /*包头数据*/
-            for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
             {
-                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
+               
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
                 {
-                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
-                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
+                    m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                    if (m_oonbon_Protocol.Prototol_CMD[num].para == "控制器时间")
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[m_oonbon_Protocol.Prototol_CMD[num].Leng - num1 - 1] = myarray[i++];
+                    }
+                    else
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                    }
+                    
                 }
+                if (m_oonbon_Protocol.Prototol_CMD[num].para == "控制器时间")
+                {
+                    i -= m_oonbon_Protocol.Prototol_CMD[num].Leng;
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = myarray[i++].ToString("X2") + data_str;
+                    data_str = data_str + "年";
+
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = data_str + "月";
+
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = data_str + "日";
+
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = data_str + "时";
+
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = data_str + "分";
+
+                    data_str = data_str + myarray[i++].ToString("X2");
+                    data_str = data_str + "秒";
+
+                    switch (myarray[i++])
+                    {
+                        case 1:
+                            data_str = data_str + "星期一";
+                            break;
+                        case 2:
+                            data_str = data_str + "星期二";
+                            break;
+                        case 3:
+                            data_str = data_str + "星期三";
+                            break;
+                        case 4:
+                            data_str = data_str + "星期四";
+                            break;
+                        case 5:
+                            data_str = data_str + "星期五";
+                            break;
+                        case 6:
+                            data_str = data_str + "星期六";
+                            break;
+                        case 7:
+                            data_str = data_str + "星期日";
+                            break;
+                        default:
+                            data_str = data_str + "星期错误";
+                            break;
+                    }
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = data_str;
+                }
+                num++;
+
             }
 
-            if ((myarray[i] != 0xa3) || (myarray[i + 1] != 0x06))
-            {
-                MessageBox.Show("目前版本不支持"+ myarray[i].ToString()+" "+ myarray[i+1].ToString());
-                return 0;
-            }
+            return i;
+
+		}
+        public UInt32 Font_Card_A3_06_Protocol(byte[] myarray,UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
 
             m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
             for (num = 0; num < Prototol_CMD_len; num++)
@@ -399,7 +500,7 @@ namespace Onbon_Protocol_analysis
                 {
                     for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
                     {
-                        m_oonbon_Protocol.Prototol_CMD[num].bEnable =1;
+                        m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
                         m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
                     }
                     if (m_oonbon_Protocol.Prototol_CMD[num].para == "更新区域个数")
@@ -411,7 +512,7 @@ namespace Onbon_Protocol_analysis
             }
 
             m_oonbon_Protocol.Prototol_area_data = new CPrototolAreaPart[m_oonbon_Protocol.Area_Num];
-            for (num =0;num< m_oonbon_Protocol.Area_Num; num++)
+            for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
             {
                 m_oonbon_Protocol.Prototol_area_data[num] = new CPrototolAreaPart();
                 m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part = new CProtolPart[Protol_area_data_str_len];
@@ -463,7 +564,7 @@ namespace Onbon_Protocol_analysis
                         ProtolPart.bEnable = 1;
                         ProtolPart.Leng = num3;
                         data_str = "";
-                        for (num2 = 0; num2 < num3; )
+                        for (num2 = 0; num2 < num3;)
                         {
                             if (myarray[i] < 0x81)
                             {
@@ -478,7 +579,7 @@ namespace Onbon_Protocol_analysis
                             {
                                 ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i];
                                 num2++;
-                                ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i+1];
+                                ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i + 1];
                                 num2++;
                                 byte[] bytes = new byte[2];
                                 bytes[0] = myarray[i++];
@@ -486,7 +587,7 @@ namespace Onbon_Protocol_analysis
                                 System.Text.Encoding chs = System.Text.Encoding.GetEncoding("gb2312");
                                 data_str = data_str + chs.GetString(bytes);
                             }
-                                
+
                         }
                         ProtolPart.describe = data_str;
                         num1++;
@@ -627,21 +728,125 @@ namespace Onbon_Protocol_analysis
                             }
                             ProtolPart.bEnable = 1;
                             num1++;
-                        } 
+                        }
                     }
 
                 }
             }
 
-            m_oonbon_Protocol.Prototol_CRC = new CProtolPart();
-            m_oonbon_Protocol.Prototol_CRC.para = Protol_crc_str[0][1];
-            m_oonbon_Protocol.Prototol_CRC.Leng = Convert.ToUInt32(Protol_crc_str[0][0]);
-            m_oonbon_Protocol.Prototol_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_CRC.Leng];
-            m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
-            m_oonbon_Protocol.Prototol_CRC.bEnable = 1;
-            for (num = 0; num < m_oonbon_Protocol.Prototol_CRC.Leng; num++)
+            return i;
+        }
+
+        public int Font_Card_Protocol_Deal_With(byte[] myarray)
+        {
+            UInt32 i,num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            i = 0;
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            Font_Card_Protocol_header_string_init();
+
+            m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
+            for (num = 0; num < Protol_header_str_len; num++)
             {
-                m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
+                m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_Header[num].Leng = Convert.ToUInt32(Protol_header_str[num][0]);
+                m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
+                m_oonbon_Protocol.Prototol_Header[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_Header[num].Leng];
+                m_oonbon_Protocol.Prototol_Header[num].describe = Protol_header_str[num][2];
+            }
+
+            /*包头数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
+            {
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
+                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
+                }
+            }
+
+            switch (myarray[i])
+            {
+                case 0xa2:
+                    switch (myarray[i + 1])
+                    {
+                        case 0x03://校时命令
+                            Font_Card_Protocol_A2_03_cmd_string_init();
+                            i = Font_Card_A2_03_Protocol(myarray, i);
+                            break;
+                        default:
+                            flg = 1;
+                            break;
+                    }
+                    break;
+
+                case 0xa3:
+                    switch (myarray[i + 1])
+                    {
+                        case 0x06://更新动态区命令
+                            Font_Card_Protocol_A3_06_cmd_string_init();
+                            Font_Card_Protocol_area_data_string_init();
+                            i = Font_Card_A3_06_Protocol(myarray, i);
+                            break;
+                        default:
+                            flg = 1;
+                            break;
+                    }
+                    break;
+                default:
+                    flg = 1;
+                    break;
+            }
+            if (flg == 1)
+            {
+                MessageBox.Show("目前版本不支持" + myarray[i].ToString() + " " + myarray[i + 1].ToString());
+                return 0;
+            }
+            else
+            {
+                Font_Card_Protocol_CRC_string_init();
+
+                m_oonbon_Protocol.Prototol_CRC = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CRC.para = Protol_crc_str[0][1];
+                m_oonbon_Protocol.Prototol_CRC.Leng = Convert.ToUInt32(Protol_crc_str[0][0]);
+                m_oonbon_Protocol.Prototol_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_CRC.Leng];
+                m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
+                m_oonbon_Protocol.Prototol_CRC.bEnable = 1;
+
+                data_value = (int)(((myarray[i + 1] & 0xff) << 8) |
+                                  ((myarray[i + 0] & 0xff) << 0));
+                int mycrc = crc16(myarray, PHY0_flag1.RCV_data_num - 2);
+                if (mycrc == data_value)
+                {
+                    m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
+                }
+                else
+                {
+                    if (data_value == 0xffff)
+                    {
+                        m_oonbon_Protocol.Prototol_CRC.describe = "不进行CRC校验";
+                    }
+                    else
+                    {
+                        m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                    }
+                }
+
+                for (num = 0; num < m_oonbon_Protocol.Prototol_CRC.Leng; num++)
+                {
+                    m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
+                }
+
+                
+
             }
 
             refresh_data_listView();
@@ -1199,15 +1404,15 @@ namespace Onbon_Protocol_analysis
                 MessageBox.Show("有异常数据,异常数据已经标红色");
                 return 0;
             }
-            if (Protocol_type == 0)
+            switch (Protocol_type)
             {
-                Font_Card_Protocol_Dynamic(myarray);
-            }
-            else
-            {
-                MessageBox.Show("目前不支持该协议，请联系开发者");
-            }
-            
+                case 0:
+                    Font_Card_Protocol_Deal_With(myarray);
+                    break;
+                default:
+                    MessageBox.Show("目前不支持该协议，请联系开发者");
+                    break;
+            } 
             return 0;
         }
         private void analysis_button_Click(object sender, EventArgs e)
@@ -1221,6 +1426,7 @@ namespace Onbon_Protocol_analysis
             }
             data_listView.Items.Clear();//每次点击事件后将ListView中的数据清空，重新显示
             data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
+            m_oonbon_Protocol = new Conbon_Protocol();
 
             Data_deal_with(myarray, i);
             //out_excel_button.Visible = true;
