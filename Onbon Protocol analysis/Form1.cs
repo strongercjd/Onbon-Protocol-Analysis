@@ -82,6 +82,41 @@ namespace Onbon_Protocol_analysis
             Protol_header_str_len = num;
         }
 		
+		public void Font_Card_Protocol_A1_00_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "格式化命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "格式化命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Prototol_CMD_len = num;
+        }
+		
+		public void Font_Card_Protocol_A1_02_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "控制器状态命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "控制器状态命令" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器开关机状态", "控制器开关机状态" };
+            Protol_cmd_str[num++] = new string[] { "1", "亮度", "亮度" };
+            Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
+			Protol_cmd_str[num++] = new string[] { "1", "节目个数", "节目个数" };
+			Protol_cmd_str[num++] = new string[] { "4", "当前播放节目名", "当前播放节目名" };
+			Protol_cmd_str[num++] = new string[] { "1", "特殊动态区标志", "特殊动态区标志" };
+			Protol_cmd_str[num++] = new string[] { "1", "特殊动态区页数", "特殊动态区页数" };
+			Protol_cmd_str[num++] = new string[] { "1", "动态区个数", "动态区个数" };
+			Protol_cmd_str[num++] = new string[] { "N", "动态区ID", "动态区ID" };
+			Protol_cmd_str[num++] = new string[] { "16", "条码", "条码" };
+			Protol_cmd_str[num++] = new string[] { "12", "网络ID", "网络ID" };
+            Prototol_CMD_len = num;
+        }
+		
 		public void Font_Card_Protocol_A3_06_cmd_string_init()
         {
 			int num = 0;
@@ -338,7 +373,276 @@ namespace Onbon_Protocol_analysis
 
             return 0;
         }
-		public UInt32 Font_Card_A2_03_Protocol(byte[] myarray,UInt32 i)
+
+
+        public UInt32 Font_Card_A1_00_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
+            for (num = 0; num < Prototol_CMD_len; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+
+                m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+
+                m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+            }
+
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                }
+            }
+
+            return i;
+
+        }
+
+
+        public UInt32 Font_Card_A1_02_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
+            for (num = 0; num < Prototol_CMD_len-3; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+                if (Protol_cmd_str[num][0] != "N")
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                }
+                else
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = 0XFFFFFFFF;
+                }
+                m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+            }
+
+            /*命令数据*/
+            num = 0;
+
+            /*命令分组*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*命令编号*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*命令处理状态*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*保留字节*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[1] = myarray[i++];
+            num++;
+
+            /*控制器开关机状态*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            if (m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] == 1)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].describe = "开机";
+            }
+            else
+            {
+                if (m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] == 2)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = "关机";
+                }
+                else
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].describe = "参数错误";
+                }
+            }
+            num++;
+
+            /*当前亮度*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*控制器时间*/
+            for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[m_oonbon_Protocol.Prototol_CMD[num].Leng - num1 - 1] = myarray[i++];
+            }
+  
+            i -= m_oonbon_Protocol.Prototol_CMD[num].Leng;
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = myarray[i++].ToString("X2") + data_str;
+            data_str = data_str + "年";
+
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = data_str + "月";
+
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = data_str + "日";
+
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = data_str + "时";
+
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = data_str + "分";
+
+            data_str = data_str + myarray[i++].ToString("X2");
+            data_str = data_str + "秒";
+
+            switch (myarray[i++])
+            {
+                case 1:
+                    data_str = data_str + "星期一";
+                    break;
+                case 2:
+                    data_str = data_str + "星期二";
+                    break;
+                case 3:
+                    data_str = data_str + "星期三";
+                    break;
+                case 4:
+                    data_str = data_str + "星期四";
+                    break;
+                case 5:
+                    data_str = data_str + "星期五";
+                    break;
+                case 6:
+                    data_str = data_str + "星期六";
+                    break;
+                case 7:
+                    data_str = data_str + "星期日";
+                    break;
+                default:
+                    data_str = data_str + "星期错误";
+                    break;
+            }
+            m_oonbon_Protocol.Prototol_CMD[num].describe = data_str;
+            num++;
+
+
+            /*节目个数*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*当前播放的节目名*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[m_oonbon_Protocol.Prototol_CMD[num].Leng - num1 - 1] = myarray[i++];
+            }
+            num++;
+
+            /*特殊动态区标志*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*特殊动态区页数*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num++;
+
+            /*动态区个数*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+            num1 = m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0];
+            num++;
+
+            /*动态区ID号*/
+            if (num1 != 0)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                m_oonbon_Protocol.Prototol_CMD[num].Leng = num1;
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[num1];
+                for (num2 = 0; num2 < num1; num2++)
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num2] = myarray[i++];
+                }
+            }
+            num++;
+
+            /*条码*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].Leng = 16;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[16];
+            data_str = "";
+            for (num2 = 0; num2 < 16; num2++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[16 - num2 - 1] = myarray[i];
+                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                byte[] byteArray = new byte[] { (byte)myarray[i++] };
+                string strCharacter = asciiEncoding.GetString(byteArray);
+                data_str = data_str + strCharacter;
+            }
+            m_oonbon_Protocol.Prototol_CMD[num].describe = data_str;
+            num++;
+
+            /*自定义网络ID*/
+            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+            m_oonbon_Protocol.Prototol_CMD[num].Leng = 12;
+            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[12];
+            data_str = "";
+            for (num2 = 0; num2 < 12; num2++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[12 - num2 - 1] = myarray[i];
+                if (myarray[i] != 0)
+                {
+                    System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                    byte[] byteArray = new byte[] { (byte)myarray[i++] };
+                    string strCharacter = asciiEncoding.GetString(byteArray);
+                    data_str = data_str + strCharacter;
+                }
+                else
+                {
+                    i++;
+                }
+                    
+            }
+            if (myarray[i - 1] != 0)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num].describe = data_str;
+            }
+            num++;
+
+
+            return i;
+
+        }
+
+        public UInt32 Font_Card_A2_03_Protocol(byte[] myarray,UInt32 i)
 		{
 			UInt32 num, num1, num2, num3;
             string data_str;
@@ -775,6 +1079,22 @@ namespace Onbon_Protocol_analysis
 
             switch (myarray[i])
             {
+                case 0xa1:
+                    switch (myarray[i + 1])
+                    {
+                        case 0x00://格式化
+                            Font_Card_Protocol_A1_00_cmd_string_init();
+                            i = Font_Card_A1_00_Protocol(myarray, i);
+                            break;
+                        case 0x02://控制器状态命令
+                            Font_Card_Protocol_A1_02_cmd_string_init();
+                            i = Font_Card_A1_02_Protocol(myarray, i);
+                            break;
+                        default:
+                            flg = 1;
+                            break;
+                    }
+                    break;
                 case 0xa2:
                     switch (myarray[i + 1])
                     {
