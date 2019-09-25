@@ -96,6 +96,49 @@ namespace Onbon_Protocol_analysis
             Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
             Prototol_CMD_len = num;
         }
+		public void Font_Card_Protocol_A1_05_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "开始写文件" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "开始写文件" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "1", "文件覆盖方式", "文件覆盖方式" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+            Prototol_CMD_len = num;
+        }
+		public void Font_Card_Protocol_A1_06_cmd_string_init()
+        {
+			int num = 0;
+
+            num = 0;
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "写文件" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "写文件" };
+            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+			Protol_cmd_str[num++] = new string[] { "1", "是否是最后一包", "是否是最后一包" };
+			Protol_cmd_str[num++] = new string[] { "2", "包号", "包号" };
+			Protol_cmd_str[num++] = new string[] { "2", "包长", "包长" };
+			Protol_cmd_str[num++] = new string[] { "4", "起始位置", "起始位置" };
+			
+			Protol_cmd_str[num++] = new string[] { "1", "文件类型", "文件类型" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+			Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+			Protol_cmd_str[num++] = new string[] { "1", "节目优先级", "节目优先级" };
+			Protol_cmd_str[num++] = new string[] { "2", "节目播放方式", "节目播放方式" };
+			Protol_cmd_str[num++] = new string[] { "1", "节目重复播放次数", "节目重复播放次数" };
+            Protol_cmd_str[num++] = new string[] { "8", "节目生命周期", "节目生命周期" };
+			Protol_cmd_str[num++] = new string[] { "1", "节目的星期属性", "节目的星期属性" };
+			Protol_cmd_str[num++] = new string[] { "1", "定时节目位", "定时节目位" };
+			Protol_cmd_str[num++] = new string[] { "1", "节目播放时段组数", "节目播放时段组数" };
+			Protol_cmd_str[num++] = new string[] { "6", "播放组", "播放组" };
+			Protol_cmd_str[num++] = new string[] { "1", "区域个数", "区域个数" };
+			Prototol_CMD_len = num;
+        }
 
         public void Font_Card_Protocol_A2_00_cmd_string_init()
         {
@@ -796,7 +839,112 @@ namespace Onbon_Protocol_analysis
             return i;
 
         }
+        public UInt32 Font_Card_A1_06_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
 
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
+            for (num = 0; num < Prototol_CMD_len; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+                m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+            }
+
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
+            {
+                if (m_oonbon_Protocol.Prototol_CMD[num].para == "节目播放时段组数")
+                {
+                    /*节目播放时段组数*/
+                    num2 = 0;
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                        num2 = num2 + m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1];
+                    }
+                    num++;
+
+                    /*播放组*/
+                    if (num2 != 0)
+                    {
+                        if (num2 == 1)
+                        {
+                            for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                            {
+                                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                                m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                            }
+                            i -= m_oonbon_Protocol.Prototol_CMD[num].Leng;
+
+                            data_str = data_str + "开始：";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = myarray[i++].ToString("X2") + data_str;
+                            data_str = data_str + "年";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = data_str + "月";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = data_str + "日";
+
+
+                            data_str = data_str + "   结束：";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = myarray[i++].ToString("X2") + data_str;
+                            data_str = data_str + "年";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = data_str + "月";
+
+                            data_str = data_str + myarray[i++].ToString("X2");
+                            data_str = data_str + "日";
+
+                            m_oonbon_Protocol.Prototol_CMD[num].describe = data_str;
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("节目播放时段组数只能为0或1");
+                            return 0;
+                        }
+
+                    }
+                    num++;
+                }
+                else
+                {
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                    }
+                    if (m_oonbon_Protocol.Prototol_CMD[num].para == "区域个数")
+                    {
+                        m_oonbon_Protocol.Area_Num = m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0];
+                    }
+                    num++;
+                }
+            }
+
+            i = Font_Card_Area_Data_Protocol(myarray, i);
+
+            return i;
+        }
         public UInt32 Font_Card_A2_03_Protocol(byte[] myarray,UInt32 i)
 		{
 			UInt32 num, num1, num2, num3;
@@ -1365,6 +1513,14 @@ namespace Onbon_Protocol_analysis
                         case 0x02://控制器状态命令
                             Font_Card_Protocol_A1_02_cmd_string_init();
                             i = Font_Card_A1_02_Protocol(myarray, i);
+                            break;
+                        case 0x05://开始写文件
+                            Font_Card_Protocol_A1_05_cmd_string_init();
+                            i = Font_Card_A1_02_Protocol(myarray, i);
+                            break;
+                        case 0x06://写文件
+                            Font_Card_Protocol_A1_06_cmd_string_init();
+                            i = Font_Card_A1_06_Protocol(myarray, i);
                             break;
                         default:
                             flg = 1;
