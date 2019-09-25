@@ -1,6 +1,6 @@
 ﻿namespace Onbon_Protocol_analysis
 {
-    partial class Form1
+    partial class Onbon_Protocol_Form
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Onbon_Protocol_Form));
             this.Raw_data_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.data_after_transform_richTextBox = new System.Windows.Forms.RichTextBox();
@@ -126,7 +126,7 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "协议选择";
             // 
-            // Form1
+            // Onbon_Protocol_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -139,7 +139,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Raw_data_textBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "Onbon_Protocol_Form";
             this.Text = "onbon协议解析";
             this.ResumeLayout(false);
             this.PerformLayout();

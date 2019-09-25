@@ -15,7 +15,7 @@ namespace Onbon_Protocol_analysis
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Onbon_Protocol_Form());
         }
     }
 }
