@@ -230,6 +230,7 @@ namespace Onbon_Protocol_analysis
         private void analysis_button_Click(object sender, EventArgs e)
         {
             int i = 0;
+            int j = 0;
             string[] strCheckArray = Raw_data_textBox.Text.Split(' ');
             byte[] myarray = new byte[strCheckArray.Length];
             foreach (var tmp in strCheckArray)
@@ -250,10 +251,18 @@ namespace Onbon_Protocol_analysis
                     oProtocol_Analysis.Font_Card_Protocol_Deal_With();//解析数据
                     break;
                 default:
-                    MessageBox.Show("目前不支持该协议，请联系开发者");
+                    j = 1;
                     break;
             }
-            refresh_data_listView();//刷新接收后的数据到listview
+            if (j == 1)
+            {
+                MessageBox.Show("目前不支持该协议，请联系开发者");
+            }
+            else
+            {
+                refresh_data_listView();//刷新接收后的数据到listview
+            }
+            
         }
 
         private void Protocol_selection_SelectedIndexChanged(object sender, EventArgs e)
