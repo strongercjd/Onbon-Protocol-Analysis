@@ -24,8 +24,8 @@ namespace Onbon_Protocol_analysis
         {
             InitializeComponent();
             Protocol_selection.Items.Add("字库卡协议");
-            Protocol_selection.Items.Add("6代点阵动态区协议");
             Protocol_selection.Items.Add("6代字库动态区协议");
+			Protocol_selection.Items.Add("6代点阵动态区协议");
             Protocol_selection.SelectedIndex = 0;
 
         }
@@ -248,19 +248,22 @@ namespace Onbon_Protocol_analysis
 			switch (oProtocol_Analysis.Protocol_type)
             {
                 case 0:
-                    oProtocol_Analysis.Font_Card_Protocol_Deal_With();//解析数据
+                    j = oProtocol_Analysis.Font_Card_Protocol_Deal_With();//解析数据
+                    break;
+                case 1:
+                    j = oProtocol_Analysis.Six_Font_Protocol_Deal_With();//解析数据
                     break;
                 default:
-                    j = 1;
+                    j = 2;
                     break;
             }
-            if (j == 1)
-            {
-                MessageBox.Show("目前不支持该协议，请联系开发者");
-            }
-            else
+            if (j == 0)
             {
                 refresh_data_listView();//刷新接收后的数据到listview
+            }
+            if (j == 2)
+            {
+                MessageBox.Show("目前不支持该协议，请联系开发者");
             }
             
         }
@@ -366,8 +369,83 @@ namespace Onbon_Protocol_analysis
    
 
         #endregion 变量和类的定义
+		#region Six_Font_string_init
+		public void Six_Font_Protocol_header_string_init()
+        {
+            int num = 0;
 
-        #region string_init
+            Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
+            Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
+			Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
+            Protol_header_str[num++] = new string[] { "1", "保留字节", "保留字节" };
+            Protol_header_str[num++] = new string[] { "2", "设备类型", "设备类型" };
+            Protol_header_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+            Protol_header_str[num++] = new string[] { "4", "数据域长度", "数据域长度" };
+            Protol_header_str_len = num;
+        }
+		public void Six_Font_Protocol_A7_06_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+			Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "更新字库动态区" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "更新字库动态区" };
+            Protol_cmd_str[num++] = new string[] { "1", "命令是否保留", "命令是否保留" };
+			Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域个数" };
+			Protol_cmd_str[num++] = new string[] { "N", "删除的区域ID", "删除的区域ID" };
+			Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
+            Prototol_CMD_len = num;
+        }
+		public void Six_Font_Protocol_area_data_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            Protol_area_data_str[num++] = new string[] { "4", "区域数据长度", "区域数据长度" };
+			Protol_area_data_str[num++] = new string[] { "1", "区域序号", "区域序号" };
+			Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
+			Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "动态区超时时间" };
+			Protol_area_data_str[num++] = new string[] { "1", "和异步节目的关系", "和异步节目的关系" };
+			Protol_area_data_str[num++] = new string[] { "2", "关联异步节目个数", "关联异步节目个数" };
+			Protol_area_data_str[num++] = new string[] { "N", "异步节目编号", "异步节目编号" };
+			Protol_area_data_str[num++] = new string[] { "1", "是否覆盖", "是否覆盖" };
+			Protol_area_data_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+            Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
+            Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
+            Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
+            Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
+            Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
+            Protol_area_data_str[num++] = new string[] { "1", "是否有边框", "是否有边框" };
+            Protol_area_data_str[num++] = new string[] { "8", "保留字节", "保留字节" };
+            Protol_area_data_str[num++] = new string[] { "1", "文字风格布局模式", "文字风格布局模式" };
+            Protol_area_data_str[num++] = new string[] { "1", "行间距", "行间距" };
+            Protol_area_data_str[num++] = new string[] { "1", "行字体对齐方式", "行字体对齐方式" };
+			Protol_area_data_str[num++] = new string[] { "1", "字间距", "字间距" };
+			Protol_area_data_str[num++] = new string[] { "6", "保留字节", "保留字节" };
+			Protol_area_data_str[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
+			Protol_area_data_str[num++] = new string[] { "1", "是否自动换行", "是否自动换行" };
+            Protol_area_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
+            Protol_area_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
+            Protol_area_data_str[num++] = new string[] { "1", "速度等级", "速度等级" };
+			Protol_area_data_str[num++] = new string[] { "1", "停留时间", "停留时间" };
+			Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
+			Protol_area_data_str[num++] = new string[] { "1", "发音人", "发音人" };
+			Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
+			Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
+			Protol_area_data_str[num++] = new string[] { "1", "编码格式", "编码格式" };
+			Protol_area_data_str[num++] = new string[] { "4", "重播次数", "重播次数" };
+			Protol_area_data_str[num++] = new string[] { "4", "重默间隔", "重播间隔" };
+			Protol_area_data_str[num++] = new string[] { "1", "语音参数保留长度", "语音参数保留长度" };
+            Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "读音数据长度" };
+            Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
+            Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "显示数据长度" };
+            Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
+            Protol_area_data_str_len = num;
+        }
+		#endregion Six_Font_string_init
+
+        #region Font_string_init
         public void Font_Card_Protocol_header_string_init()
         {
             int num = 0;
@@ -636,7 +714,7 @@ namespace Onbon_Protocol_analysis
             Protol_crc_str_len = num;
         }
 
-        #endregion string_init
+        #endregion Font_string_init
 
         public static int crc16(byte[] data, int size)
         {
@@ -668,7 +746,333 @@ namespace Onbon_Protocol_analysis
         }
 
 
-        #region Protocol_Analysis
+		#region Six_Font_Protocol_Analysis
+		public UInt32 Six_Font_A7_06_Protocol(byte[] myarray, UInt32 i)
+		{
+            UInt32 num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_CMD = new CProtolPart[Prototol_CMD_len];
+            for (num = 0; num < Prototol_CMD_len; num++)
+            {
+                m_oonbon_Protocol.Prototol_CMD[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CMD[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_CMD[num].para = Protol_cmd_str[num][1];
+                if (Protol_cmd_str[num][0] != "N")
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = Convert.ToUInt32(Protol_cmd_str[num][0]);
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                }
+                else
+                {
+                    m_oonbon_Protocol.Prototol_CMD[num].Leng = 0XFFFFFFFF;
+                }
+                m_oonbon_Protocol.Prototol_CMD[num].describe = Protol_cmd_str[num][2];
+            }
+
+            /*命令数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
+            {
+                if (m_oonbon_Protocol.Prototol_CMD[num].para == "删除区域个数")
+                {
+                    /*删除区域个数*/
+                    num2 = 0;
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                        num2 = num2 + m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1];
+                    }
+                    num++;
+
+                    /*删除区域ID*/
+                    if (num2 != 0)
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].Leng = num2;
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
+                        for (num1 = 0; num1 < num2; num1++)
+                        {
+                            m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                            m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                        }
+                    }
+                    num++;
+                }
+                else
+                {
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                    {
+                        m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                        m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
+                    }
+                    if (m_oonbon_Protocol.Prototol_CMD[num].para == "更新区域个数")
+                    {
+                        m_oonbon_Protocol.Area_Num = m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0];
+                    }
+                    num++;
+                }
+            }
+
+            i = Six_Font_Area_Data_Protocol(myarray, i);
+
+            return i;
+		}
+		
+		public UInt32 Six_Font_Area_Data_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2, num3;
+            string data_str;
+
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_area_data = new CPrototolAreaPart[m_oonbon_Protocol.Area_Num];
+            for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+            {
+                m_oonbon_Protocol.Prototol_area_data[num] = new CPrototolAreaPart();
+                m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part = new CProtolPart[Protol_area_data_str_len];
+                for (num1 = 0; num1 < Protol_area_data_str_len; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1] = new CProtolPart();
+                    m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].para = Protol_area_data_str[num1][1];
+                    if (Protol_area_data_str[num1][0] != "N")
+                    {
+                        m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].Leng = Convert.ToUInt32(Protol_area_data_str[num1][0]);
+                        m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].byteMemValue = new byte[m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].Leng];
+                    }
+                    else
+                    {
+                        m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].Leng = 0XFFFFFFFF;
+                    }
+                    m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].describe = Protol_area_data_str[num1][2];
+                    m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].bEnable = 0;
+                }
+            }
+
+
+            /*区域数据格式*/
+            for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+            {
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part.Length; num1++)
+                {
+                    CProtolPart ProtolPart = new CProtolPart();
+                    ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+
+                    if ((ProtolPart.para == "显示数据长度"))
+                    {
+                        /*显示数据长度*/
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.byteMemValue[1] = myarray[i++];
+                        ProtolPart.byteMemValue[2] = myarray[i++];
+                        ProtolPart.byteMemValue[3] = myarray[i++];
+                        num1++;
+
+                        num3 = (UInt32)(((ProtolPart.byteMemValue[3] & 0xff) << 24) |
+                                        ((ProtolPart.byteMemValue[2] & 0xff) << 16) |
+                                        ((ProtolPart.byteMemValue[1] & 0xff) << 8) |
+                                        ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                        /*显示数据*/
+                        m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].byteMemValue = new byte[num3];
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.Leng = num3;
+                        data_str = "";
+                        for (num2 = 0; num2 < num3;)
+                        {
+                            if (myarray[i] < 0x81)
+                            {
+                                ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i];
+                                System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                                byte[] byteArray = new byte[] { (byte)myarray[i++] };
+                                string strCharacter = asciiEncoding.GetString(byteArray);
+                                data_str = data_str + strCharacter;
+                                num2++;
+                            }
+                            else
+                            {
+                                ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i];
+                                num2++;
+                                ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i + 1];
+                                num2++;
+                                byte[] bytes = new byte[2];
+                                bytes[0] = myarray[i++];
+                                bytes[1] = myarray[i++];
+                                System.Text.Encoding chs = System.Text.Encoding.GetEncoding("gb2312");
+                                data_str = data_str + chs.GetString(bytes);
+                            }
+
+                        }
+                        ProtolPart.describe = data_str;
+                        continue;
+                    }
+
+
+                    if (ProtolPart.para == "关联异步节目个数")
+                    {
+                        /*关联异步节目个数*/
+                        num2 = 0;
+                        for (num3 = 0; num3 < ProtolPart.Leng; num3++)
+                        {
+                            ProtolPart.bEnable = 1;
+                            ProtolPart.byteMemValue[num3] = myarray[i++];
+                            num2 = num2 + ProtolPart.byteMemValue[num3];
+                        }
+                        num1++;
+
+                        /*关联异步节目ID*/
+                        if (num2 != 0)
+                        {
+                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                            ProtolPart.Leng = num2;
+                            ProtolPart.byteMemValue = new byte[ProtolPart.Leng];
+                            for (num1 = 0; num1 < num2; num1++)
+                            {
+                                ProtolPart.bEnable = 1;
+                                ProtolPart.byteMemValue[num1] = myarray[i++];
+                            }
+                        }
+                        continue;
+                    }
+
+                    if (ProtolPart.para == "是否使能语音")
+                    {
+                        /*是否使能语音*/
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.bEnable = 1;
+                        num1++;
+
+                        if (ProtolPart.byteMemValue[0] == 0)//不使能语音
+                        {
+                            num1 += 8;
+                            continue;
+                        }
+                        if (ProtolPart.byteMemValue[0] == 1)//播放显示文本内容
+                        {
+                            num3 = num1;
+                            for (; num1 < num3 + 6;num1++)
+                            {
+                                ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                                for (num2 = 0; num2 < ProtolPart.Leng; num2++)
+                                {
+                                    ProtolPart.byteMemValue[num2] = myarray[i++];
+                                }
+                                ProtolPart.bEnable = 1;
+                            }
+                            /*语音参数保留长度*/
+                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                            ProtolPart.bEnable = 1;
+                            ProtolPart.byteMemValue[0] = myarray[i++];
+                            if (ProtolPart.byteMemValue[0] > 0)
+                            {
+                                MessageBox.Show("目前版本不支持语音参数保留长度大于0的情况");
+                                return 1;
+                            }
+                            num1 += 2;
+                            continue;
+                        }
+                        if (ProtolPart.byteMemValue[0] == 2)//播放sounddata文本内容
+                        {
+                            num3 = num1;
+                            for (; num1 < num3 + 6; num1++)
+                            {
+                                ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                                for (num2 = 0; num2 < ProtolPart.Leng; num2++)
+                                {
+                                    ProtolPart.byteMemValue[num2] = myarray[i++];
+                                }
+                                ProtolPart.bEnable = 1;
+                            }
+                            /*语音参数保留长度*/
+                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                            ProtolPart.bEnable = 1;
+                            ProtolPart.byteMemValue[0] = myarray[i++];
+                            num1++;
+                            if (ProtolPart.byteMemValue[0] > 0)
+                            {
+                                MessageBox.Show("目前版本不支持语音参数保留长度大于0的情况");
+                                return 1;
+                            }
+
+                            /*读音数据长度*/
+                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                            ProtolPart.byteMemValue[0] = myarray[i++];
+                            ProtolPart.byteMemValue[1] = myarray[i++];
+                            ProtolPart.byteMemValue[2] = myarray[i++];
+                            ProtolPart.byteMemValue[3] = myarray[i++];
+                            ProtolPart.bEnable = 1;
+                            num1++;
+
+                            num3 = (UInt32)(((ProtolPart.byteMemValue[3] & 0xff) << 24) |
+                                            ((ProtolPart.byteMemValue[2] & 0xff) << 16) |
+                                            ((ProtolPart.byteMemValue[1] & 0xff) << 8) |
+                                            ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                            /*读音数据*/
+                            m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1].byteMemValue = new byte[num3];
+                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                            ProtolPart.bEnable = 1;
+                            ProtolPart.Leng = num3;
+                            data_str = "";
+                            for (num2 = 0; num2 < num3;)
+                            {
+                                if (myarray[i] < 0x81)
+                                {
+                                    ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i];
+                                    System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                                    byte[] byteArray = new byte[] { (byte)myarray[i++] };
+                                    string strCharacter = asciiEncoding.GetString(byteArray);
+                                    data_str = data_str + strCharacter;
+                                    num2++;
+                                }
+                                else
+                                {
+                                    ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i];
+                                    num2++;
+                                    ProtolPart.byteMemValue[num3 - num2 - 1] = myarray[i + 1];
+                                    num2++;
+                                    byte[] bytes = new byte[2];
+                                    bytes[0] = myarray[i++];
+                                    bytes[1] = myarray[i++];
+                                    System.Text.Encoding chs = System.Text.Encoding.GetEncoding("gb2312");
+                                    data_str = data_str + chs.GetString(bytes);
+                                }
+                            }
+                            ProtolPart.describe = data_str;
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (num1 < m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part.Length)
+                        {
+                            for (num2 = 0; num2 < ProtolPart.Leng; num2++)
+                            {
+                                ProtolPart.byteMemValue[num2] = myarray[i++];
+                            }
+                            ProtolPart.bEnable = 1;
+                        }
+                    }
+
+                }
+            }
+
+            return i;
+        }
+		
+		#endregion Six_Font_Protocol_Analysis
+		
+        #region Font_Card_Protocol_Analysis
         public UInt32 Font_Card_A1_01_Protocol(byte[] myarray, UInt32 i)
         {
             UInt32 num, num1, num2, num3;
@@ -1564,9 +1968,123 @@ namespace Onbon_Protocol_analysis
             return i;
         }
 
-        #endregion Protocol_Analysis
+        #endregion Font_Card_Protocol_Analysis
 
 
+		public int Six_Font_Protocol_Deal_With()
+		{
+            UInt32 i, num, num1, num2, num3;
+            string data_str;
+            int flg = 0;
+
+            i = 0;
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            num3 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol = new Conbon_Protocol();
+
+            Six_Font_Protocol_header_string_init();
+
+            m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
+            for (num = 0; num < Protol_header_str_len; num++)
+            {
+                m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
+                m_oonbon_Protocol.Prototol_Header[num].Leng = Convert.ToUInt32(Protol_header_str[num][0]);
+                m_oonbon_Protocol.Prototol_Header[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_Header[num].Leng];
+                m_oonbon_Protocol.Prototol_Header[num].describe = Protol_header_str[num][2];
+            }
+
+            /*包头数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
+            {
+                if (m_oonbon_Protocol.Prototol_Header[num].para == "协议版本号")
+                {
+                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
+                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
+                    if (m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] != 0xF0)
+                    {
+                        MessageBox.Show("协议版本号不是0xf0，不是6代字库协议数据，请重选协议类型");
+                        return 1;
+                    }
+                    continue;
+                }
+                m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
+                }
+            }
+
+            switch (myarray[i+1])
+            {
+                case 0xa7:
+                    switch (myarray[i + 2])
+                    {
+                        case 0x06://更新字库动态区
+                            Six_Font_Protocol_A7_06_cmd_string_init();
+                            Six_Font_Protocol_area_data_string_init();
+                            i = Six_Font_A7_06_Protocol(myarray, i);//可以调用ping命令格式
+                            break;
+                        default:
+                            flg = 1;
+                            break;
+                    }
+                    break;
+                default:
+                    flg = 1;
+                    break;
+            }
+            if (flg == 1)
+            {
+                MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                return 1;
+            }
+            else
+            {
+                Font_Card_Protocol_CRC_string_init();
+
+                m_oonbon_Protocol.Prototol_CRC = new CProtolPart();
+                m_oonbon_Protocol.Prototol_CRC.para = Protol_crc_str[0][1];
+                m_oonbon_Protocol.Prototol_CRC.Leng = Convert.ToUInt32(Protol_crc_str[0][0]);
+                m_oonbon_Protocol.Prototol_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_CRC.Leng];
+                m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
+                m_oonbon_Protocol.Prototol_CRC.bEnable = 1;
+
+                data_value = (int)(((myarray[i + 1] & 0xff) << 8) |
+                                  ((myarray[i + 0] & 0xff) << 0));
+                int mycrc = crc16(myarray, PHY0_flag1.RCV_data_num - 2);
+                if (mycrc == data_value)
+                {
+                    m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
+                }
+                else
+                {
+                    if (data_value == 0xffff)
+                    {
+                        m_oonbon_Protocol.Prototol_CRC.describe = "不进行CRC校验";
+                    }
+                    else
+                    {
+                        m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                    }
+                }
+
+                for (num = 0; num < m_oonbon_Protocol.Prototol_CRC.Leng; num++)
+                {
+                    m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
+                }
+
+
+
+            }
+
+            return 0;
+        }
         public int Font_Card_Protocol_Deal_With()
         {
             UInt32 i, num, num1, num2, num3;
@@ -1581,6 +2099,8 @@ namespace Onbon_Protocol_analysis
             data_str = "";
 
             Font_Card_Protocol_header_string_init();
+
+            m_oonbon_Protocol = new Conbon_Protocol();
 
             m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
             for (num = 0; num < Protol_header_str_len; num++)
@@ -1611,7 +2131,7 @@ namespace Onbon_Protocol_analysis
                     if (m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] != 0x02)
                     {
                         MessageBox.Show("协议版本号不是0x02，不是字库卡协议数据，请重选协议类型");
-                        return 0;
+                        return 1;
                     }
                     continue;
                 }
@@ -1738,7 +2258,7 @@ namespace Onbon_Protocol_analysis
             if (flg == 1)
             {
                 MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
-                return 0;
+                return 1;
             }
             else
             {
@@ -1774,9 +2294,6 @@ namespace Onbon_Protocol_analysis
                 {
                     m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
                 }
-
-
-
             }
 
             return 0;
@@ -1784,9 +2301,6 @@ namespace Onbon_Protocol_analysis
 
         public int Data_deal_with(byte[] data, int size)
         {
-			
-			m_oonbon_Protocol = new Conbon_Protocol();
-			
             PHY0_flag1.Rcv_state = 0;
             PHY0_flag1.RCV_data_num = 0;
 
