@@ -46,6 +46,7 @@
             this.Raw_data_textBox.Location = new System.Drawing.Point(24, 52);
             this.Raw_data_textBox.Multiline = true;
             this.Raw_data_textBox.Name = "Raw_data_textBox";
+            this.Raw_data_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Raw_data_textBox.Size = new System.Drawing.Size(475, 285);
             this.Raw_data_textBox.TabIndex = 0;
             this.Raw_data_textBox.Text = resources.GetString("Raw_data_textBox.Text");
@@ -61,11 +62,13 @@
             // 
             // data_after_transform_richTextBox
             // 
+            this.data_after_transform_richTextBox.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.data_after_transform_richTextBox.ForeColor = System.Drawing.Color.Red;
             this.data_after_transform_richTextBox.Location = new System.Drawing.Point(24, 355);
             this.data_after_transform_richTextBox.Name = "data_after_transform_richTextBox";
             this.data_after_transform_richTextBox.Size = new System.Drawing.Size(475, 278);
             this.data_after_transform_richTextBox.TabIndex = 3;
-            this.data_after_transform_richTextBox.Text = "";
+            this.data_after_transform_richTextBox.Text = "\n\n\n\n      仰邦协议解析工具（C）2019";
             // 
             // data_listView
             // 

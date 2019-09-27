@@ -27,6 +27,7 @@ namespace Onbon_Protocol_analysis
             Protocol_selection.Items.Add("6代字库动态区协议");
 			Protocol_selection.Items.Add("6代图文动态区协议");
             Protocol_selection.SelectedIndex = 0;
+            data_after_transform_richTextBox.ReadOnly = true;
 
         }
         public int refresh_data_after_transform_richTextBox()
@@ -36,6 +37,9 @@ namespace Onbon_Protocol_analysis
             str = "";
             i = 0;
             j = 0;
+
+            data_after_transform_richTextBox.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+
             for (i = 0; i < oProtocol_Analysis.PHY0_flag1.RCV_data_num; i++)
             {
                 if (oProtocol_Analysis.trsf_flg[i] == 1)
@@ -1051,7 +1055,7 @@ namespace Onbon_Protocol_analysis
             }
             if (flg == 1)
             {
-                MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                MessageBox.Show("目前版本不支持" + myarray[i+1].ToString("X2") + " " + myarray[i + 2].ToString("X2"));
                 return 1;
             }
             else
@@ -1474,7 +1478,7 @@ namespace Onbon_Protocol_analysis
             }
             if (flg == 1)
             {
-                MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                MessageBox.Show("目前版本不支持" + myarray[i+1].ToString("X2") + " " + myarray[i + 2].ToString("X2"));
                 return 1;
             }
             else
