@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Onbon_Protocol_Form));
-            this.Raw_data_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.data_after_transform_richTextBox = new System.Windows.Forms.RichTextBox();
             this.data_listView = new System.Windows.Forms.ListView();
@@ -43,18 +42,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.联系开发者ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Raw_data_textBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Raw_data_textBox
-            // 
-            this.Raw_data_textBox.Location = new System.Drawing.Point(12, 95);
-            this.Raw_data_textBox.Multiline = true;
-            this.Raw_data_textBox.Name = "Raw_data_textBox";
-            this.Raw_data_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Raw_data_textBox.Size = new System.Drawing.Size(475, 256);
-            this.Raw_data_textBox.TabIndex = 0;
-            this.Raw_data_textBox.Text = resources.GetString("Raw_data_textBox.Text");
             // 
             // label1
             // 
@@ -170,11 +160,20 @@
             this.联系开发者ToolStripMenuItem.Text = "联系开发者";
             this.联系开发者ToolStripMenuItem.Click += new System.EventHandler(this.联系开发者ToolStripMenuItem_Click);
             // 
+            // Raw_data_textBox
+            // 
+            this.Raw_data_textBox.Location = new System.Drawing.Point(14, 87);
+            this.Raw_data_textBox.Name = "Raw_data_textBox";
+            this.Raw_data_textBox.Size = new System.Drawing.Size(473, 264);
+            this.Raw_data_textBox.TabIndex = 10;
+            this.Raw_data_textBox.Text = resources.GetString("Raw_data_textBox.Text");
+            // 
             // Onbon_Protocol_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 684);
+            this.Controls.Add(this.Raw_data_textBox);
             this.Controls.Add(this.out_excel_button);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Protocol_selection);
@@ -182,7 +181,6 @@
             this.Controls.Add(this.data_listView);
             this.Controls.Add(this.data_after_transform_richTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Raw_data_textBox);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Onbon_Protocol_Form";
@@ -196,8 +194,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox Raw_data_textBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox data_after_transform_richTextBox;
         private System.Windows.Forms.ListView data_listView;
@@ -211,6 +207,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 联系开发者ToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox Raw_data_textBox;
     }
 }
 

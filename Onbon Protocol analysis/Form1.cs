@@ -416,11 +416,29 @@ namespace Onbon_Protocol_analysis
                     }
                     else
                     {
+                        Raw_data_textBox.Clear();
+                        for (UInt32 num1 = 0; num1 < arr.Length; num1++)
+                        {
+                            if (num1 == num)
+                            {
+                                Raw_data_textBox.SelectionColor = Color.Red;
+
+                                Raw_data_textBox.AppendText(arr[num1].ToString());
+                                num1++;
+                                Raw_data_textBox.AppendText(arr[num1].ToString());
+                            }
+                            else
+                            {
+                                Raw_data_textBox.SelectionColor = Color.Black;
+                                Raw_data_textBox.AppendText(arr[num1].ToString());
+                            }
+                            
+                        }
                         data_listView.Items.Clear();//每次点击事件后将ListView中的数据清空，重新显示
                         data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
                         oProtocol_Analysis.Data_deal_with(myarray, i);//转义数据
                         refresh_data_after_transform_richTextBox();//将转义之后的数据显示在文本框内
-                        MessageBox.Show("数据格式错误");
+                        MessageBox.Show("数据格式错误，错误的数据在文本框中已经变红");
                         return;
                     }
                 }
