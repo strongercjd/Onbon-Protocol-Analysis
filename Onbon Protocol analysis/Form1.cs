@@ -545,6 +545,21 @@ namespace Onbon_Protocol_analysis
             Developer_Inf nf = new Developer_Inf();
             nf.Show();
         }
+
+        private void 帮助ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string str2 = Environment.CurrentDirectory;
+            str2 = str2 + "\\README.pdf";
+            if (System.IO.File.Exists(str2))
+            {
+                System.Diagnostics.Process.Start(str2);
+            }
+            else
+            {
+                MessageBox.Show("不存在README.pdf");
+            }
+
+        }
     }
 
     public class Protocol_Analysis
