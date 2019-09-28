@@ -39,22 +39,27 @@
             this.analysis_button = new System.Windows.Forms.Button();
             this.Protocol_selection = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.out_excel_button = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.联系开发者ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Raw_data_textBox
             // 
-            this.Raw_data_textBox.Location = new System.Drawing.Point(24, 52);
+            this.Raw_data_textBox.Location = new System.Drawing.Point(12, 95);
             this.Raw_data_textBox.Multiline = true;
             this.Raw_data_textBox.Name = "Raw_data_textBox";
             this.Raw_data_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Raw_data_textBox.Size = new System.Drawing.Size(475, 285);
+            this.Raw_data_textBox.Size = new System.Drawing.Size(475, 256);
             this.Raw_data_textBox.TabIndex = 0;
             this.Raw_data_textBox.Text = resources.GetString("Raw_data_textBox.Text");
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 340);
+            this.label1.Location = new System.Drawing.Point(12, 354);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(161, 12);
             this.label1.TabIndex = 2;
@@ -64,9 +69,9 @@
             // 
             this.data_after_transform_richTextBox.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.data_after_transform_richTextBox.ForeColor = System.Drawing.Color.Red;
-            this.data_after_transform_richTextBox.Location = new System.Drawing.Point(24, 355);
+            this.data_after_transform_richTextBox.Location = new System.Drawing.Point(12, 369);
             this.data_after_transform_richTextBox.Name = "data_after_transform_richTextBox";
-            this.data_after_transform_richTextBox.Size = new System.Drawing.Size(475, 278);
+            this.data_after_transform_richTextBox.Size = new System.Drawing.Size(475, 303);
             this.data_after_transform_richTextBox.TabIndex = 3;
             this.data_after_transform_richTextBox.Text = "\n\n\n\n      仰邦协议解析工具（C）2019";
             // 
@@ -78,9 +83,9 @@
             this.columnHeader3});
             this.data_listView.FullRowSelect = true;
             this.data_listView.HideSelection = false;
-            this.data_listView.Location = new System.Drawing.Point(518, 13);
+            this.data_listView.Location = new System.Drawing.Point(505, 13);
             this.data_listView.Name = "data_listView";
-            this.data_listView.Size = new System.Drawing.Size(627, 620);
+            this.data_listView.Size = new System.Drawing.Size(680, 659);
             this.data_listView.TabIndex = 4;
             this.data_listView.UseCompatibleStateImageBehavior = false;
             this.data_listView.View = System.Windows.Forms.View.Details;
@@ -89,7 +94,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "参数";
-            this.columnHeader1.Width = 145;
+            this.columnHeader1.Width = 138;
             // 
             // columnHeader2
             // 
@@ -99,11 +104,11 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "描述";
-            this.columnHeader3.Width = 321;
+            this.columnHeader3.Width = 383;
             // 
             // analysis_button
             // 
-            this.analysis_button.Location = new System.Drawing.Point(421, 8);
+            this.analysis_button.Location = new System.Drawing.Point(277, 42);
             this.analysis_button.Name = "analysis_button";
             this.analysis_button.Size = new System.Drawing.Size(78, 38);
             this.analysis_button.TabIndex = 5;
@@ -114,7 +119,7 @@
             // Protocol_selection
             // 
             this.Protocol_selection.FormattingEnabled = true;
-            this.Protocol_selection.Location = new System.Drawing.Point(24, 26);
+            this.Protocol_selection.Location = new System.Drawing.Point(12, 60);
             this.Protocol_selection.Name = "Protocol_selection";
             this.Protocol_selection.Size = new System.Drawing.Size(133, 20);
             this.Protocol_selection.TabIndex = 6;
@@ -123,17 +128,53 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 8);
+            this.label2.Location = new System.Drawing.Point(10, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 7;
             this.label2.Text = "协议选择";
             // 
+            // out_excel_button
+            // 
+            this.out_excel_button.Enabled = false;
+            this.out_excel_button.Location = new System.Drawing.Point(377, 42);
+            this.out_excel_button.Name = "out_excel_button";
+            this.out_excel_button.Size = new System.Drawing.Size(78, 38);
+            this.out_excel_button.TabIndex = 8;
+            this.out_excel_button.Text = "输出Excel";
+            this.out_excel_button.UseVisualStyleBackColor = true;
+            this.out_excel_button.Click += new System.EventHandler(this.out_excel_button_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.帮助ToolStripMenuItem,
+            this.联系开发者ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1197, 25);
+            this.menuStrip1.TabIndex = 9;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 帮助ToolStripMenuItem
+            // 
+            this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.帮助ToolStripMenuItem.Text = "帮助";
+            // 
+            // 联系开发者ToolStripMenuItem
+            // 
+            this.联系开发者ToolStripMenuItem.Name = "联系开发者ToolStripMenuItem";
+            this.联系开发者ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.联系开发者ToolStripMenuItem.Text = "联系开发者";
+            this.联系开发者ToolStripMenuItem.Click += new System.EventHandler(this.联系开发者ToolStripMenuItem_Click);
+            // 
             // Onbon_Protocol_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 645);
+            this.ClientSize = new System.Drawing.Size(1197, 684);
+            this.Controls.Add(this.out_excel_button);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Protocol_selection);
             this.Controls.Add(this.analysis_button);
@@ -141,9 +182,13 @@
             this.Controls.Add(this.data_after_transform_richTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Raw_data_textBox);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Onbon_Protocol_Form";
-            this.Text = "onbon协议解析";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "onbon协议解析 V0.1";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,6 +206,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ComboBox Protocol_selection;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button out_excel_button;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 联系开发者ToolStripMenuItem;
     }
 }
 

@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Raw_data_textBox.Text" xml:space="preserve">
-    <value>a5 a5 a5 a5 a5 a5 a5 a5 fe ff 00 80 00 00 00 00 00 00 64 02 4f 00 a3 06 01 00 00 00 04 46 00 00 00 80 00 00 20 80 20 00 00 00 00 0a 00 02 00 00 00 18 00 00 00 c9 cf ba a3 d1 f6 b0 ee bf c6 bc bc b9 c9 b7 dd d3 d0 cf de b9 ab cb be 00 00 01 01 03 00 02 0a 0c 00 00 00 d1 f6 b0 ee b2 e2 ca d4 32 30 31 39 46 00 00 00 80 00 00 20 80 20 00 00 00 00 0a 00 02 00 00 00 18 00 00 00 c9 cf ba a3 d1 f6 b0 ee bf c6 bc bc b9 c9 b7 dd d3 d0 cf de b9 ab cb be 00 00 01 01 03 00 02 0a 0c 00 00 00 d1 f6 b0 ee b2 e2 ca d4 32 30 31 39 46 00 00 00 80 00 00 20 80 20 00 00 00 00 0a 00 02 00 00 00 18 00 00 00 c9 cf ba a3 d1 f6 b0 ee bf c6 bc bc b9 c9 b7 dd d3 d0 cf de b9 ab cb be 00 00 01 01 03 00 02 0a 0c 00 00 00 d1 f6 b0 ee b2 e2 ca d4 32 30 31 39 46 00 00 00 80 00 00 20 80 20 00 00 00 00 0a 00 02 00 00 00 18 00 00 00 c9 cf ba a3 d1 f6 b0 ee bf c6 bc bc b9 c9 b7 dd d3 d0 cf de b9 ab cb be 00 00 01 01 03 00 02 0a 0c 00 00 00 d1 f6 b0 ee b2 e2 ca d4 32 30 31 39 C3 37 5a</value>
-  </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
