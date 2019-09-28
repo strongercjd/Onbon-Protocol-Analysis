@@ -368,12 +368,70 @@ namespace Onbon_Protocol_analysis
         {
             int i = 0;
             int j = 0;
-            string[] strCheckArray = Raw_data_textBox.Text.Split(' ');
+            int data;
+            string str = Raw_data_textBox.Text;
+            char[] arr = str.ToCharArray(0, str.Length);
+            byte[] myarray = new byte[str.Length];
+            data = 1;
+            for (UInt32 num = 0;num< arr.Length;num++)
+            {
+                if (((arr[num] >= '0') && (arr[num] <= '9'))||
+                    ((arr[num] >= 'a') && (arr[num] <= 'f')) ||
+                    ((arr[num] >= 'A') && (arr[num] <= 'F'))
+                    )
+                {
+                    if (((arr[num+1] >= '0') && (arr[num+1] <= '9')) ||
+                        ((arr[num+1] >= 'a') && (arr[num+1] <= 'f')) ||
+                        ((arr[num+1] >= 'A') && (arr[num+1] <= 'F'))
+                        )
+                    {
+                        data = 1;
+                        if ((arr[num] >= '0') && (arr[num] <= '9'))
+                        {
+                            data = arr[num] - '0';
+                        }
+                        if ((arr[num] >= 'a') && (arr[num] <= 'f'))
+                        {
+                            data = arr[num] - 'a'+10;
+                        }
+                        if ((arr[num] >= 'A') && (arr[num] <= 'F'))
+                        {
+                            data = arr[num] - 'A'+10;
+                        }
+
+                        if ((arr[num+1] >= '0') && (arr[num + 1] <= '9'))
+                        {
+                            data = data*16  + (arr[num + 1] - '0');
+                        }
+                        if ((arr[num + 1] >= 'a') && (arr[num + 1] <= 'f'))
+                        {
+                            data = data*16 + (arr[num + 1] - 'a'+10);
+                        }
+                        if ((arr[num + 1] >= 'A') && (arr[num + 1] <= 'F'))
+                        {
+                            data = data*16 + (arr[num + 1] - 'A'+10);
+                        }
+                        myarray[i++] = (byte)data;
+                        num++;
+                    }
+                    else
+                    {
+                        data_listView.Items.Clear();//每次点击事件后将ListView中的数据清空，重新显示
+                        data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
+                        oProtocol_Analysis.Data_deal_with(myarray, i);//转义数据
+                        refresh_data_after_transform_richTextBox();//将转义之后的数据显示在文本框内
+                        MessageBox.Show("数据格式错误");
+                        return;
+                    }
+                }
+            }
+
+            /*string[] strCheckArray = Raw_data_textBox.Text.Split(' ');
             byte[] myarray = new byte[strCheckArray.Length];
             foreach (var tmp in strCheckArray)
             {
                 myarray[i++] = System.Convert.ToByte(tmp, 16);
-            }
+            }*/
             data_listView.Items.Clear();//每次点击事件后将ListView中的数据清空，重新显示
             data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
 
