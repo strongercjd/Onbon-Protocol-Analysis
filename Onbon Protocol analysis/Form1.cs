@@ -603,6 +603,10 @@ namespace Onbon_Protocol_analysis
         }
         private void out_excel_button_Click(object sender, EventArgs e)
         {
+            analysis_button.Enabled = false;
+            out_excel_button.Enabled = false;
+            Protocol_selection.Enabled = false;
+
             ExportToExecl();
 
             System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcessesByName("EXCEL");
@@ -614,6 +618,10 @@ namespace Onbon_Protocol_analysis
                     p.WaitForExit();
                 }
             }
+
+            analysis_button.Enabled = true;
+            out_excel_button.Enabled = true;
+            Protocol_selection.Enabled = true;
         }
 
         private void 联系开发者ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1432,6 +1440,11 @@ namespace Onbon_Protocol_analysis
                         }
                         else
                         {
+                            if (ProtolPart.byteMemValue[0] != 1)
+                            {
+                                MessageBox.Show("是否使能语音字节只能为0、1");
+                                return 0;
+                            }
                             num3 = num1;
                             for (; num1 < num3 + 6; num1++)
                             {
@@ -1930,6 +1943,11 @@ namespace Onbon_Protocol_analysis
                         {
                             num1 += 8;
                             continue;
+                        }
+                        if ((ProtolPart.byteMemValue[0] != 1) && (ProtolPart.byteMemValue[0] != 2))
+                        {
+                            MessageBox.Show("是否使能语音字节只能为0、1、2");
+                            return 0;
                         }
                         if (ProtolPart.byteMemValue[0] == 1)//播放显示文本内容
                         {
@@ -2977,6 +2995,11 @@ namespace Onbon_Protocol_analysis
                         if (ProtolPart.byteMemValue[0] == 0)
                         {
                             num1 += 5;
+                        }
+                        if ((ProtolPart.byteMemValue[0] != 1)&&(ProtolPart.byteMemValue[0] != 2))
+                        {
+                            MessageBox.Show("是否使能语音字节只能为0、1、2");
+                            return 0;
                         }
                         if (ProtolPart.byteMemValue[0] == 1)
                         {
