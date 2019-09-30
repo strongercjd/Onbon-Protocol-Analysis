@@ -68,9 +68,3 @@ QQ
 百度：串口抓包
 
 ![](https://github.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/002.png)
-
-# 4.版本日志
-
-V0.1 
-
-初始版本
