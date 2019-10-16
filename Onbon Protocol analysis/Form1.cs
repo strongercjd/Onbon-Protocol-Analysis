@@ -2995,6 +2995,7 @@ namespace Onbon_Protocol_analysis
                         if (ProtolPart.byteMemValue[0] == 0)
                         {
                             num1 += 5;
+                            continue;
                         }
                         if ((ProtolPart.byteMemValue[0] != 1)&&(ProtolPart.byteMemValue[0] != 2))
                         {
