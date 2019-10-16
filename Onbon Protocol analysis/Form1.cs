@@ -454,11 +454,32 @@ namespace Onbon_Protocol_analysis
             data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
 
 
-            oProtocol_Analysis.Data_deal_with(myarray, i);//转义数据
-			
-			refresh_data_after_transform_richTextBox();//将转义之后的数据显示在文本框内
-			
-			switch (oProtocol_Analysis.Protocol_type)
+            i = oProtocol_Analysis.Data_deal_with(myarray, i);//转义数据
+
+            refresh_data_after_transform_richTextBox();//将转义之后的数据显示在文本框内
+
+            if (i != 0)
+            {
+                switch (i)
+                {
+                    case 1:
+                        MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        break;
+                    case 2:
+                        MessageBox.Show("数据不完整，有帧头0XA5，没有帧尾0X5A，注意使用Wireshark抓包，数据长度大于1500，IP分包问题");
+                        break;
+                    case 3:
+                        MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        break;
+                    default:
+                        MessageBox.Show("数据错误");
+                        break;
+                }
+                return;
+            }
+
+
+            switch (oProtocol_Analysis.Protocol_type)
             {
                 case 0:
                     j = oProtocol_Analysis.Font_Card_Protocol_Deal_With();//解析数据
@@ -3192,6 +3213,7 @@ namespace Onbon_Protocol_analysis
 
         public int Data_deal_with(byte[] data, int size)
         {
+            UInt32 flg_5A,flg_A5;
             PHY0_flag1.Rcv_state = 0;
             PHY0_flag1.RCV_data_num = 0;
 
@@ -3201,6 +3223,8 @@ namespace Onbon_Protocol_analysis
             UInt32 i;
             byte data_t;
             UInt32 j = 0;
+            flg_5A = 0;
+            flg_A5 = 0;
             if (data == null)
             {
                 return 0;
@@ -3210,6 +3234,7 @@ namespace Onbon_Protocol_analysis
                 data_t = data[j];
                 if (data_t == 0XA5)
                 {
+                    flg_A5 = 1;
                     if ((PHY0_flag1.Rcv_state == 2) || (PHY0_flag1.Rcv_state == 3) || (PHY0_flag1.Rcv_state == 4))
                     {
                         myarray[PHY0_flag1.RCV_data_num] = data_t;
@@ -3236,6 +3261,7 @@ namespace Onbon_Protocol_analysis
                                     PHY0_flag1.RCV_data_num++;
                                     PHY0_flag1.Rcv_state = 4;
                                 }
+                                flg_5A = 1;
                                 break;
                             case 0XA6:
                                 PHY0_flag1.Rcv_state = 2;//进入0xA6转义字节状态
@@ -3322,7 +3348,24 @@ namespace Onbon_Protocol_analysis
                     }
                 }
             }
+            if ((flg_5A == 1)&&(flg_A5 == 1))
+            {
+                return 0;//收到帧头帧尾
+            }
+            if ((flg_5A == 1) && (flg_A5 == 0))
+            {
+                return 1;//收到帧尾，没有收到帧头
+            }
+            if ((flg_5A == 0) && (flg_A5 == 1))
+            {
+                return 2;//收到帧头，没有收到帧尾
+            }
+            if ((flg_5A == 0) && (flg_A5 == 0))
+            {
+                return 3;//帧头帧尾都没有收到
+            }
             return 0;
+
         }
 
     }
