@@ -1420,6 +1420,17 @@ namespace Onbon_Protocol_analysis
                     CProtolPart ProtolPart = new CProtolPart();
                     ProtolPart = AreaPart.Prototol_Area_Para[num1];
 
+                    if ((ProtolPart.para == "X坐标") || (ProtolPart.para == "Y坐标") || (ProtolPart.para == "区域宽度") || (ProtolPart.para == "区域高度"))
+                    {
+                        ProtolPart = AreaPart.Prototol_Area_Para[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.byteMemValue[1] = myarray[i++];
+                        num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                        ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString();
+                        continue;
+                    }
+
                     if (ProtolPart.para == "关联异步节目个数")
                     {
                         /*关联异步节目个数*/
@@ -1874,7 +1885,16 @@ namespace Onbon_Protocol_analysis
                 {
                     CProtolPart ProtolPart = new CProtolPart();
                     ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
-
+                    if ((ProtolPart.para == "X坐标") || (ProtolPart.para == "Y坐标") || (ProtolPart.para == "区域宽度") || (ProtolPart.para == "区域高度"))
+                    {
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.byteMemValue[1] = myarray[i++];
+                        num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                        ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString();
+                        continue;
+                    }
                     if ((ProtolPart.para == "显示数据长度"))
                     {
                         /*显示数据长度*/
@@ -2926,6 +2946,38 @@ namespace Onbon_Protocol_analysis
                 {
                     CProtolPart ProtolPart = new CProtolPart();
                     ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+
+                    if ((ProtolPart.para == "Y坐标") || (ProtolPart.para == "区域高度"))
+                    {
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.byteMemValue[1] = myarray[i++];
+                        num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) |((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                        ProtolPart.describe = ProtolPart.describe + "："+ num3.ToString()+"(像素为单位)";
+                        num1++;
+                        continue;
+                    }
+                    if ((ProtolPart.para == "X坐标") || (ProtolPart.para == "区域宽度"))
+                    {
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        ProtolPart.byteMemValue[1] = myarray[i++];
+                        if ((ProtolPart.byteMemValue[1] >> 7) == 1)
+                        {
+                            num3 = (UInt32)((((ProtolPart.byteMemValue[1]&(~0x80)) & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(像素为单位)";
+                        }
+                        else
+                        {
+                            num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
+                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(字节为单位)";
+                        }
+                        
+                        num1++;
+                        continue;
+                    }
 
                     if (ProtolPart.para == "显示数据长度")
                     {
