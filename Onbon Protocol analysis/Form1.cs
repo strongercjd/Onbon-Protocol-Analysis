@@ -510,42 +510,37 @@ namespace Onbon_Protocol_analysis
         private void data_listView_SelectedIndexChanged(object sender, EventArgs e)
         {
             int listView_row;
-            int i;
+            int j;
+
+            string richTextBoxstr;
+            richTextBoxstr = "";
+            string str_star, str_red, str_end;
+
+
             int length = data_listView.SelectedItems.Count;
             listView_row = 0;
-            for (i = 0; i < length; i++)
+            for (j = 0; j < length; j++)
             {
-                listView_row = data_listView.SelectedItems[i].Index;
+                listView_row = data_listView.SelectedItems[j].Index;
             }
+
+            richTextBoxstr = data_after_transform_richTextBox.Text+" ";
+
+            str_star = richTextBoxstr.Substring(0, (int)((listView_to_myarray[listView_row].myarray_start) * 3));
+            str_red  = richTextBoxstr.Substring((int)((listView_to_myarray[listView_row].myarray_start) * 3), (int)((listView_to_myarray[listView_row].myarray_end - listView_to_myarray[listView_row].myarray_start)*3));
+            str_end  = richTextBoxstr.Remove(0,(int)((listView_to_myarray[listView_row].myarray_end) * 3));
+
+
             data_after_transform_richTextBox.Clear();
 
-            string str, str1;
-            str = "";
-            str1 = "";
-            for (i = 0; i < oProtocol_Analysis.PHY0_flag1.RCV_data_num; i++)
-            {
-                if ((i >= listView_to_myarray[listView_row].myarray_start) && (i < listView_to_myarray[listView_row].myarray_end))
-                {
-                    data_after_transform_richTextBox.SelectionColor = Color.Red;
-                }
-                else
-                {
-                    data_after_transform_richTextBox.SelectionColor = Color.Black;
-                }
+            data_after_transform_richTextBox.SelectionColor = Color.Black;
+            data_after_transform_richTextBox.AppendText(str_star);
 
-                str1 = oProtocol_Analysis.myarray[i].ToString("x");
-                str = (str1.Length == 1 ? "0" + str1 : str1);
-                if (i == 0)
-                {
-                    str = str.ToUpper();
-                }
-                else
-                {
-                    str = " " + str.ToUpper();
+            data_after_transform_richTextBox.SelectionColor = Color.Red;
+            data_after_transform_richTextBox.AppendText(str_red);
 
-                }
-                data_after_transform_richTextBox.AppendText(str);
-            }
+            data_after_transform_richTextBox.SelectionColor = Color.Black;
+            data_after_transform_richTextBox.AppendText(str_end);
 
         }
         /// <summary>
