@@ -713,7 +713,7 @@ namespace Onbon_Protocol_analysis
         public struct PHY0_flag
         {
             public Int16 Rcv_state;                                    //!< 接收状态标志
-            public Int16 RCV_data_num;                                 //!< 接收到个数位置
+            public UInt32 RCV_data_num;                                 //!< 接收到个数位置
         };
         public PHY0_flag PHY0_flag1;
         public int Protocol_type;//0是字库卡  1是6代点阵协议   2是6代字库协议
@@ -1172,7 +1172,7 @@ namespace Onbon_Protocol_analysis
 
         #endregion Font_string_init
 
-        public static int crc16(byte[] data, int size)
+        public static int crc16(byte[] data, UInt32 size)
         {
             int crc = 0x0;
             byte data_t;
