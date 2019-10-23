@@ -3087,6 +3087,8 @@ namespace Onbon_Protocol_analysis
                             ProtolPart.byteMemValue[0] = myarray[i++];
                             ProtolPart.bEnable = 1;
                             num1++;
+                            num1++;
+                            num1++;
                         }
                         if (ProtolPart.byteMemValue[0] == 2)
                         {
