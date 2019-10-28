@@ -1406,7 +1406,7 @@ namespace Onbon_Protocol_analysis
         {
             UInt32 num, num1, num2, num3;
             string data_str;
-
+            Cregion_parameter region_par = new Cregion_parameter();
 
             num = 0;
             num1 = 0;
@@ -1457,7 +1457,29 @@ namespace Onbon_Protocol_analysis
                         ProtolPart.byteMemValue[1] = myarray[i++];
                         num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
                         ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString();
-
+                        if (ProtolPart.para == "Y坐标")
+                        {
+                            region_par.Y = num3;
+                        }
+                        if (ProtolPart.para == "区域高度")
+                        {
+                            region_par.height = num3;
+                        }
+                        if (ProtolPart.para == "X坐标")
+                        {
+                            region_par.X = num3;
+                        }
+                        if (ProtolPart.para == "区域宽度")
+                        {
+                            region_par.width = num3;
+                        }
+                        continue;
+                    }
+                    if (ProtolPart.para == "区域序号")
+                    {
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        region_par.ID = (UInt32)ProtolPart.byteMemValue[0];
                         continue;
                     }
                     if (ProtolPart.para == "关联异步节目个数")
@@ -1656,7 +1678,21 @@ namespace Onbon_Protocol_analysis
                         }
                     }
                 }
+                for (num3 = 0; num3 < m_region_par.Length; num3++)
+                {
+                    if (m_region_par[num3].bEnable != 1)
+                    {
+                        m_region_par[num3].bEnable = 1;
 
+                        m_region_par[num3].ID = region_par.ID;
+                        m_region_par[num3].X = region_par.X;
+                        m_region_par[num3].Y = region_par.Y;
+                        m_region_par[num3].width = region_par.width;
+                        m_region_par[num3].height = region_par.height;
+
+                        break;
+                    }
+                }
 
 
             }
@@ -1943,7 +1979,7 @@ namespace Onbon_Protocol_analysis
 
                         continue;
                     }
-                    if (ProtolPart.para == "动态区编号")
+                    if (ProtolPart.para == "区域序号")
                     {
                         ProtolPart.bEnable = 1;
                         ProtolPart.byteMemValue[0] = myarray[i++];
