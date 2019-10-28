@@ -61,6 +61,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Region_Preview.Designer.cs">
+      <DependentUpon>Region_Preview.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Developer_Inf.resx">
       <DependentUpon>Developer_Inf.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +83,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Region_Preview.resx">
+      <DependentUpon>Region_Preview.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -18,7 +18,7 @@ namespace Onbon_Protocol_analysis
         };
         SlistView_to_myarra[] listView_to_myarray;
 
-        Protocol_Analysis oProtocol_Analysis = new Protocol_Analysis();
+        public static Protocol_Analysis oProtocol_Analysis = new Protocol_Analysis();
 
         public Onbon_Protocol_Form()
         {
@@ -500,6 +500,7 @@ namespace Onbon_Protocol_analysis
             }
             refresh_data_listView();
             out_excel_button.Enabled = true;
+            region_preview_button.Enabled = true;
         }
 
         private void Protocol_selection_SelectedIndexChanged(object sender, EventArgs e)
@@ -660,6 +661,13 @@ namespace Onbon_Protocol_analysis
             }
 
         }
+
+        private void region_preview_button_Click(object sender, EventArgs e)
+        {
+            Region_Preview Region_Pre = new Region_Preview();
+            Region_Pre.Show();
+            Region_Pre.Region_Preview_star();
+        }
     }
 
     public class Protocol_Analysis
@@ -704,6 +712,19 @@ namespace Onbon_Protocol_analysis
         }
         public Conbon_Protocol m_oonbon_Protocol = new Conbon_Protocol();
 
+        public class Cregion_parameter
+        {
+			public int bEnable = 0;
+            public UInt32 ID;
+
+            public UInt32 X;
+            public UInt32 Y;
+            public UInt32 width;
+            public UInt32 height;
+        }
+
+        public Cregion_parameter[] m_region_par = new Cregion_parameter[40];
+
 
         public struct PHY0_flag
         {
@@ -731,6 +752,17 @@ namespace Onbon_Protocol_analysis
         string data;
 		
         #endregion 变量和类的定义
+		
+		public void m_region_par_init()
+		{
+			for (int num = 0; num < m_region_par.Length; num++)
+			{
+                m_region_par[num] = new Cregion_parameter();
+                m_region_par[num].bEnable = 0;
+			}
+		}
+
+		
 		
 		#region Six_Image_string_init
 		public void Six_Image_Protocol_header_string_init()
@@ -1246,7 +1278,7 @@ namespace Onbon_Protocol_analysis
                     m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
                 }
             }
-
+            m_region_par_init();
             switch (myarray[i + 1])
             {
                 case 0xa7:
@@ -1323,6 +1355,7 @@ namespace Onbon_Protocol_analysis
             string data_str;
             int flg = 0;
 
+
             num = 0;
             num1 = 0;
             num2 = 0;
@@ -1374,6 +1407,7 @@ namespace Onbon_Protocol_analysis
             UInt32 num, num1, num2, num3;
             string data_str;
 
+
             num = 0;
             num1 = 0;
             num2 = 0;
@@ -1423,9 +1457,9 @@ namespace Onbon_Protocol_analysis
                         ProtolPart.byteMemValue[1] = myarray[i++];
                         num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
                         ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString();
+
                         continue;
                     }
-
                     if (ProtolPart.para == "关联异步节目个数")
                     {
                         /*关联异步节目个数*/
@@ -1689,7 +1723,7 @@ namespace Onbon_Protocol_analysis
                     m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
                 }
             }
-
+            m_region_par_init();
             switch (myarray[i + 1])
             {
                 case 0xa7:
@@ -1842,6 +1876,7 @@ namespace Onbon_Protocol_analysis
         {
             UInt32 num, num1, num2, num3;
             string data_str;
+            Cregion_parameter region_par = new Cregion_parameter();
 
             num = 0;
             num1 = 0;
@@ -1888,6 +1923,31 @@ namespace Onbon_Protocol_analysis
                         ProtolPart.byteMemValue[1] = myarray[i++];
                         num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
                         ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString();
+
+                        if (ProtolPart.para == "Y坐标")
+                        {
+                            region_par.Y = num3;
+                        }
+                        if (ProtolPart.para == "区域高度")
+                        {
+                            region_par.height = num3;
+                        }
+                        if (ProtolPart.para == "X坐标")
+                        {
+                            region_par.X = num3;
+                        }
+                        if (ProtolPart.para == "区域宽度")
+                        {
+                            region_par.width = num3;
+                        }
+
+                        continue;
+                    }
+                    if (ProtolPart.para == "动态区编号")
+                    {
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        region_par.ID = (UInt32)ProtolPart.byteMemValue[0];
                         continue;
                     }
                     if ((ProtolPart.para == "显示数据长度"))
@@ -2092,6 +2152,22 @@ namespace Onbon_Protocol_analysis
                     }
 
                 }
+
+                for (num3 = 0; num3 < m_region_par.Length; num3++)
+                {
+                    if (m_region_par[num3].bEnable != 1)
+                    {
+                        m_region_par[num3].bEnable = 1;
+
+                        m_region_par[num3].ID = region_par.ID;
+                        m_region_par[num3].X = region_par.X;
+                        m_region_par[num3].Y = region_par.Y;
+                        m_region_par[num3].width = region_par.width;
+                        m_region_par[num3].height = region_par.height;
+
+                        break;
+                    }
+                }
             }
 
             return i;
@@ -2182,6 +2258,8 @@ namespace Onbon_Protocol_analysis
                 }
 
             }
+
+            m_region_par_init();
 
             switch (myarray[i])
             {
@@ -2904,10 +2982,13 @@ namespace Onbon_Protocol_analysis
             UInt32 num, num1, num2, num3;
             string data_str;
 
+            Cregion_parameter region_par = new Cregion_parameter();
+
             num = 0;
             num1 = 0;
             num2 = 0;
             num3 = 0;
+
             data_str = "";
 
             m_oonbon_Protocol.Prototol_area_data = new CPrototolAreaPart[m_oonbon_Protocol.Area_Num];
@@ -2951,6 +3032,15 @@ namespace Onbon_Protocol_analysis
                         num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) |((ProtolPart.byteMemValue[0] & 0xff) << 0));
                         ProtolPart.describe = ProtolPart.describe + "："+ num3.ToString()+"(像素为单位)";
                         num1++;
+
+                        if (ProtolPart.para == "Y坐标")
+                        {
+                            region_par.Y = num3;
+                        }
+                        if (ProtolPart.para == "区域高度")
+                        {
+                            region_par.height = num3;
+                        }
                         continue;
                     }
                     if ((ProtolPart.para == "X坐标") || (ProtolPart.para == "区域宽度"))
@@ -2963,13 +3053,41 @@ namespace Onbon_Protocol_analysis
                         {
                             num3 = (UInt32)((((ProtolPart.byteMemValue[1]&(~0x80)) & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
                             ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(像素为单位)";
+                            if (ProtolPart.para == "X坐标")
+                            {
+                                region_par.X = num3;
+                            }
+                            if (ProtolPart.para == "区域宽度")
+                            {
+                                region_par.width = num3;
+                            }
                         }
                         else
                         {
                             num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
                             ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(字节为单位)";
+
+                            if (ProtolPart.para == "X坐标")
+                            {
+                                region_par.X = num3 * 8;
+                            }
+                            if (ProtolPart.para == "区域宽度")
+                            {
+                                region_par.width = num3 * 8;
+                            }
+
                         }
                         
+                        num1++;
+                        continue;
+                    }
+
+                    if (ProtolPart.para == "动态区编号")
+                    {
+                        ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        region_par.ID = (UInt32)ProtolPart.byteMemValue[0];
                         num1++;
                         continue;
                     }
@@ -3171,6 +3289,23 @@ namespace Onbon_Protocol_analysis
                     }
 
                 }
+
+                for (num3 = 0; num3 < m_region_par.Length; num3++)
+                {
+                    if (m_region_par[num3].bEnable != 1)
+                    {
+                        m_region_par[num3].bEnable = 1;
+
+                        m_region_par[num3].ID = region_par.ID;
+                        m_region_par[num3].X = region_par.X;
+                        m_region_par[num3].Y = region_par.Y;
+                        m_region_par[num3].width = region_par.width;
+                        m_region_par[num3].height = region_par.height;
+
+                        break;
+                    }
+                }
+
             }
 
             return i;

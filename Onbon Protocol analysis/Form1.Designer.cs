@@ -43,6 +43,7 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.联系开发者ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Raw_data_textBox = new System.Windows.Forms.RichTextBox();
+            this.region_preview_button = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +99,7 @@
             // 
             // analysis_button
             // 
-            this.analysis_button.Location = new System.Drawing.Point(277, 42);
+            this.analysis_button.Location = new System.Drawing.Point(230, 43);
             this.analysis_button.Name = "analysis_button";
             this.analysis_button.Size = new System.Drawing.Size(78, 38);
             this.analysis_button.TabIndex = 5;
@@ -127,7 +128,7 @@
             // out_excel_button
             // 
             this.out_excel_button.Enabled = false;
-            this.out_excel_button.Location = new System.Drawing.Point(377, 42);
+            this.out_excel_button.Location = new System.Drawing.Point(314, 43);
             this.out_excel_button.Name = "out_excel_button";
             this.out_excel_button.Size = new System.Drawing.Size(78, 38);
             this.out_excel_button.TabIndex = 8;
@@ -168,11 +169,23 @@
             this.Raw_data_textBox.TabIndex = 10;
             this.Raw_data_textBox.Text = resources.GetString("Raw_data_textBox.Text");
             // 
+            // region_preview_button
+            // 
+            this.region_preview_button.Enabled = false;
+            this.region_preview_button.Location = new System.Drawing.Point(398, 43);
+            this.region_preview_button.Name = "region_preview_button";
+            this.region_preview_button.Size = new System.Drawing.Size(85, 37);
+            this.region_preview_button.TabIndex = 11;
+            this.region_preview_button.Text = "区域位置预览";
+            this.region_preview_button.UseVisualStyleBackColor = true;
+            this.region_preview_button.Click += new System.EventHandler(this.region_preview_button_Click);
+            // 
             // Onbon_Protocol_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 684);
+            this.Controls.Add(this.region_preview_button);
             this.Controls.Add(this.Raw_data_textBox);
             this.Controls.Add(this.out_excel_button);
             this.Controls.Add(this.label2);
@@ -208,6 +221,7 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 联系开发者ToolStripMenuItem;
         private System.Windows.Forms.RichTextBox Raw_data_textBox;
+        private System.Windows.Forms.Button region_preview_button;
     }
 }
 
