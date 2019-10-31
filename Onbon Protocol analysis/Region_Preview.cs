@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -54,10 +55,7 @@ namespace Onbon_Protocol_analysis
             Font myFont = new Font("宋体", 12, FontStyle.Bold);
 
             Brush bush;
-            if(num == 1)
-            bush = new SolidBrush(Color.Red);
-            else
-                bush = new SolidBrush(Color.Blue);
+            bush = new SolidBrush(Color.Blue);
 
             grp.DrawString("区域位置预览", myFont, bush, this.Width/2-60, 0);
 

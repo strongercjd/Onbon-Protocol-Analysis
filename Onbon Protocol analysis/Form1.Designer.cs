@@ -44,6 +44,8 @@
             this.联系开发者ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Raw_data_textBox = new System.Windows.Forms.RichTextBox();
             this.region_preview_button = new System.Windows.Forms.Button();
+            this.LED_type_comboBox = new System.Windows.Forms.ComboBox();
+            this.data_preview_comboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,9 +76,9 @@
             this.columnHeader3});
             this.data_listView.FullRowSelect = true;
             this.data_listView.HideSelection = false;
-            this.data_listView.Location = new System.Drawing.Point(505, 13);
+            this.data_listView.Location = new System.Drawing.Point(493, 28);
             this.data_listView.Name = "data_listView";
-            this.data_listView.Size = new System.Drawing.Size(680, 659);
+            this.data_listView.Size = new System.Drawing.Size(680, 644);
             this.data_listView.TabIndex = 4;
             this.data_listView.UseCompatibleStateImageBehavior = false;
             this.data_listView.View = System.Windows.Forms.View.Details;
@@ -95,11 +97,11 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "描述";
-            this.columnHeader3.Width = 383;
+            this.columnHeader3.Width = 397;
             // 
             // analysis_button
             // 
-            this.analysis_button.Location = new System.Drawing.Point(230, 43);
+            this.analysis_button.Location = new System.Drawing.Point(305, 43);
             this.analysis_button.Name = "analysis_button";
             this.analysis_button.Size = new System.Drawing.Size(78, 38);
             this.analysis_button.TabIndex = 5;
@@ -128,7 +130,7 @@
             // out_excel_button
             // 
             this.out_excel_button.Enabled = false;
-            this.out_excel_button.Location = new System.Drawing.Point(314, 43);
+            this.out_excel_button.Location = new System.Drawing.Point(399, 42);
             this.out_excel_button.Name = "out_excel_button";
             this.out_excel_button.Size = new System.Drawing.Size(78, 38);
             this.out_excel_button.TabIndex = 8;
@@ -143,7 +145,7 @@
             this.联系开发者ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1197, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1301, 25);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -172,7 +174,7 @@
             // region_preview_button
             // 
             this.region_preview_button.Enabled = false;
-            this.region_preview_button.Location = new System.Drawing.Point(398, 43);
+            this.region_preview_button.Location = new System.Drawing.Point(1194, 78);
             this.region_preview_button.Name = "region_preview_button";
             this.region_preview_button.Size = new System.Drawing.Size(85, 37);
             this.region_preview_button.TabIndex = 11;
@@ -180,11 +182,41 @@
             this.region_preview_button.UseVisualStyleBackColor = true;
             this.region_preview_button.Click += new System.EventHandler(this.region_preview_button_Click);
             // 
+            // LED_type_comboBox
+            // 
+            this.LED_type_comboBox.FormattingEnabled = true;
+            this.LED_type_comboBox.Items.AddRange(new object[] {
+            "单色",
+            "双色",
+            "三色",
+            "全彩"});
+            this.LED_type_comboBox.Location = new System.Drawing.Point(1194, 34);
+            this.LED_type_comboBox.Name = "LED_type_comboBox";
+            this.LED_type_comboBox.Size = new System.Drawing.Size(85, 20);
+            this.LED_type_comboBox.TabIndex = 13;
+            // 
+            // data_preview_comboBox
+            // 
+            this.data_preview_comboBox.FormattingEnabled = true;
+            this.data_preview_comboBox.Items.AddRange(new object[] {
+            "不预览",
+            "ID：0",
+            "ID：1",
+            "ID：2",
+            "ID：3",
+            "ID：4"});
+            this.data_preview_comboBox.Location = new System.Drawing.Point(1194, 145);
+            this.data_preview_comboBox.Name = "data_preview_comboBox";
+            this.data_preview_comboBox.Size = new System.Drawing.Size(85, 20);
+            this.data_preview_comboBox.TabIndex = 14;
+            // 
             // Onbon_Protocol_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1197, 684);
+            this.ClientSize = new System.Drawing.Size(1301, 684);
+            this.Controls.Add(this.data_preview_comboBox);
+            this.Controls.Add(this.LED_type_comboBox);
             this.Controls.Add(this.region_preview_button);
             this.Controls.Add(this.Raw_data_textBox);
             this.Controls.Add(this.out_excel_button);
@@ -222,6 +254,8 @@
         private System.Windows.Forms.ToolStripMenuItem 联系开发者ToolStripMenuItem;
         private System.Windows.Forms.RichTextBox Raw_data_textBox;
         private System.Windows.Forms.Button region_preview_button;
+        private System.Windows.Forms.ComboBox LED_type_comboBox;
+        private System.Windows.Forms.ComboBox data_preview_comboBox;
     }
 }
 

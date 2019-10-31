@@ -27,6 +27,8 @@ namespace Onbon_Protocol_analysis
             Protocol_selection.Items.Add("6代字库动态区协议");
 			Protocol_selection.Items.Add("6代图文动态区协议");
             Protocol_selection.SelectedIndex = 0;
+            LED_type_comboBox.SelectedIndex = 0;
+            data_preview_comboBox.SelectedIndex = 0;
             data_after_transform_richTextBox.ReadOnly = true;
 
         }
@@ -543,6 +545,23 @@ namespace Onbon_Protocol_analysis
             data_after_transform_richTextBox.SelectionColor = Color.Black;
             data_after_transform_richTextBox.AppendText(str_end);
 
+            if (str_red.Length >100)
+            {
+                if (data_preview_comboBox.SelectedIndex != 0)
+                {
+                    int i = 0;
+                    str_red = str_red.Substring(0, str_red.Length - 1);
+                    string[] strCheckArray = str_red.Split(' ');
+                    byte[] myarray = new byte[strCheckArray.Length];
+                    foreach (var tmp in strCheckArray)
+                    {
+                        myarray[i++] = System.Convert.ToByte(tmp, 16);
+                    }
+                    Data_Preview Data_Pre = new Data_Preview();
+                    Data_Pre.Show();
+                    Data_Pre.Data_Preview_star(myarray, data_preview_comboBox.SelectedIndex - 1, LED_type_comboBox.SelectedIndex);
+                }
+            }
         }
         /// <summary>
         /// 执行导出数据

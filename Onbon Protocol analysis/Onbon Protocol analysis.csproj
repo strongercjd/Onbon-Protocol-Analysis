@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data_Preview.Designer.cs">
+      <DependentUpon>Data_Preview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Developer_Inf.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="Region_Preview.Designer.cs">
       <DependentUpon>Region_Preview.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Data_Preview.resx">
+      <DependentUpon>Data_Preview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Developer_Inf.resx">
       <DependentUpon>Developer_Inf.cs</DependentUpon>
     </EmbeddedResource>
