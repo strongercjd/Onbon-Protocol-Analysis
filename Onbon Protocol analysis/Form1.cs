@@ -30,6 +30,11 @@ namespace Onbon_Protocol_analysis
             LED_type_comboBox.SelectedIndex = 0;
             data_preview_comboBox.SelectedIndex = 0;
             data_after_transform_richTextBox.ReadOnly = true;
+#if DEBUG
+            this.Width = 1307;
+#else
+            this.Width = 1198;
+#endif
 
         }
         public int refresh_data_after_transform_richTextBox()
@@ -691,7 +696,7 @@ namespace Onbon_Protocol_analysis
 
     public class Protocol_Analysis
     {
-        #region 变量和类的定义
+#region 变量和类的定义
         public class CProtolPart
         {
             public int bEnable = 0;
@@ -770,7 +775,7 @@ namespace Onbon_Protocol_analysis
         int data_value;
         string data;
 		
-        #endregion 变量和类的定义
+#endregion 变量和类的定义
 		
 		public void m_region_par_init()
 		{
@@ -783,7 +788,7 @@ namespace Onbon_Protocol_analysis
 
 		
 		
-		#region Six_Image_string_init
+#region Six_Image_string_init
 		public void Six_Image_Protocol_header_string_init()
         {
             int num = 0;
@@ -868,10 +873,10 @@ namespace Onbon_Protocol_analysis
 
             Protol_area_data_str_len = num;
         }
-		#endregion Six_Image_string_init
+#endregion Six_Image_string_init
 		
 		
-		#region Six_Font_string_init
+#region Six_Font_string_init
 		public void Six_Font_Protocol_header_string_init()
         {
             int num = 0;
@@ -945,9 +950,9 @@ namespace Onbon_Protocol_analysis
             Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
             Protol_area_data_str_len = num;
         }
-		#endregion Six_Font_string_init
+#endregion Six_Font_string_init
 
-        #region Font_string_init
+#region Font_string_init
         public void Font_Card_Protocol_header_string_init()
         {
             int num = 0;
@@ -1216,7 +1221,7 @@ namespace Onbon_Protocol_analysis
             Protol_crc_str_len = num;
         }
 
-        #endregion Font_string_init
+#endregion Font_string_init
 
         public static int crc16(byte[] data, UInt32 size)
         {
@@ -1248,7 +1253,7 @@ namespace Onbon_Protocol_analysis
         }
 
 
-        #region Six_Image_Protocol_Analysis
+#region Six_Image_Protocol_Analysis
         public int Six_Image_Protocol_Deal_With()
         {
             UInt32 i, num, num1, num2, num3;
@@ -1725,10 +1730,10 @@ namespace Onbon_Protocol_analysis
             return i;
         }
 
-        #endregion Six_Image_Protocol_Analysis
+#endregion Six_Image_Protocol_Analysis
 
 
-        #region Six_Font_Protocol_Analysis
+#region Six_Font_Protocol_Analysis
 
         public int Six_Font_Protocol_Deal_With()
         {
@@ -2228,9 +2233,9 @@ namespace Onbon_Protocol_analysis
             return i;
         }
 
-        #endregion Six_Font_Protocol_Analysis
+#endregion Six_Font_Protocol_Analysis
 
-        #region Font_Card_Protocol_Analysis
+#region Font_Card_Protocol_Analysis
 
         public int Font_Card_Protocol_Deal_With()
         {
@@ -3444,7 +3449,7 @@ namespace Onbon_Protocol_analysis
             return i;
         }
 
-        #endregion Font_Card_Protocol_Analysis
+#endregion Font_Card_Protocol_Analysis
 
 
 		
