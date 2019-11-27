@@ -42,6 +42,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.联系开发者ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.语言ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.英文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Raw_data_textBox = new System.Windows.Forms.RichTextBox();
             this.region_preview_button = new System.Windows.Forms.Button();
             this.LED_type_comboBox = new System.Windows.Forms.ComboBox();
@@ -142,7 +145,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.帮助ToolStripMenuItem,
-            this.联系开发者ToolStripMenuItem});
+            this.联系开发者ToolStripMenuItem,
+            this.语言ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1288, 25);
@@ -162,6 +166,30 @@
             this.联系开发者ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.联系开发者ToolStripMenuItem.Text = "联系开发者";
             this.联系开发者ToolStripMenuItem.Click += new System.EventHandler(this.联系开发者ToolStripMenuItem_Click);
+            // 
+            // 语言ToolStripMenuItem
+            // 
+            this.语言ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.中文ToolStripMenuItem,
+            this.英文ToolStripMenuItem});
+            this.语言ToolStripMenuItem.Name = "语言ToolStripMenuItem";
+            this.语言ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.语言ToolStripMenuItem.Text = "语言";
+            this.语言ToolStripMenuItem.Click += new System.EventHandler(this.语言ToolStripMenuItem_Click);
+            // 
+            // 中文ToolStripMenuItem
+            // 
+            this.中文ToolStripMenuItem.Name = "中文ToolStripMenuItem";
+            this.中文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.中文ToolStripMenuItem.Text = "中文";
+            this.中文ToolStripMenuItem.Click += new System.EventHandler(this.中文ToolStripMenuItem_Click);
+            // 
+            // 英文ToolStripMenuItem
+            // 
+            this.英文ToolStripMenuItem.Name = "英文ToolStripMenuItem";
+            this.英文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.英文ToolStripMenuItem.Text = "英文";
+            this.英文ToolStripMenuItem.Click += new System.EventHandler(this.英文ToolStripMenuItem_Click);
             // 
             // Raw_data_textBox
             // 
@@ -257,6 +285,9 @@
         private System.Windows.Forms.Button region_preview_button;
         private System.Windows.Forms.ComboBox LED_type_comboBox;
         private System.Windows.Forms.ComboBox data_preview_comboBox;
+        private System.Windows.Forms.ToolStripMenuItem 语言ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 中文ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 英文ToolStripMenuItem;
     }
 }
 

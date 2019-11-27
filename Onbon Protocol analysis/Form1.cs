@@ -18,6 +18,8 @@ namespace Onbon_Protocol_analysis
         };
         SlistView_to_myarra[] listView_to_myarray;
 
+        public UInt32 UI_language = 0;//0是中文，1是英文
+
         public static Protocol_Analysis oProtocol_Analysis = new Protocol_Analysis();
 
         public Onbon_Protocol_Form()
@@ -83,7 +85,15 @@ namespace Onbon_Protocol_analysis
 
             if (j == 1)
             {
-                MessageBox.Show("有异常数据,异常数据已经标红色");
+                if (UI_language == 0)
+                {
+                    MessageBox.Show("有异常数据,异常数据已经标红色");
+                }
+                if (UI_language == 1)
+                {
+                    MessageBox.Show("There is abnormal data. The abnormal data has been marked in red");
+                }
+                
                 return 0;
             }
             return 0;
@@ -111,7 +121,15 @@ namespace Onbon_Protocol_analysis
 
             ListViewGroup group_data_header = new ListViewGroup();  //创建包头数据分组
 
-            group_data_header.Header = "包头数据";  //设置组的标题。
+            if (UI_language == 0)
+            {
+                group_data_header.Header = "包头数据";  //设置组的标题。
+            }
+            if (UI_language == 1)
+            {
+                group_data_header.Header = "Header package";  //设置组的标题。
+            }
+            
             group_data_header.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
             this.data_listView.Groups.Add(group_data_header);    //把包头数据分组添加到listview中
 
@@ -145,7 +163,15 @@ namespace Onbon_Protocol_analysis
             if (m_oonbon_Protocol.Prototol_CMD != null)
             {
                 ListViewGroup group_cmd = new ListViewGroup();  //创建命令分组
-                group_cmd.Header = "命令";  //设置组的标题。
+                if (UI_language == 0)
+                {
+                    group_cmd.Header = "命令";  //设置组的标题。
+                }
+                if (UI_language == 1)
+                {
+                    group_cmd.Header = "command";  //设置组的标题。
+                }
+                
                 group_cmd.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                 this.data_listView.Groups.Add(group_cmd);    //把命令分组添加到listview中
                 for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length; num++)
@@ -177,7 +203,15 @@ namespace Onbon_Protocol_analysis
                     for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
                     {
                         ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
-                        grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                        if (UI_language == 0)
+                        {
+                            grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                        }
+                        if (UI_language == 1)
+                        {
+                            grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
+                        }
+                        
                         grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                         this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
 
@@ -215,7 +249,15 @@ namespace Onbon_Protocol_analysis
                         {
 
                             ListViewGroup grou_page_data = new ListViewGroup();  //创建命令分组
-                            grou_page_data.Header = "区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式";  //设置组的标题。
+                            if (UI_language == 0)
+                            {
+                                grou_page_data.Header = "区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式";  //设置组的标题。
+                            }
+                            if (UI_language == 1)
+                            {
+                                grou_page_data.Header = "Page " + num1.ToString() + " data format for area " + num.ToString() ;  //设置组的标题。
+                            }
+                            
                             grou_page_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                             this.data_listView.Groups.Add(grou_page_data);    //把命令分组添加到listview中
 
@@ -253,7 +295,15 @@ namespace Onbon_Protocol_analysis
 
 
                     ListViewGroup grou_display_data = new ListViewGroup();  //创建命令分组
-                    grou_display_data.Header = "数据区域";  //设置组的标题。
+                    if (UI_language == 0)
+                    {
+                        grou_display_data.Header = "数据区域";  //设置组的标题。
+                    }
+                    if (UI_language == 1)
+                    {
+                        grou_display_data.Header = "data of area";  //设置组的标题。
+                    }
+                    
                     grou_display_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                     this.data_listView.Groups.Add(grou_display_data);    //把命令分组添加到listview中
 
@@ -273,7 +323,15 @@ namespace Onbon_Protocol_analysis
 
                             Protocol_data = new ListViewItem();
                             Protocol_data.Group = grou_display_data;
-                            Protocol_data.Text = "显示数据";
+                            
+                            if (UI_language == 0)
+                            {
+                                Protocol_data.Text = "显示数据";
+                            }
+                            if (UI_language == 1)
+                            {
+                                Protocol_data.Text = "Display data";
+                            }
 
                             for (num2 = 0; num2 < SixImagePrototolPagePart.len; num2++)
                             {
@@ -281,7 +339,15 @@ namespace Onbon_Protocol_analysis
                                 i++;
                             }
                             Protocol_data.SubItems.Add(data);
-                            Protocol_data.SubItems.Add("区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式");
+                            if (UI_language == 0)
+                            {
+                                Protocol_data.SubItems.Add("区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式");
+                            }
+                            if (UI_language == 1)
+                            {
+                                Protocol_data.SubItems.Add("Page " + num1.ToString() + " data format for area " + num.ToString());
+                            }
+                            
                             data_listView.Items.Add(Protocol_data);
 
                             listView_to_myarray[listView_row].myarray_end = i;
@@ -298,7 +364,15 @@ namespace Onbon_Protocol_analysis
                     for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
                     {
                         ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
-                        grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                        if (UI_language == 0)
+                        {
+                            grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                        }
+                        if (UI_language == 1)
+                        {
+                            grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
+                        }
+                        
                         grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                         this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
                         for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part.Length; num1++)
@@ -335,7 +409,15 @@ namespace Onbon_Protocol_analysis
             if (m_oonbon_Protocol.Prototol_CRC != null)
             {
                 ListViewGroup grou_CRC = new ListViewGroup();  //创建命令分组
-                grou_CRC.Header = "CRC校验";  //设置组的标题。
+                if (UI_language == 0)
+                {
+                    grou_CRC.Header = "CRC校验";  //设置组的标题。
+                }
+                if (UI_language == 1)
+                {
+                    grou_CRC.Header = "CRC check";  //设置组的标题。
+                }
+               
                 grou_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
                 this.data_listView.Groups.Add(grou_CRC);    //把命令分组添加到listview中
 
@@ -353,10 +435,21 @@ namespace Onbon_Protocol_analysis
                         i++;
                     }
                     Protocol_data.SubItems.Add(data);
-                    if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC校验错误")
+                    if (UI_language == 0)
                     {
-                        Protocol_data.ForeColor = Color.Red;
+                        if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC校验错误")
+                        {
+                            Protocol_data.ForeColor = Color.Red;
+                        }
                     }
+                    if (UI_language == 1)
+                    {
+                        if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC error")
+                        {
+                            Protocol_data.ForeColor = Color.Red;
+                        }
+                    }
+                    
                     Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CRC.describe);
                     data_listView.Items.Add(Protocol_data);
 
@@ -445,7 +538,15 @@ namespace Onbon_Protocol_analysis
                         data_after_transform_richTextBox.Clear();//每次点击事件后将data_after_transform_richTextBox中的数据清空，重新显示
                         oProtocol_Analysis.Data_deal_with(myarray, i);//转义数据
                         refresh_data_after_transform_richTextBox();//将转义之后的数据显示在文本框内
-                        MessageBox.Show("数据格式错误，错误的数据在文本框中已经变红");
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("数据格式错误，错误的数据在文本框中已经变红");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("The data format is wrong. The wrong data has turned red in the text box");
+                        }
+                        
                         return;
                     }
                 }
@@ -470,16 +571,48 @@ namespace Onbon_Protocol_analysis
                 switch (i)
                 {
                     case 1:
-                        MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("Incomplete data, no frame head 0xa5, frame tail 0x5a");
+                        }
+                        
                         break;
                     case 2:
-                        MessageBox.Show("数据不完整，有帧头0XA5，没有帧尾0X5A，注意使用Wireshark抓包，数据长度大于1500，IP分包问题");
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("数据不完整，有帧头0XA5，没有帧尾0X5A，注意使用Wireshark抓包，数据长度大于1500，IP分包问题");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("The data is incomplete. There is a frame header of 0xa5 and no frame tail of 0x5a. Pay attention to the use of Wireshark to grab packets. The data length is greater than 1500. IP subcontracting is a problem");
+                        }
+                        
                         break;
                     case 3:
-                        MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("数据不完整，没有帧头0XA5，有帧尾0X5A");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("Incomplete data, no frame head 0xa5, frame tail 0x5a");
+                        }
+                       
                         break;
                     default:
-                        MessageBox.Show("数据错误");
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("数据错误");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("data error");
+                        }
+                        
                         break;
                 }
                 return;
@@ -503,7 +636,16 @@ namespace Onbon_Protocol_analysis
             }
             if (j == 2)
             {
-                MessageBox.Show("目前不支持该协议，请联系开发者");
+
+                if (UI_language == 0)
+                {
+                    MessageBox.Show("目前不支持该协议，请联系开发者");
+                }
+                if (UI_language == 1)
+                {
+                    MessageBox.Show("This protocol is not supported at present. Please contact the developer");
+                }
+                
             }
             refresh_data_listView();
             out_excel_button.Enabled = true;
@@ -577,7 +719,15 @@ namespace Onbon_Protocol_analysis
             sfd.DefaultExt = "xls";
 
             sfd.Filter = "Excel文件(*.xls)|*.xls";
-            sfd.FileName = "仰邦协议解析结果输出";
+            if (UI_language == 0)
+            {
+                sfd.FileName = "仰邦协议解析结果输出";
+            }
+            if (UI_language == 1)
+            {
+                sfd.FileName = "Analysis result output of onbon protocol";
+            }
+            
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -608,7 +758,15 @@ namespace Onbon_Protocol_analysis
                 Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.ApplicationClass();
                 if (xlApp == null)
                 {
-                    MessageBox.Show("无法创建excel对象，可能您的系统没有安装excel");
+                    if (UI_language == 0)
+                    {
+                        MessageBox.Show("无法创建excel对象，可能您的系统没有安装excel");
+                    }
+                    if (UI_language == 1)
+                    {
+                        MessageBox.Show("Unable to create excel object, maybe excel is not installed in your system");
+                    }
+                   
                     return;
                 }
                 xlApp.DefaultFilePath = "";
@@ -692,6 +850,76 @@ namespace Onbon_Protocol_analysis
             Region_Pre.Show();
             Region_Pre.Region_Preview_star();
         }
+
+        private void 中文ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UI_language = 0;
+            oProtocol_Analysis.language = 0;
+            UpDataMainFormUILanguage();
+        }
+
+        private void 英文ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UI_language = 1;
+            oProtocol_Analysis.language = 1;
+            UpDataMainFormUILanguage();
+        }
+        private void UpDataMainFormUILanguage()
+        {
+            if (UI_language == 0)
+            {
+                label1.Text = "除去帧头帧尾，转义后的数据";
+                label2.Text = "协议选择";
+                analysis_button.Text = "开始解析";
+                out_excel_button.Text = "输出Excel";
+                data_after_transform_richTextBox.Text = "      仰邦协议解析工具（C）2019";
+                this.columnHeader1.Text = "参数";
+                this.columnHeader2.Text = "数据";
+                this.columnHeader3.Text = "描述";
+
+                语言ToolStripMenuItem.Text = "语言";
+                中文ToolStripMenuItem.Text = "中文简体";
+                英文ToolStripMenuItem.Text = "英文";
+                帮助ToolStripMenuItem.Text = "帮助";
+                联系开发者ToolStripMenuItem.Text = "联系开发者";
+                this.Text = "onbon协议解析 V0.2";
+
+                Protocol_selection.Items.Clear();
+                Protocol_selection.Items.Add("字库卡协议");
+                Protocol_selection.Items.Add("6代字库动态区协议");
+                Protocol_selection.Items.Add("6代图文动态区协议");
+                Protocol_selection.SelectedIndex = 0;
+            }
+            if (UI_language == 1)
+            {
+                label1.Text = "Remove the head and tail of the frame, and escape the data";
+                label2.Text = "Protocol selection";
+                analysis_button.Text = "Start parsing";
+                out_excel_button.Text = "Output Excel";
+                data_after_transform_richTextBox.Text = "      onbon protocol resolution tool (c) 2019";
+                this.columnHeader1.Text = "parameter";
+                this.columnHeader2.Text = "data";
+                this.columnHeader3.Text = "describe";
+
+                语言ToolStripMenuItem.Text = "language";
+                中文ToolStripMenuItem.Text = "Chinese";
+                英文ToolStripMenuItem.Text = "English";
+                帮助ToolStripMenuItem.Text = "Help";
+                联系开发者ToolStripMenuItem.Text = "Contact developer";
+                this.Text = "onbon Protocol analysis V0.2";
+
+                Protocol_selection.Items.Clear();
+                Protocol_selection.Items.Add("Onbon_Font_controller_protocol");
+                Protocol_selection.Items.Add("6th_font_dynamic_program_protocol");
+                Protocol_selection.Items.Add("6th_photo_word_dynamic_program_protocol");
+                Protocol_selection.SelectedIndex = 0;
+            }
+        }
+
+        private void 语言ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Protocol_Analysis
@@ -747,6 +975,8 @@ namespace Onbon_Protocol_analysis
             public UInt32 height;
         }
 
+        public int language = 0;//0表示中文，1表示英文
+
         public Cregion_parameter[] m_region_par = new Cregion_parameter[40];
 
 
@@ -774,200 +1004,384 @@ namespace Onbon_Protocol_analysis
 
         int data_value;
         string data;
-		
-#endregion 变量和类的定义
-		
-		public void m_region_par_init()
-		{
-			for (int num = 0; num < m_region_par.Length; num++)
-			{
+
+        #endregion 变量和类的定义
+
+        public void m_region_par_init()
+        {
+            for (int num = 0; num < m_region_par.Length; num++)
+            {
                 m_region_par[num] = new Cregion_parameter();
                 m_region_par[num].bEnable = 0;
-			}
-		}
+            }
+        }
 
-		
-		
-#region Six_Image_string_init
-		public void Six_Image_Protocol_header_string_init()
+
+
+        #region Six_Image_string_init
+        public void Six_Image_Protocol_header_string_init()
         {
             int num = 0;
+            if (language == 0)
+            {
+                Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
+                Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
+                Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
+                Protol_header_str[num++] = new string[] { "1", "保留字节", "保留字节" };
+                Protol_header_str[num++] = new string[] { "2", "设备类型", "设备类型" };
+                Protol_header_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+                Protol_header_str[num++] = new string[] { "4", "数据域长度", "数据域长度" };
+                Protol_header_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_header_str[num++] = new string[] { "2", "screen address", " also the screen number" };
+                Protol_header_str[num++] = new string[] { "2", "source address", "source address" };
+                Protol_header_str[num++] = new string[] { "1", "protocal version", "protocal version" };
+                Protol_header_str[num++] = new string[] { "1", "reserved Byte", "reserved Byte" };
+                Protol_header_str[num++] = new string[] { "2", "device type", "device type" };
+                Protol_header_str[num++] = new string[] { "4", "reserved Byte", "reserved Byte" };
+                Protol_header_str[num++] = new string[] { "4", "Data field length", "Data field length" };
+                Protol_header_str_len = num;
+            }
 
-            Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
-            Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
-			Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
-            Protol_header_str[num++] = new string[] { "1", "保留字节", "保留字节" };
-            Protol_header_str[num++] = new string[] { "2", "设备类型", "设备类型" };
-            Protol_header_str[num++] = new string[] { "4", "保留字节", "保留字节" };
-            Protol_header_str[num++] = new string[] { "4", "数据域长度", "数据域长度" };
-            Protol_header_str_len = num;
         }
-		public void Six_Image_Protocol_A7_00_cmd_string_init()
-        {
-            int num = 0;
-
-            num = 0;
-			Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "更新图文动态区" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "更新图文动态区" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-			Protol_cmd_str[num++] = new string[] { "2", "更新区域个数", "更新区域个数" };
-            Prototol_CMD_len = num;
-        }
-		public void Six_Image_Protocol_Page_data_string_init()
-        {
-            int num = 0;
-
-            num = 0;
-			Protol_Page_data_str[num++] = new string[] { "4", "数据长度", "数据长度" };
-            Protol_Page_data_str[num++] = new string[] { "1", "数据页类型", "数据页类型" };
-            Protol_Page_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
-			Protol_Page_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
-			Protol_Page_data_str[num++] = new string[] { "1", "速度等级", "速度等级" };
-            Protol_Page_data_str[num++] = new string[] { "2", "停留时间", "停留时间" };
-			Protol_Page_data_str[num++] = new string[] { "1", "重复次数", "重复次数" };
-			Protol_Page_data_str[num++] = new string[] { "2", "有效长度", "有效长度" };
-			Protol_Page_data_str[num++] = new string[] { "9", "保留字节", "保留字节" };
-			Protol_Page_data_str[num++] = new string[] { "4", "本页数据偏移量", "本页数据偏移量" };
-			Protol_Page_data_str[num++] = new string[] { "4", "本页数据长度", "本页数据长度" };
-            Protol_Page_data_str_len = num;
-        }
-		public void Six_Image_Protocol_area_data_string_init()
+        public void Six_Image_Protocol_A7_00_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_area_data_str[num++] = new string[] { "4", "区域数据长度", "区域数据长度" };
-			Protol_area_data_str[num++] = new string[] { "1", "区域序号", "区域序号" };
-			Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
-			Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "动态区超时时间" };
-			Protol_area_data_str[num++] = new string[] { "1", "和异步节目的关系", "和异步节目的关系" };
-			Protol_area_data_str[num++] = new string[] { "2", "关联异步节目个数", "关联异步节目个数" };
-			Protol_area_data_str[num++] = new string[] { "N", "异步节目编号", "异步节目编号" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否覆盖", "是否覆盖" };
-			Protol_area_data_str[num++] = new string[] { "4", "保留字节", "保留字节" };
-            Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
-            Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否有边框", "是否有边框" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否有背景", "是否有背景" };
-			Protol_area_data_str[num++] = new string[] { "1", "透明度", "透明度" };
-			Protol_area_data_str[num++] = new string[] { "1", "前景背景是否相同", "前景背景是否相同" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
-			Protol_area_data_str[num++] = new string[] { "1", "发音人", "发音人" };
-			Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
-			Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
-			Protol_area_data_str[num++] = new string[] { "1", "编码格式", "编码格式" };
-			Protol_area_data_str[num++] = new string[] { "4", "重播次数", "重播次数" };
-			Protol_area_data_str[num++] = new string[] { "4", "重默间隔", "重播间隔" };
-			Protol_area_data_str[num++] = new string[] { "1", "语音参数保留长度", "语音参数保留长度" };
-			Protol_area_data_str[num++] = new string[] { "1", "数字判断", "数字判断" };
-			Protol_area_data_str[num++] = new string[] { "1", "语种判断", "语种判断" };
-			Protol_area_data_str[num++] = new string[] { "1", "字母判断", "字母判断" };
-			Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "读音数据长度" };
-            Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
-			Protol_area_data_str[num++] = new string[] { "5", "保留字节", "保留字节" };
-			Protol_area_data_str[num++] = new string[] { "2", "数据页数", "数据页数" };
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "更新图文动态区" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "更新图文动态区" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "2", "更新区域个数", "更新区域个数" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "update text&image dynamic area" };
+                Protol_cmd_str[num++] = new string[] { "1", "command item", "update text&image dynamic area" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "2", "update area quantity", "update area quantity" };
+                Prototol_CMD_len = num;
+            }
 
-            Protol_area_data_str_len = num;
         }
-#endregion Six_Image_string_init
-		
-		
-#region Six_Font_string_init
-		public void Six_Font_Protocol_header_string_init()
-        {
-            int num = 0;
-
-            Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
-            Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
-			Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
-            Protol_header_str[num++] = new string[] { "1", "保留字节", "保留字节" };
-            Protol_header_str[num++] = new string[] { "2", "设备类型", "设备类型" };
-            Protol_header_str[num++] = new string[] { "4", "保留字节", "保留字节" };
-            Protol_header_str[num++] = new string[] { "4", "数据域长度", "数据域长度" };
-            Protol_header_str_len = num;
-        }
-		public void Six_Font_Protocol_A7_06_cmd_string_init()
+        public void Six_Image_Protocol_Page_data_string_init()
         {
             int num = 0;
 
             num = 0;
-			Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "更新字库动态区" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "更新字库动态区" };
-            Protol_cmd_str[num++] = new string[] { "1", "掉电是否保留", "掉电是否保留" };
-			Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域个数" };
-			Protol_cmd_str[num++] = new string[] { "N", "删除的区域ID", "删除的区域ID" };
-			Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_Page_data_str[num++] = new string[] { "4", "数据长度", "数据长度" };
+                Protol_Page_data_str[num++] = new string[] { "1", "数据页类型", "数据页类型" };
+                Protol_Page_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
+                Protol_Page_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
+                Protol_Page_data_str[num++] = new string[] { "1", "速度等级", "速度等级" };
+                Protol_Page_data_str[num++] = new string[] { "2", "停留时间", "停留时间" };
+                Protol_Page_data_str[num++] = new string[] { "1", "重复次数", "重复次数" };
+                Protol_Page_data_str[num++] = new string[] { "2", "有效长度", "有效长度" };
+                Protol_Page_data_str[num++] = new string[] { "9", "保留字节", "保留字节" };
+                Protol_Page_data_str[num++] = new string[] { "4", "本页数据偏移量", "本页数据偏移量" };
+                Protol_Page_data_str[num++] = new string[] { "4", "本页数据长度", "本页数据长度" };
+                Protol_Page_data_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_Page_data_str[num++] = new string[] { "4", "data length", "data length" };
+                Protol_Page_data_str[num++] = new string[] { "1", "data page type", "data page type" };
+                Protol_Page_data_str[num++] = new string[] { "1", "display mode", "display mode" };
+                Protol_Page_data_str[num++] = new string[] { "1", "exit mode", "exit mode" };
+                Protol_Page_data_str[num++] = new string[] { "1", "speed level", "speed level" };
+                Protol_Page_data_str[num++] = new string[] { "2", "stay time", "stay time" };
+                Protol_Page_data_str[num++] = new string[] { "1", "repeat number", "repeat number" };
+                Protol_Page_data_str[num++] = new string[] { "2", "valid length", "valid length" };
+                Protol_Page_data_str[num++] = new string[] { "9", "reserved Byte", "reserved Byte" };
+                Protol_Page_data_str[num++] = new string[] { "4", "Data offset on this page", "Data offset on this page" };
+                Protol_Page_data_str[num++] = new string[] { "4", "data length", "data length" };
+                Protol_Page_data_str_len = num;
+            }
+
         }
-		public void Six_Font_Protocol_area_data_string_init()
+        public void Six_Image_Protocol_area_data_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_area_data_str[num++] = new string[] { "4", "区域数据长度", "区域数据长度" };
-			Protol_area_data_str[num++] = new string[] { "1", "区域序号", "区域序号" };
-			Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
-			Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "动态区超时时间" };
-			Protol_area_data_str[num++] = new string[] { "1", "和异步节目的关系", "和异步节目的关系" };
-			Protol_area_data_str[num++] = new string[] { "2", "关联异步节目个数", "关联异步节目个数" };
-			Protol_area_data_str[num++] = new string[] { "N", "异步节目编号", "异步节目编号" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否覆盖", "是否覆盖" };
-			Protol_area_data_str[num++] = new string[] { "4", "保留字节", "保留字节" };
-            Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
-            Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否有边框", "是否有边框" };
-            Protol_area_data_str[num++] = new string[] { "8", "保留字节", "保留字节" };
-            Protol_area_data_str[num++] = new string[] { "1", "文字风格布局模式", "文字风格布局模式" };
-            Protol_area_data_str[num++] = new string[] { "1", "行间距", "行间距" };
-            Protol_area_data_str[num++] = new string[] { "1", "行字体对齐方式", "行字体对齐方式" };
-			Protol_area_data_str[num++] = new string[] { "1", "字间距", "字间距" };
-			Protol_area_data_str[num++] = new string[] { "6", "保留字节", "保留字节" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否自动换行", "是否自动换行" };
-            Protol_area_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "速度等级", "速度等级" };
-			Protol_area_data_str[num++] = new string[] { "1", "停留时间", "停留时间" };
-			Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
-			Protol_area_data_str[num++] = new string[] { "1", "发音人", "发音人" };
-			Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
-			Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
-			Protol_area_data_str[num++] = new string[] { "1", "编码格式", "编码格式" };
-			Protol_area_data_str[num++] = new string[] { "4", "重播次数", "重播次数" };
-			Protol_area_data_str[num++] = new string[] { "4", "重默间隔", "重播间隔" };
-			Protol_area_data_str[num++] = new string[] { "1", "语音参数保留长度", "语音参数保留长度" };
-            Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "读音数据长度" };
-            Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
-            Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "显示数据长度" };
-            Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
-            Protol_area_data_str_len = num;
-        }
-#endregion Six_Font_string_init
+            if (language == 0)
+            {
+                Protol_area_data_str[num++] = new string[] { "4", "区域数据长度", "区域数据长度" };
+                Protol_area_data_str[num++] = new string[] { "1", "区域序号", "区域序号" };
+                Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
+                Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "动态区超时时间" };
+                Protol_area_data_str[num++] = new string[] { "1", "和异步节目的关系", "和异步节目的关系" };
+                Protol_area_data_str[num++] = new string[] { "2", "关联异步节目个数", "关联异步节目个数" };
+                Protol_area_data_str[num++] = new string[] { "N", "异步节目编号", "异步节目编号" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否覆盖", "是否覆盖" };
+                Protol_area_data_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+                Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
+                Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否有边框", "是否有边框" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否有背景", "是否有背景" };
+                Protol_area_data_str[num++] = new string[] { "1", "透明度", "透明度" };
+                Protol_area_data_str[num++] = new string[] { "1", "前景背景是否相同", "前景背景是否相同" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
+                Protol_area_data_str[num++] = new string[] { "1", "发音人", "发音人" };
+                Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
+                Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
+                Protol_area_data_str[num++] = new string[] { "1", "编码格式", "编码格式" };
+                Protol_area_data_str[num++] = new string[] { "4", "重播次数", "重播次数" };
+                Protol_area_data_str[num++] = new string[] { "4", "重默间隔", "重播间隔" };
+                Protol_area_data_str[num++] = new string[] { "1", "语音参数保留长度", "语音参数保留长度" };
+                Protol_area_data_str[num++] = new string[] { "1", "数字判断", "数字判断" };
+                Protol_area_data_str[num++] = new string[] { "1", "语种判断", "语种判断" };
+                Protol_area_data_str[num++] = new string[] { "1", "字母判断", "字母判断" };
+                Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "读音数据长度" };
+                Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
+                Protol_area_data_str[num++] = new string[] { "5", "保留字节", "保留字节" };
+                Protol_area_data_str[num++] = new string[] { "2", "数据页数", "数据页数" };
+                Protol_area_data_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_area_data_str[num++] = new string[] { "4", "area data length", "area data length" };
+                Protol_area_data_str[num++] = new string[] { "1", "Area number", "Area number" };
+                Protol_area_data_str[num++] = new string[] { "1", "Dynamic zone operation mode", "Dynamic zone operation mode" };
+                Protol_area_data_str[num++] = new string[] { "2", "dynamic area timeout", "dynamic area timeout" };
+                Protol_area_data_str[num++] = new string[] { "1", "relation to asyn program", "relation to asyn program" };
+                Protol_area_data_str[num++] = new string[] { "2", "the related quantity to asyn program", "the related quantity to asyn program" };
+                Protol_area_data_str[num++] = new string[] { "N", "item number of asyn program", "item number of asyn program" };
+                Protol_area_data_str[num++] = new string[] { "1", "cover or not", "cover or not" };
+                Protol_area_data_str[num++] = new string[] { "4", "reserved Byte", "reserved Byte" };
+                Protol_area_data_str[num++] = new string[] { "1", "area type", "area type" };
+                Protol_area_data_str[num++] = new string[] { "2", "X coordinate", "X coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y coordinate", "Y coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area width", "Area width" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area height", "Area height" };
+                Protol_area_data_str[num++] = new string[] { "1", "with frame boarder or not", "with frame boarder or not" };
+                Protol_area_data_str[num++] = new string[] { "1", "support backgroud or not", "support backgroud or not" };
+                Protol_area_data_str[num++] = new string[] { "1", "transparency", "transparency" };
+                Protol_area_data_str[num++] = new string[] { "1", "Whether the foreground background is the same", "Whether the foreground background is the same" };
+                Protol_area_data_str[num++] = new string[] { "1", "use audio or not", "use audio or not" };
+                Protol_area_data_str[num++] = new string[] { "1", "Pronunciation people", "Pronunciation people" };
+                Protol_area_data_str[num++] = new string[] { "1", "volume", "volume" };
+                Protol_area_data_str[num++] = new string[] { "1", "speak speed", "speak speed" };
+                Protol_area_data_str[num++] = new string[] { "1", "Coding format", "Coding format" };
+                Protol_area_data_str[num++] = new string[] { "4", "repeat times", "repeat times" };
+                Protol_area_data_str[num++] = new string[] { "4", "default interval", "default interval" };
+                Protol_area_data_str[num++] = new string[] { "1", "Speech parameter retention lengthl", "Speech parameter retention length" };
+                Protol_area_data_str[num++] = new string[] { "1", "Digital judgment", "Digital judgment" };
+                Protol_area_data_str[num++] = new string[] { "1", "Languages judgment", "Languages judgment" };
+                Protol_area_data_str[num++] = new string[] { "1", "letter judgment", "letter judgment" };
+                Protol_area_data_str[num++] = new string[] { "4", "pronunciation data length", "pronunciation data length" };
+                Protol_area_data_str[num++] = new string[] { "N", "pronunciation data ", "pronunciation data" };
+                Protol_area_data_str[num++] = new string[] { "5", "reserved Byte", "reserved Byte" };
+                Protol_area_data_str[num++] = new string[] { "2", "data page", "data page" };
 
-#region Font_string_init
+                Protol_area_data_str_len = num;
+            }
+
+
+
+        }
+        #endregion Six_Image_string_init
+
+
+        #region Six_Font_string_init
+        public void Six_Font_Protocol_header_string_init()
+        {
+            int num = 0;
+            if (language == 0)
+            {
+                Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
+                Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
+                Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
+                Protol_header_str[num++] = new string[] { "1", "保留字节", "保留字节" };
+                Protol_header_str[num++] = new string[] { "2", "设备类型", "设备类型" };
+                Protol_header_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+                Protol_header_str[num++] = new string[] { "4", "数据域长度", "数据域长度" };
+                Protol_header_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_header_str[num++] = new string[] { "2", "screen address", " also the screen number" };
+                Protol_header_str[num++] = new string[] { "2", "source address", "source address" };
+                Protol_header_str[num++] = new string[] { "1", "protocal version", "protocal version" };
+                Protol_header_str[num++] = new string[] { "1", "reserved Byte", "reserved Byte" };
+                Protol_header_str[num++] = new string[] { "2", "device type", "device type" };
+                Protol_header_str[num++] = new string[] { "4", "reserved Byte", "reserved Byte" };
+                Protol_header_str[num++] = new string[] { "4", "Data field length", "Data field length" };
+                Protol_header_str_len = num;
+            }
+
+
+        }
+        public void Six_Font_Protocol_A7_06_cmd_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "更新字库动态区" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "更新字库动态区" };
+                Protol_cmd_str[num++] = new string[] { "1", "掉电是否保留", "掉电是否保留" };
+                Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域个数" };
+                Protol_cmd_str[num++] = new string[] { "N", "删除的区域ID", "删除的区域ID" };
+                Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "update font library area" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "update font library area" };
+                Protol_cmd_str[num++] = new string[] { "1", "save or not after power off", "save or not after power off" };
+                Protol_cmd_str[num++] = new string[] { "1", "delete area quantity", "delete area quantity" };
+                Protol_cmd_str[num++] = new string[] { "N", "delete area ID", "delete area ID" };
+                Protol_cmd_str[num++] = new string[] { "1", "update area quantity", "update area quantity" };
+                Prototol_CMD_len = num;
+            }
+
+        }
+        public void Six_Font_Protocol_area_data_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+            if (language == 0)
+            {
+                Protol_area_data_str[num++] = new string[] { "4", "区域数据长度", "区域数据长度" };
+                Protol_area_data_str[num++] = new string[] { "1", "区域序号", "区域序号" };
+                Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
+                Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "动态区超时时间" };
+                Protol_area_data_str[num++] = new string[] { "1", "和异步节目的关系", "和异步节目的关系" };
+                Protol_area_data_str[num++] = new string[] { "2", "关联异步节目个数", "关联异步节目个数" };
+                Protol_area_data_str[num++] = new string[] { "N", "异步节目编号", "异步节目编号" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否覆盖", "是否覆盖" };
+                Protol_area_data_str[num++] = new string[] { "4", "保留字节", "保留字节" };
+                Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
+                Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否有边框", "是否有边框" };
+                Protol_area_data_str[num++] = new string[] { "8", "保留字节", "保留字节" };
+                Protol_area_data_str[num++] = new string[] { "1", "文字风格布局模式", "文字风格布局模式" };
+                Protol_area_data_str[num++] = new string[] { "1", "行间距", "行间距" };
+                Protol_area_data_str[num++] = new string[] { "1", "行字体对齐方式", "行字体对齐方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "字间距", "字间距" };
+                Protol_area_data_str[num++] = new string[] { "6", "保留字节", "保留字节" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否自动换行", "是否自动换行" };
+                Protol_area_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "速度等级", "速度等级" };
+                Protol_area_data_str[num++] = new string[] { "1", "停留时间", "停留时间" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
+                Protol_area_data_str[num++] = new string[] { "1", "发音人", "发音人" };
+                Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
+                Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
+                Protol_area_data_str[num++] = new string[] { "1", "编码格式", "编码格式" };
+                Protol_area_data_str[num++] = new string[] { "4", "重播次数", "重播次数" };
+                Protol_area_data_str[num++] = new string[] { "4", "重默间隔", "重播间隔" };
+                Protol_area_data_str[num++] = new string[] { "1", "语音参数保留长度", "语音参数保留长度" };
+                Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "读音数据长度" };
+                Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
+                Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "显示数据长度" };
+                Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
+                Protol_area_data_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_area_data_str[num++] = new string[] { "4", "area data length", "area data length" };
+                Protol_area_data_str[num++] = new string[] { "1", "area number", "area number" };
+                Protol_area_data_str[num++] = new string[] { "1", "dynamic area running mode", "dynamic area running mode" };
+                Protol_area_data_str[num++] = new string[] { "2", "dynamic area timeout", "dynamic area timeout" };
+                Protol_area_data_str[num++] = new string[] { "1", "relation to asyn program", "relation to asyn program" };
+                Protol_area_data_str[num++] = new string[] { "2", "the related quantity to asyn program", "the related quantity to asyn program" };
+                Protol_area_data_str[num++] = new string[] { "N", "item number of asyn program", "item number of asyn program" };
+                Protol_area_data_str[num++] = new string[] { "1", "cover or not", "cover or not" };
+                Protol_area_data_str[num++] = new string[] { "4", "reserved Byte", "reserved Byte" };
+                Protol_area_data_str[num++] = new string[] { "1", "area type", "area type" };
+                Protol_area_data_str[num++] = new string[] { "2", "X coordinate", "X coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y coordinate", "Y coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area width", "Area width" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area height", "Area height" };
+                Protol_area_data_str[num++] = new string[] { "1", "with frame boarder or not", "with frame boarder or not" };
+                Protol_area_data_str[num++] = new string[] { "8", "reserved Byte", "reserved Byte" };
+                Protol_area_data_str[num++] = new string[] { "1", "Text style layout mode ", "Text style layout mode " };
+                Protol_area_data_str[num++] = new string[] { "1", "Line spacing", "Line spacing" };
+                Protol_area_data_str[num++] = new string[] { "1", "Line font alignment", "Line font alignment" };
+                Protol_area_data_str[num++] = new string[] { "1", "words space", "word space" };
+                Protol_area_data_str[num++] = new string[] { "6", "reserved Byte", "reserved Byte" };
+                Protol_area_data_str[num++] = new string[] { "1", "Whether single line display", "Whether single line display" };
+                Protol_area_data_str[num++] = new string[] { "1", "weather auto wrap lines", "weather auto wrap lines" };
+                Protol_area_data_str[num++] = new string[] { "1", "display mode", "display mode" };
+                Protol_area_data_str[num++] = new string[] { "1", "exit mode", "exit mode" };
+                Protol_area_data_str[num++] = new string[] { "1", "speed level", "speed level" };
+                Protol_area_data_str[num++] = new string[] { "1", "stay time", "stay time" };
+                Protol_area_data_str[num++] = new string[] { "1", "use audio or not", "use audio or not" };
+                Protol_area_data_str[num++] = new string[] { "1", "Pronunciation people", "Pronunciation people" };
+                Protol_area_data_str[num++] = new string[] { "1", "volume", "volume" };
+                Protol_area_data_str[num++] = new string[] { "1", "speak speed", "speak speed" };
+                Protol_area_data_str[num++] = new string[] { "1", "Coding format", "Coding format" };
+                Protol_area_data_str[num++] = new string[] { "4", "repeat times", "repeat times" };
+                Protol_area_data_str[num++] = new string[] { "4", "repeat interval", "repeat interval" };
+                Protol_area_data_str[num++] = new string[] { "1", "Speech parameter retention length", "Speech parameter retention length" };
+                Protol_area_data_str[num++] = new string[] { "4", "pronunciation data length", "pronunciation data length" };
+                Protol_area_data_str[num++] = new string[] { "N", "pronunciation data", "pronunciation data" };
+                Protol_area_data_str[num++] = new string[] { "4", "displaying data length", "displaying data length" };
+                Protol_area_data_str[num++] = new string[] { "N", "display data", "display data" };
+                Protol_area_data_str_len = num;
+            }
+
+        }
+        #endregion Six_Font_string_init
+
+        #region Font_string_init
         public void Font_Card_Protocol_header_string_init()
         {
             int num = 0;
 
-            Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
-            Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
-            Protol_header_str[num++] = new string[] { "3", "保留字节", "保留字节" };
-            Protol_header_str[num++] = new string[] { "1", "是否有条码", "是否有条码" };
-            Protol_header_str[num++] = new string[] { "N", "条码", "条码" };
-            Protol_header_str[num++] = new string[] { "1", "校验模式", "校验模式" };
-            Protol_header_str[num++] = new string[] { "1", "显示模式", "显示模式" };
-            Protol_header_str[num++] = new string[] { "1", "设备类型", "设备类型" };
-            Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
-            Protol_header_str[num++] = new string[] { "2", "数据域长度", "数据域长度" };
-            Protol_header_str_len = num;
+            if (language == 0)
+            {
+                Protol_header_str[num++] = new string[] { "2", "屏地址", "也是屏号" };
+                Protol_header_str[num++] = new string[] { "2", "源地址", "源地址" };
+                Protol_header_str[num++] = new string[] { "3", "保留字节", "保留字节" };
+                Protol_header_str[num++] = new string[] { "1", "是否有条码", "是否有条码" };
+                Protol_header_str[num++] = new string[] { "N", "条码", "条码" };
+                Protol_header_str[num++] = new string[] { "1", "校验模式", "校验模式" };
+                Protol_header_str[num++] = new string[] { "1", "显示模式", "显示模式" };
+                Protol_header_str[num++] = new string[] { "1", "设备类型", "设备类型" };
+                Protol_header_str[num++] = new string[] { "1", "协议版本号", "协议版本号" };
+                Protol_header_str[num++] = new string[] { "2", "数据域长度", "数据域长度" };
+                Protol_header_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_header_str[num++] = new string[] { "2", "screen address", " also the screen number" };
+                Protol_header_str[num++] = new string[] { "2", "source address", "source address" };
+                Protol_header_str[num++] = new string[] { "3", "reserved Byte", "reserved Byte" };
+                Protol_header_str[num++] = new string[] { "1", "bar code or not", "bar code or not" };
+                Protol_header_str[num++] = new string[] { "N", "bar code", "bar code" };
+                Protol_header_str[num++] = new string[] { "1", "verify mode", "verify mode" };
+                Protol_header_str[num++] = new string[] { "1", "display mode", "display mode" };
+                Protol_header_str[num++] = new string[] { "1", "device type", "device type" };
+                Protol_header_str[num++] = new string[] { "1", "protocol version", "protocol version" };
+                Protol_header_str[num++] = new string[] { "2", "Data field length", "Data field length" };
+                Protol_header_str_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A1_00_cmd_string_init()
@@ -975,54 +1389,113 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "格式化命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "格式化命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "格式化命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "格式化命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "formatting order" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "formatting order" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A1_05_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "开始写文件" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "开始写文件" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "文件覆盖方式", "文件覆盖方式" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "开始写文件" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "开始写文件" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "文件覆盖方式", "文件覆盖方式" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "start write file" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "start write file" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "File overwrite mode", "File overwrite mode" };
+                Protol_cmd_str[num++] = new string[] { "4", "file name", "file name" };
+                Protol_cmd_str[num++] = new string[] { "4", "file length", "file length" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A1_06_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "写文件" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "写文件" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
-            Protol_cmd_str[num++] = new string[] { "1", "是否是最后一包", "是否是最后一包" };
-            Protol_cmd_str[num++] = new string[] { "2", "包号", "包号" };
-            Protol_cmd_str[num++] = new string[] { "2", "包长", "包长" };
-            Protol_cmd_str[num++] = new string[] { "4", "起始位置", "起始位置" };
 
-            Protol_cmd_str[num++] = new string[] { "1", "文件类型", "文件类型" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
-            Protol_cmd_str[num++] = new string[] { "1", "节目优先级", "节目优先级" };
-            Protol_cmd_str[num++] = new string[] { "2", "节目播放方式", "节目播放方式" };
-            Protol_cmd_str[num++] = new string[] { "1", "节目重复播放次数", "节目重复播放次数" };
-            Protol_cmd_str[num++] = new string[] { "8", "节目生命周期", "节目生命周期" };
-            Protol_cmd_str[num++] = new string[] { "1", "节目的星期属性", "节目的星期属性" };
-            Protol_cmd_str[num++] = new string[] { "1", "定时节目位", "定时节目位" };
-            Protol_cmd_str[num++] = new string[] { "1", "节目播放时段组数", "节目播放时段组数" };
-            Protol_cmd_str[num++] = new string[] { "6", "播放组", "播放组" };
-            Protol_cmd_str[num++] = new string[] { "1", "区域个数", "区域个数" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "写文件" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "写文件" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Protol_cmd_str[num++] = new string[] { "1", "是否是最后一包", "是否是最后一包" };
+                Protol_cmd_str[num++] = new string[] { "2", "包号", "包号" };
+                Protol_cmd_str[num++] = new string[] { "2", "包长", "包长" };
+                Protol_cmd_str[num++] = new string[] { "4", "起始位置", "起始位置" };
+
+                Protol_cmd_str[num++] = new string[] { "1", "文件类型", "文件类型" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+                Protol_cmd_str[num++] = new string[] { "1", "节目优先级", "节目优先级" };
+                Protol_cmd_str[num++] = new string[] { "2", "节目播放方式", "节目播放方式" };
+                Protol_cmd_str[num++] = new string[] { "1", "节目重复播放次数", "节目重复播放次数" };
+                Protol_cmd_str[num++] = new string[] { "8", "节目生命周期", "节目生命周期" };
+                Protol_cmd_str[num++] = new string[] { "1", "节目的星期属性", "节目的星期属性" };
+                Protol_cmd_str[num++] = new string[] { "1", "定时节目位", "定时节目位" };
+                Protol_cmd_str[num++] = new string[] { "1", "节目播放时段组数", "节目播放时段组数" };
+                Protol_cmd_str[num++] = new string[] { "6", "播放组", "播放组" };
+                Protol_cmd_str[num++] = new string[] { "1", "区域个数", "区域个数" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "write file" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "write file" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "4", "file name", "file name" };
+                Protol_cmd_str[num++] = new string[] { "1", " the last package or not", " the last package or not" };
+                Protol_cmd_str[num++] = new string[] { "2", "pocket number", "pocket number" };
+                Protol_cmd_str[num++] = new string[] { "2", "pocket length", "pocket length" };
+                Protol_cmd_str[num++] = new string[] { "4", "The starting position", "The starting position" };
+
+                Protol_cmd_str[num++] = new string[] { "1", "file type", "file type" };
+                Protol_cmd_str[num++] = new string[] { "4", "file name", "file name" };
+                Protol_cmd_str[num++] = new string[] { "4", "file length", "file length" };
+                Protol_cmd_str[num++] = new string[] { "1", "Program priority", "Program priority" };
+                Protol_cmd_str[num++] = new string[] { "2", "Program broadcast mode", "Program broadcast mode" };
+                Protol_cmd_str[num++] = new string[] { "1", "program repeat times", "program repeat times" };
+                Protol_cmd_str[num++] = new string[] { "8", "Program life cycle", "Program life cycle" };
+                Protol_cmd_str[num++] = new string[] { "1", "program property", "program property" };
+                Protol_cmd_str[num++] = new string[] { "1", "timed program", "timed program" };
+                Protol_cmd_str[num++] = new string[] { "1", "display group number", "display group number" };
+                Protol_cmd_str[num++] = new string[] { "6", "display group", "display group" };
+                Protol_cmd_str[num++] = new string[] { "1", "area quantity", "area quantity" };
+            }
+
         }
 
         public void Font_Card_Protocol_A2_00_cmd_string_init()
@@ -1030,35 +1503,76 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "ping命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "ping命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "ping命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "ping命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "ping order" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "ping order" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A2_01_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "系统复位命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "系统复位命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "系统复位命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "系统复位命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "System reset command" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "System reset command" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A1_01_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "删除文件命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "删除文件命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "2", "删除文件个数", "删除文件个数" };
-            Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "删除文件命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "删除文件命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "2", "删除文件个数", "删除文件个数" };
+                Protol_cmd_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "Delete file command" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "Delete file command" };
+                Protol_cmd_str[num++] = new string[] { "1", "Command processing status", "Command processing status" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "2", "delete file quantity", "delete file quantity" };
+                Protol_cmd_str[num++] = new string[] { "4", "file name", "file name" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A1_02_cmd_string_init()
@@ -1066,22 +1580,46 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "控制器状态命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "控制器状态命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器开关机状态", "控制器开关机状态" };
-            Protol_cmd_str[num++] = new string[] { "1", "亮度", "亮度" };
-            Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
-            Protol_cmd_str[num++] = new string[] { "1", "节目个数", "节目个数" };
-            Protol_cmd_str[num++] = new string[] { "4", "当前播放节目名", "当前播放节目名" };
-            Protol_cmd_str[num++] = new string[] { "1", "特殊动态区标志", "特殊动态区标志" };
-            Protol_cmd_str[num++] = new string[] { "1", "特殊动态区页数", "特殊动态区页数" };
-            Protol_cmd_str[num++] = new string[] { "1", "动态区个数", "动态区个数" };
-            Protol_cmd_str[num++] = new string[] { "N", "动态区ID", "动态区ID" };
-            Protol_cmd_str[num++] = new string[] { "16", "条码", "条码" };
-            Protol_cmd_str[num++] = new string[] { "12", "网络ID", "网络ID" };
-            Prototol_CMD_len = num;
+
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "控制器状态命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "控制器状态命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令处理状态", "命令处理状态" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器开关机状态", "控制器开关机状态" };
+                Protol_cmd_str[num++] = new string[] { "1", "亮度", "亮度" };
+                Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
+                Protol_cmd_str[num++] = new string[] { "1", "节目个数", "节目个数" };
+                Protol_cmd_str[num++] = new string[] { "4", "当前播放节目名", "当前播放节目名" };
+                Protol_cmd_str[num++] = new string[] { "1", "特殊动态区标志", "特殊动态区标志" };
+                Protol_cmd_str[num++] = new string[] { "1", "特殊动态区页数", "特殊动态区页数" };
+                Protol_cmd_str[num++] = new string[] { "1", "动态区个数", "动态区个数" };
+                Protol_cmd_str[num++] = new string[] { "N", "动态区ID", "动态区ID" };
+                Protol_cmd_str[num++] = new string[] { "16", "条码", "条码" };
+                Protol_cmd_str[num++] = new string[] { "12", "网络ID", "网络ID" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "control status order" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "control status order" };
+                Protol_cmd_str[num++] = new string[] { "1", "Command processing status", "Command processing status" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "the state of control", "power on/off" };
+                Protol_cmd_str[num++] = new string[] { "1", "lightness", "lightness" };
+                Protol_cmd_str[num++] = new string[] { "8", "time of control", "time of control(BCD)" };
+                Protol_cmd_str[num++] = new string[] { "1", "number of programs", "number of programs" };
+                Protol_cmd_str[num++] = new string[] { "4", "displaying program'name", "displaying program'name" };
+                Protol_cmd_str[num++] = new string[] { "1", "flag of special dynamic", "flag of special dynamic" };
+                Protol_cmd_str[num++] = new string[] { "1", "pages of special dynamic", "pages of special dynamic" };
+                Protol_cmd_str[num++] = new string[] { "1", "number of dynamics", "number of dynamics" };
+                Protol_cmd_str[num++] = new string[] { "N", "dynamic area ID", "dynamic area ID" };
+                Protol_cmd_str[num++] = new string[] { "16", "bar code", "bar code" };
+                Protol_cmd_str[num++] = new string[] { "12", "Network ID", "Network ID" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A3_00_cmd_string_init()
@@ -1089,26 +1627,54 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "强制开关机命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "强制开关机命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "开关机状态", "0x01开机  0x02关机" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "强制开关机命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "强制开关机命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "开关机状态", "0x01开机  0x02关机" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "Mandatory switch machine command" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "Mandatory switch machine command" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "power on/off status", "0x01 power on  0x02 power off" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A3_01_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "定时开关机" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "定时开关机" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "定时器组数", "定时器组数" };
-            Protol_cmd_str[num++] = new string[] { "2", "开机时间", "开机时间（BCD码）" };
-            Protol_cmd_str[num++] = new string[] { "2", "关机时间", "关机时间（BCD码）" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "定时开关机" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "定时开关机" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "定时器组数", "定时器组数" };
+                Protol_cmd_str[num++] = new string[] { "2", "开机时间", "开机时间（BCD码）" };
+                Protol_cmd_str[num++] = new string[] { "2", "关机时间", "关机时间（BCD码）" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "timing power on/off" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "timing power on/off" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "Number of timer sets", "Number of timer sets" };
+                Protol_cmd_str[num++] = new string[] { "2", "time of power on ", "time of power on（BCD）" };
+                Protol_cmd_str[num++] = new string[] { "2", "time of power off", "time of power off（BCD）" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A3_04_cmd_string_init()
@@ -1116,25 +1682,52 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "锁定/解锁节目" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "锁定/解锁节目" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "锁定状态保存方式", "0x00掉电不保存  0x01掉电保存" };
-            Protol_cmd_str[num++] = new string[] { "1", "锁定状态", "0x00解锁  0x01锁定" };
-            Protol_cmd_str[num++] = new string[] { "4", "节目名", "节目名" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "锁定/解锁节目" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "锁定/解锁节目" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "锁定状态保存方式", "0x00掉电不保存  0x01掉电保存" };
+                Protol_cmd_str[num++] = new string[] { "1", "锁定状态", "0x00解锁  0x01锁定" };
+                Protol_cmd_str[num++] = new string[] { "4", "节目名", "节目名" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "Lock/unlock programs" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "Lock/unlock programs" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "lock status save mode", "0x00:don't save if power off  0x01:save if power off" };
+                Protol_cmd_str[num++] = new string[] { "1", "locked or not", "0x00:unlock  0x01:lock" };
+                Protol_cmd_str[num++] = new string[] { "4", "program name", "program name" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A3_08_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "取消定时开关机命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "取消定时开关机命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "取消定时开关机命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "取消定时开关机命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "cancel timing power on/off order" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "cancel timing power on/off order" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A3_10_cmd_string_init()
@@ -1142,11 +1735,23 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "清屏命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "清屏命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "清屏命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "清屏命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制器是否回复", "控制器是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "clear screen command" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "clear screen command" };
+                Protol_cmd_str[num++] = new string[] { "1", "Whether the controller reply", "Whether the controller reply" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_A3_06_cmd_string_init()
@@ -1154,26 +1759,54 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "动态区更新命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "动态区更新命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域" };
-            Protol_cmd_str[num++] = new string[] { "N", "删除区域ID", "删除区域ID" };
-            Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "动态区更新命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "动态区更新命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "1", "删除区域个数", "删除区域" };
+                Protol_cmd_str[num++] = new string[] { "N", "删除区域ID", "删除区域ID" };
+                Protol_cmd_str[num++] = new string[] { "1", "更新区域个数", "更新区域个数" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "update the dynamic " };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "update the dynamic" };
+                Protol_cmd_str[num++] = new string[] { "1", "reply or not", "reply or not" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "1", "delete area quantity", "delete area" };
+                Protol_cmd_str[num++] = new string[] { "N", "delete area ID", "delete area ID" };
+                Protol_cmd_str[num++] = new string[] { "1", "update area quantity", "update area quantity" };
+                Prototol_CMD_len = num;
+            }
+
         }
         public void Font_Card_Protocol_A2_03_cmd_string_init()
         {
             int num = 0;
 
             num = 0;
-            Protol_cmd_str[num++] = new string[] { "1", "命令分组", "校时命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "命令编号", "校时命令" };
-            Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
-            Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
-            Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
-            Prototol_CMD_len = num;
+            if (language == 0)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "命令分组", "校时命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "命令编号", "校时命令" };
+                Protol_cmd_str[num++] = new string[] { "1", "控制是否回复", "控制是否回复" };
+                Protol_cmd_str[num++] = new string[] { "2", "保留字节", "保留字节" };
+                Protol_cmd_str[num++] = new string[] { "8", "控制器时间", "控制器时间" };
+                Prototol_CMD_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_str[num++] = new string[] { "1", "The command group", "timing order" };
+                Protol_cmd_str[num++] = new string[] { "1", "command number", "timing order" };
+                Protol_cmd_str[num++] = new string[] { "1", "reply or not", "reply or not" };
+                Protol_cmd_str[num++] = new string[] { "2", "reserved Byte", "reserved Byte" };
+                Protol_cmd_str[num++] = new string[] { "8", "time of control", "time of control" };
+                Prototol_CMD_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_area_data_string_init()
@@ -1181,35 +1814,71 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_area_data_str[num++] = new string[] { "2", "区域数据长度", "区域数据长度" };
-            Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
-            Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
-            Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
-            Protol_area_data_str[num++] = new string[] { "1", "动态区编号", "动态区编号" };
-            Protol_area_data_str[num++] = new string[] { "1", "行间距", "行间距" };
-            Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
-            Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "超时时间" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
-            Protol_area_data_str[num++] = new string[] { "1", "发音人/发音次数", "Bit0-Bit3发音人，Bit4-Bit7播放次数" };
-            Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
-            Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
-            Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "数据长度" };
-            Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
-            Protol_area_data_str[num++] = new string[] { "1", "扩展位个数", "扩展位个数" };
-            Protol_area_data_str[num++] = new string[] { "1", "扩展位保留位", "扩展位保留位" };
-            Protol_area_data_str[num++] = new string[] { "1", "排版方式", "排版方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "字体对齐", "字体对齐方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
-            Protol_area_data_str[num++] = new string[] { "1", "是否自动换行", "是否自动换行" };
-            Protol_area_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
-            Protol_area_data_str[num++] = new string[] { "1", "显示速度", "显示速度" };
-            Protol_area_data_str[num++] = new string[] { "1", "停留时间", "停留时间" };
-            Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "数据长度" };
-            Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
-            Protol_area_data_str_len = num;
+            if (language == 0)
+            {
+                Protol_area_data_str[num++] = new string[] { "2", "区域数据长度", "区域数据长度" };
+                Protol_area_data_str[num++] = new string[] { "1", "区域类型", "区域类型" };
+                Protol_area_data_str[num++] = new string[] { "2", "X坐标", "X坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y坐标", "Y坐标" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域宽度", "区域宽度" };
+                Protol_area_data_str[num++] = new string[] { "2", "区域高度", "区域高度" };
+                Protol_area_data_str[num++] = new string[] { "1", "动态区编号", "动态区编号" };
+                Protol_area_data_str[num++] = new string[] { "1", "行间距", "行间距" };
+                Protol_area_data_str[num++] = new string[] { "1", "动态区运行模式", "动态区运行模式" };
+                Protol_area_data_str[num++] = new string[] { "2", "动态区超时时间", "超时时间" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否使能语音", "是否使能语音" };
+                Protol_area_data_str[num++] = new string[] { "1", "发音人/发音次数", "Bit0-Bit3发音人，Bit4-Bit7播放次数" };
+                Protol_area_data_str[num++] = new string[] { "1", "音量", "音量" };
+                Protol_area_data_str[num++] = new string[] { "1", "语速", "语速" };
+                Protol_area_data_str[num++] = new string[] { "4", "读音数据长度", "数据长度" };
+                Protol_area_data_str[num++] = new string[] { "N", "读音数据", "读音数据" };
+                Protol_area_data_str[num++] = new string[] { "1", "扩展位个数", "扩展位个数" };
+                Protol_area_data_str[num++] = new string[] { "1", "扩展位保留位", "扩展位保留位" };
+                Protol_area_data_str[num++] = new string[] { "1", "排版方式", "排版方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "字体对齐", "字体对齐方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否单行显示", "是否单行显示" };
+                Protol_area_data_str[num++] = new string[] { "1", "是否自动换行", "是否自动换行" };
+                Protol_area_data_str[num++] = new string[] { "1", "显示方式", "显示方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "退出方式", "退出方式" };
+                Protol_area_data_str[num++] = new string[] { "1", "显示速度", "显示速度" };
+                Protol_area_data_str[num++] = new string[] { "1", "停留时间", "停留时间" };
+                Protol_area_data_str[num++] = new string[] { "4", "显示数据长度", "数据长度" };
+                Protol_area_data_str[num++] = new string[] { "N", "显示数据", "显示数据" };
+                Protol_area_data_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_area_data_str[num++] = new string[] { "2", "area data length", "area data length" };
+                Protol_area_data_str[num++] = new string[] { "1", "area type", "area type" };
+                Protol_area_data_str[num++] = new string[] { "2", "X coordinate", "X coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Y coordinate", "Y coordinate" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area width", "Area width" };
+                Protol_area_data_str[num++] = new string[] { "2", "Area height", "Area height" };
+                Protol_area_data_str[num++] = new string[] { "1", "dynamic area items", "dynamic area items" };
+                Protol_area_data_str[num++] = new string[] { "1", "line space", "line space" };
+                Protol_area_data_str[num++] = new string[] { "1", "dynamic area running mode", "dynamic area running mode" };
+                Protol_area_data_str[num++] = new string[] { "2", "dynamic area timeout", "overtime time" };
+                Protol_area_data_str[num++] = new string[] { "1", "use audio or not", "use audio or not" };
+                Protol_area_data_str[num++] = new string[] { "1", "Pronunciation people/Number of pronunciations", "Bit0-Bit3Pronunciation people，Bit4-Bit7 Number of plays" };
+                Protol_area_data_str[num++] = new string[] { "1", "volume", "volume" };
+                Protol_area_data_str[num++] = new string[] { "1", "speak speed", "speak speed" };
+                Protol_area_data_str[num++] = new string[] { "4", "pronunciation data length", "data length" };
+                Protol_area_data_str[num++] = new string[] { "N", "pronunciation data", "pronunciation data" };
+                Protol_area_data_str[num++] = new string[] { "1", "extension bits quantity", "extension bits quantity" };
+                Protol_area_data_str[num++] = new string[] { "1", "reserved", "reserved" };
+                Protol_area_data_str[num++] = new string[] { "1", "Typography", "Typography" };
+                Protol_area_data_str[num++] = new string[] { "1", "Font alignment", "the way of Font alignment" };
+                Protol_area_data_str[num++] = new string[] { "1", "single line to display", "single line to display" };
+                Protol_area_data_str[num++] = new string[] { "1", "Whether to wrap", "Whether to wrap" };
+                Protol_area_data_str[num++] = new string[] { "1", "display mode", "display mode" };
+                Protol_area_data_str[num++] = new string[] { "1", "exit mode", "exit mode" };
+                Protol_area_data_str[num++] = new string[] { "1", "display speed", "display speed" };
+                Protol_area_data_str[num++] = new string[] { "1", "stay time", "stay time" };
+                Protol_area_data_str[num++] = new string[] { "4", "display data length", "data length" };
+                Protol_area_data_str[num++] = new string[] { "N", "display data", "display data" };
+                Protol_area_data_str_len = num;
+            }
+
         }
 
         public void Font_Card_Protocol_CRC_string_init()
@@ -1217,11 +1886,20 @@ namespace Onbon_Protocol_analysis
             int num = 0;
 
             num = 0;
-            Protol_crc_str[num++] = new string[] { "2", "CRC校验", "CRC校验" };
-            Protol_crc_str_len = num;
+            if (language == 0)
+            {
+                Protol_crc_str[num++] = new string[] { "2", "CRC校验", "CRC校验" };
+                Protol_crc_str_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_crc_str[num++] = new string[] { "2", "CRC check", "CRC check" };
+                Protol_crc_str_len = num;
+            }
+
         }
 
-#endregion Font_string_init
+        #endregion Font_string_init
 
         public static int crc16(byte[] data, UInt32 size)
         {
@@ -1356,7 +2034,16 @@ namespace Onbon_Protocol_analysis
                         }
                         else
                         {
-                            m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            if (language == 0)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            }
+                            if (language == 1)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC error";
+                            }
+
+                            
                         }
                     }
 
@@ -1836,7 +2523,14 @@ namespace Onbon_Protocol_analysis
                         }
                         else
                         {
-                            m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            if (language == 0)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            }
+                            if (language == 1)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC error";
+                            }
                         }
                     }
 
@@ -2260,7 +2954,7 @@ namespace Onbon_Protocol_analysis
                 m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
                 m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
                 m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
-                if (m_oonbon_Protocol.Prototol_Header[num].para == "条码")
+                if (m_oonbon_Protocol.Prototol_Header[num].para == Protol_header_str[4][1])
                 {
                     m_oonbon_Protocol.Prototol_Header[num].Leng = 16;
                 }
@@ -2276,7 +2970,7 @@ namespace Onbon_Protocol_analysis
             for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
             {
 
-                if (m_oonbon_Protocol.Prototol_Header[num].para == "协议版本号")
+                if (m_oonbon_Protocol.Prototol_Header[num].para == Protol_header_str[8][1])
                 {
                     m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
                     m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
@@ -2287,7 +2981,7 @@ namespace Onbon_Protocol_analysis
                     }
                     continue;
                 }
-                if (m_oonbon_Protocol.Prototol_Header[num].para == "是否有条码")
+                if (m_oonbon_Protocol.Prototol_Header[num].para == Protol_header_str[3][1])
                 {
                     m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
                     m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
@@ -2442,7 +3136,14 @@ namespace Onbon_Protocol_analysis
                         }
                         else
                         {
-                            m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            if (language == 0)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                            }
+                            if (language == 1)
+                            {
+                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC error";
+                            }
                         }
                     }
 
@@ -3083,27 +3784,35 @@ namespace Onbon_Protocol_analysis
                     CProtolPart ProtolPart = new CProtolPart();
                     ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
 
-                    if ((ProtolPart.para == "Y坐标") || (ProtolPart.para == "区域高度"))
+                    if ((ProtolPart.para == Protol_area_data_str[3][1]) || (ProtolPart.para == Protol_area_data_str[5][1]))
                     {
                         ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
                         ProtolPart.bEnable = 1;
                         ProtolPart.byteMemValue[0] = myarray[i++];
                         ProtolPart.byteMemValue[1] = myarray[i++];
                         num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) |((ProtolPart.byteMemValue[0] & 0xff) << 0));
-                        ProtolPart.describe = ProtolPart.describe + "："+ num3.ToString()+"(像素为单位)";
+                        if (language == 0)
+                        {
+                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(像素为单位)";
+                        }
+                        if (language == 1)
+                        {
+                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(unit: pixel)";
+                        }
+                        
                         num1++;
 
-                        if (ProtolPart.para == "Y坐标")
+                        if (ProtolPart.para == Protol_area_data_str[3][1])
                         {
                             region_par.Y = num3;
                         }
-                        if (ProtolPart.para == "区域高度")
+                        if (ProtolPart.para == Protol_area_data_str[5][1])
                         {
                             region_par.height = num3;
                         }
                         continue;
                     }
-                    if ((ProtolPart.para == "X坐标") || (ProtolPart.para == "区域宽度"))
+                    if ((ProtolPart.para == Protol_area_data_str[2][1]) || (ProtolPart.para == Protol_area_data_str[4][1]))
                     {
                         ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
                         ProtolPart.bEnable = 1;
@@ -3112,12 +3821,20 @@ namespace Onbon_Protocol_analysis
                         if ((ProtolPart.byteMemValue[1] >> 7) == 1)
                         {
                             num3 = (UInt32)((((ProtolPart.byteMemValue[1]&(~0x80)) & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
-                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(像素为单位)";
-                            if (ProtolPart.para == "X坐标")
+                            if (language == 0)
+                            {
+                                ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(像素为单位)";
+                            }
+                            if (language == 1)
+                            {
+                                ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(unit: pixel)";
+                            }
+                            
+                            if (ProtolPart.para == Protol_area_data_str[2][1])
                             {
                                 region_par.X = num3;
                             }
-                            if (ProtolPart.para == "区域宽度")
+                            if (ProtolPart.para == Protol_area_data_str[4][1])
                             {
                                 region_par.width = num3;
                             }
@@ -3125,13 +3842,21 @@ namespace Onbon_Protocol_analysis
                         else
                         {
                             num3 = (UInt32)(((ProtolPart.byteMemValue[1] & 0xff) << 8) | ((ProtolPart.byteMemValue[0] & 0xff) << 0));
-                            ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(字节为单位)";
+                            if (language == 0)
+                            {
+                                ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(字节为单位)";
+                            }
+                            if (language == 1)
+                            {
+                                ProtolPart.describe = ProtolPart.describe + "：" + num3.ToString() + "(unit: byte(8 pixels))";
+                            }
+                            
 
-                            if (ProtolPart.para == "X坐标")
+                            if (ProtolPart.para == Protol_area_data_str[2][1])
                             {
                                 region_par.X = num3 * 8;
                             }
-                            if (ProtolPart.para == "区域宽度")
+                            if (ProtolPart.para == Protol_area_data_str[4][1])
                             {
                                 region_par.width = num3 * 8;
                             }
@@ -3142,7 +3867,7 @@ namespace Onbon_Protocol_analysis
                         continue;
                     }
 
-                    if (ProtolPart.para == "动态区编号")
+                    if (ProtolPart.para == Protol_area_data_str[6][1])
                     {
                         ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
                         ProtolPart.bEnable = 1;
@@ -3152,7 +3877,7 @@ namespace Onbon_Protocol_analysis
                         continue;
                     }
 
-                    if (ProtolPart.para == "显示数据长度")
+                    if (ProtolPart.para == Protol_area_data_str[26][1])
                     {
                         /*显示数据长度*/
                         ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
@@ -3202,7 +3927,7 @@ namespace Onbon_Protocol_analysis
                         num1++;
                     }
 
-                    if (ProtolPart.para == "扩展位个数")
+                    if (ProtolPart.para == Protol_area_data_str[16][1])
                     {
                         /*判断扩展位个数*/
                         ProtolPart.byteMemValue[0] = myarray[i++];
@@ -3232,7 +3957,7 @@ namespace Onbon_Protocol_analysis
 
                         }
                     }
-                    if (ProtolPart.para == "是否使能语音")
+                    if (ProtolPart.para == Protol_area_data_str[10][1])
                     {
                         /*是否使能语音*/
                         ProtolPart.byteMemValue[0] = myarray[i++];
@@ -3404,7 +4129,7 @@ namespace Onbon_Protocol_analysis
             /*命令数据*/
             for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
             {
-                if (m_oonbon_Protocol.Prototol_CMD[num].para == "删除区域个数")
+                if (m_oonbon_Protocol.Prototol_CMD[num].para == Protol_cmd_str[4][1])
                 {
                     /*删除区域个数*/
                     num2 = 0;
@@ -3436,7 +4161,7 @@ namespace Onbon_Protocol_analysis
                         m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
                         m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
                     }
-                    if (m_oonbon_Protocol.Prototol_CMD[num].para == "更新区域个数")
+                    if (m_oonbon_Protocol.Prototol_CMD[num].para == Protol_cmd_str[6][1])
                     {
                         m_oonbon_Protocol.Area_Num = m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0];
                     }
