@@ -32,6 +32,19 @@ namespace Onbon_Protocol_analysis
             LED_type_comboBox.SelectedIndex = 0;
             data_preview_comboBox.SelectedIndex = 0;
             data_after_transform_richTextBox.ReadOnly = true;
+            if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "zh-CN")
+            {
+                oProtocol_Analysis.language = 0;
+                UI_language = 0;
+            }
+            else
+            {
+                oProtocol_Analysis.language = 1;
+                UI_language = 1;
+            }
+            
+
+            UpDataMainFormUILanguage();
 #if DEBUG
             this.Width = 1307;
 #else
@@ -2976,7 +2989,14 @@ namespace Onbon_Protocol_analysis
                     m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
                     if (m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] != 0x02)
                     {
-                        MessageBox.Show("协议版本号不是0x02，不是字库卡协议数据，请重选协议类型");
+                        if (language == 0)
+                        {
+                            MessageBox.Show("协议版本号不是0x02，不是字库卡协议数据，请重选协议类型");
+                        }
+                        if (language == 1)
+                        {
+                            MessageBox.Show("The protocol version number is not 0x02, it is not the protocol data of the library card. Please re select the protocol type");
+                        }
                         return 1;
                     }
                     continue;
@@ -3105,7 +3125,14 @@ namespace Onbon_Protocol_analysis
             }
             if (flg == 1)
             {
-                MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                if (language == 0)
+                {
+                    MessageBox.Show("目前版本不支持" + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                }
+                if (language == 1)
+                {
+                    MessageBox.Show("The current version does not support " + myarray[i].ToString("X2") + " " + myarray[i + 1].ToString("X2"));
+                }
                 return 1;
             }
             else
@@ -3942,7 +3969,14 @@ namespace Onbon_Protocol_analysis
                         {
                             if (ProtolPart.byteMemValue[0] > 1)//扩展位大于1
                             {
-                                MessageBox.Show("目前版本不支持扩展位大于1的情况");
+                                if (language == 0)
+                                {
+                                    MessageBox.Show("目前版本不支持扩展位大于1的情况");
+                                }
+                                if (language == 1)
+                                {
+                                    MessageBox.Show("The current version does not support the case where the extension is greater than 1");
+                                }
                                 return 0;
                             }
                             else
@@ -3970,7 +4004,14 @@ namespace Onbon_Protocol_analysis
                         }
                         if ((ProtolPart.byteMemValue[0] != 1)&&(ProtolPart.byteMemValue[0] != 2))
                         {
-                            MessageBox.Show("是否使能语音字节只能为0、1、2");
+                            if (language == 0)
+                            {
+                                MessageBox.Show("是否使能语音字节只能为0、1、2");
+                            }
+                            if (language == 1)
+                            {
+                                MessageBox.Show("Enable voice byte can only be 0, 1, 2");
+                            }
                             return 0;
                         }
                         if (ProtolPart.byteMemValue[0] == 1)
