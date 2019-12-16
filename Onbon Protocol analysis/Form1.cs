@@ -3058,6 +3058,8 @@ namespace Onbon_Protocol_analysis
                             break;
                         case 0x06://写文件
                             Font_Card_Protocol_A1_06_cmd_string_init();
+                            Font_Card_Protocol_area_data_string_init();
+                            Protol_area_data_str[0][0] = "4";//特殊处理，发送节目时区域数据长度是4个字节，动态区是2个字节
                             i = Font_Card_A1_06_Protocol(myarray, i);
                             break;
                         default:
