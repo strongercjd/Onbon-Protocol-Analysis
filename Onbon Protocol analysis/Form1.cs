@@ -173,6 +173,7 @@ namespace Onbon_Protocol_analysis
                 }
             }
 
+            
             if (m_oonbon_Protocol.Prototol_CMD != null)
             {
                 ListViewGroup group_cmd = new ListViewGroup();  //创建命令分组
@@ -415,8 +416,61 @@ namespace Onbon_Protocol_analysis
                         }
                     }
                 }
+
             }
-            
+
+            if (m_oonbon_Protocol.Prototol_File_CRC != null)
+            {
+                ListViewGroup File_CRC = new ListViewGroup();  //创建命令分组
+                if (UI_language == 0)
+                {
+                    File_CRC.Header = "文件CRC校验";  //设置组的标题。
+                }
+                if (UI_language == 1)
+                {
+                    File_CRC.Header = "File CRC check";  //设置组的标题。
+                }
+
+                File_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                this.data_listView.Groups.Add(File_CRC);    //把命令分组添加到listview中
+                if (m_oonbon_Protocol.Prototol_File_CRC.bEnable == 1)
+                {
+                    listView_to_myarray[listView_row].myarray_start = i;
+
+                    data = "";
+                    Protocol_data = new ListViewItem();
+                    Protocol_data.Group = File_CRC;
+                    Protocol_data.Text = m_oonbon_Protocol.Prototol_File_CRC.para;
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_File_CRC.Leng; num1++)
+                    {
+                        data += m_oonbon_Protocol.Prototol_File_CRC.byteMemValue[m_oonbon_Protocol.Prototol_File_CRC.Leng - num1 - 1].ToString("X2");
+                        i++;
+                    }
+                    Protocol_data.SubItems.Add(data);
+                    if (UI_language == 0)
+                    {
+                        if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC校验错误")
+                        {
+                            Protocol_data.ForeColor = Color.Red;
+                        }
+                    }
+                    if (UI_language == 1)
+                    {
+                        if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC error")
+                        {
+                            Protocol_data.ForeColor = Color.Red;
+                        }
+                    }
+
+                    Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_File_CRC.describe);
+                    data_listView.Items.Add(Protocol_data);
+
+                    listView_to_myarray[listView_row].myarray_end = i;
+                    listView_row++;
+                }
+            }
+
+
 
 
             if (m_oonbon_Protocol.Prototol_CRC != null)
@@ -972,7 +1026,9 @@ namespace Onbon_Protocol_analysis
 			
 			public CSixImagePrototolAreaPart[] SixImage_Prototol_area_data;
 			public byte[] Disply_Data;
-			
+
+            public CProtolPart Prototol_File_CRC;
+
             public CProtolPart Prototol_CRC;
         }
         public Conbon_Protocol m_oonbon_Protocol = new Conbon_Protocol();
@@ -1011,6 +1067,8 @@ namespace Onbon_Protocol_analysis
         int Protol_Page_data_str_len;
         string[][] Protol_crc_str = new string[100][];
         int Protol_crc_str_len;
+        string[][] Protol_cmd_filecrc_str = new string[100][];
+        int Prototol_CMD_filecrc_len;
 
         public byte[] myarray;
         public byte[] trsf_flg;
@@ -1507,6 +1565,28 @@ namespace Onbon_Protocol_analysis
                 Protol_cmd_str[num++] = new string[] { "1", "display group number", "display group number" };
                 Protol_cmd_str[num++] = new string[] { "6", "display group", "display group" };
                 Protol_cmd_str[num++] = new string[] { "1", "area quantity", "area quantity" };
+                Prototol_CMD_len = num;
+            }
+
+        }
+
+        public void Font_Card_Protocol_A1_06_cmd_filecrc_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+
+            if (language == 0)
+            {
+                Protol_cmd_filecrc_str[num++] = new string[] { "2", "文件校验", "文件校验" };
+
+                Prototol_CMD_filecrc_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_cmd_filecrc_str[num++] = new string[] { "2", "File CRC", "File CRC" };
+
+                Prototol_CMD_filecrc_len = num;
             }
 
         }
@@ -3059,6 +3139,7 @@ namespace Onbon_Protocol_analysis
                         case 0x06://写文件
                             Font_Card_Protocol_A1_06_cmd_string_init();
                             Font_Card_Protocol_area_data_string_init();
+                            Font_Card_Protocol_A1_06_cmd_filecrc_string_init();
                             Protol_area_data_str[0][0] = "4";//特殊处理，发送节目时区域数据长度是4个字节，动态区是2个字节
                             i = Font_Card_A1_06_Protocol(myarray, i);
                             break;
@@ -3508,7 +3589,8 @@ namespace Onbon_Protocol_analysis
         {
             UInt32 num, num1, num2, num3;
             string data_str;
-            int flg = 0;
+            int File_CRC_flg = 0;
+            byte[] file_crc_myarray;
 
             num = 0;
             num1 = 0;
@@ -3530,6 +3612,24 @@ namespace Onbon_Protocol_analysis
             /*命令数据*/
             for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length;)
             {
+                if (m_oonbon_Protocol.Prototol_CMD[num].para == "是否是最后一包")
+                {
+               
+                    m_oonbon_Protocol.Prototol_CMD[num].bEnable = 1;
+                    m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] = myarray[i++];
+
+                    /*只有最后一包数据才会有文件校验*/
+                    if (m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] == 1)
+                    {
+                        File_CRC_flg = 1;
+                    }
+                    else
+                    {
+                        File_CRC_flg = 0;
+                    }
+                    num++;
+                    continue;
+                }
                 if (m_oonbon_Protocol.Prototol_CMD[num].para == "节目播放时段组数")
                 {
                     /*节目播放时段组数*/
@@ -3607,6 +3707,33 @@ namespace Onbon_Protocol_analysis
             }
 
             i = Font_Card_Area_Data_Protocol(myarray, i);
+            if (File_CRC_flg == 1)
+            {
+                /*文件校验*/
+                m_oonbon_Protocol.Prototol_File_CRC = new CProtolPart();
+                m_oonbon_Protocol.Prototol_File_CRC.para = Protol_cmd_filecrc_str[0][1];
+                m_oonbon_Protocol.Prototol_File_CRC.Leng = Convert.ToUInt32(Protol_cmd_filecrc_str[0][0]);
+                m_oonbon_Protocol.Prototol_File_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_File_CRC.Leng];
+                m_oonbon_Protocol.Prototol_File_CRC.describe = Protol_cmd_filecrc_str[0][2];
+                m_oonbon_Protocol.Prototol_File_CRC.bEnable = 1;
+
+
+                if (language == 0)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.describe = "工具不检查文件的CRC值";
+                }
+                if (language == 1)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.describe = "This tool does not check the CRC value of the file";
+                }
+
+
+                for (num = 0; num < m_oonbon_Protocol.Prototol_File_CRC.Leng; num++)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.byteMemValue[num] = myarray[i++];
+                }
+            }
+            
 
             return i;
         }
