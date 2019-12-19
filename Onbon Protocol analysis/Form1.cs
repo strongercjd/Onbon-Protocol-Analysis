@@ -132,79 +132,42 @@ namespace Onbon_Protocol_analysis
 
             this.data_listView.BeginUpdate();   //数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度
 
-            ListViewGroup group_data_header = new ListViewGroup();  //创建包头数据分组
-
-            if (UI_language == 0)
+            try
             {
-                group_data_header.Header = "包头数据";  //设置组的标题。
-            }
-            if (UI_language == 1)
-            {
-                group_data_header.Header = "Header package";  //设置组的标题。
-            }
-            
-            group_data_header.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-            this.data_listView.Groups.Add(group_data_header);    //把包头数据分组添加到listview中
+                ListViewGroup group_data_header = new ListViewGroup();  //创建包头数据分组
 
-
-            ListViewItem Protocol_data;
-
-            for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
-            {
-                if (m_oonbon_Protocol.Prototol_Header[num].bEnable == 1)
-                {
-                    listView_to_myarray[listView_row].myarray_start = i;
-
-                    data = "";
-                    Protocol_data = new ListViewItem();
-                    Protocol_data.Group = group_data_header;
-                    Protocol_data.Text = m_oonbon_Protocol.Prototol_Header[num].para;
-                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
-                    {
-                        data += m_oonbon_Protocol.Prototol_Header[num].byteMemValue[m_oonbon_Protocol.Prototol_Header[num].Leng - num1 - 1].ToString("X2");
-                        i++;
-                    }
-                    Protocol_data.SubItems.Add(data);
-                    Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_Header[num].describe);
-                    data_listView.Items.Add(Protocol_data);
-
-                    listView_to_myarray[listView_row].myarray_end = i;
-                    listView_row++;
-                }
-            }
-
-            
-            if (m_oonbon_Protocol.Prototol_CMD != null)
-            {
-                ListViewGroup group_cmd = new ListViewGroup();  //创建命令分组
                 if (UI_language == 0)
                 {
-                    group_cmd.Header = "命令";  //设置组的标题。
+                    group_data_header.Header = "包头数据";  //设置组的标题。
                 }
                 if (UI_language == 1)
                 {
-                    group_cmd.Header = "command";  //设置组的标题。
+                    group_data_header.Header = "Header package";  //设置组的标题。
                 }
-                
-                group_cmd.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                this.data_listView.Groups.Add(group_cmd);    //把命令分组添加到listview中
-                for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length; num++)
+
+                group_data_header.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                this.data_listView.Groups.Add(group_data_header);    //把包头数据分组添加到listview中
+
+
+                ListViewItem Protocol_data;
+
+                for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
                 {
-                    if (m_oonbon_Protocol.Prototol_CMD[num].bEnable == 1)
+                    if (m_oonbon_Protocol.Prototol_Header[num].bEnable == 1)
                     {
                         listView_to_myarray[listView_row].myarray_start = i;
 
                         data = "";
                         Protocol_data = new ListViewItem();
-                        Protocol_data.Group = group_cmd;
-                        Protocol_data.Text = m_oonbon_Protocol.Prototol_CMD[num].para;
-                        for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
+                        Protocol_data.Group = group_data_header;
+                        Protocol_data.Text = m_oonbon_Protocol.Prototol_Header[num].para;
+                        for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
                         {
-                            data += m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[m_oonbon_Protocol.Prototol_CMD[num].Leng - num1 - 1].ToString("X2");
+                            data += m_oonbon_Protocol.Prototol_Header[num].byteMemValue[m_oonbon_Protocol.Prototol_Header[num].Leng - num1 - 1].ToString("X2");
                             i++;
                         }
                         Protocol_data.SubItems.Add(data);
-                        Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CMD[num].describe);
+                        Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_Header[num].describe);
                         data_listView.Items.Add(Protocol_data);
 
                         listView_to_myarray[listView_row].myarray_end = i;
@@ -212,88 +175,237 @@ namespace Onbon_Protocol_analysis
                     }
                 }
 
-                if (oProtocol_Analysis.Protocol_type == 2)
+
+                if (m_oonbon_Protocol.Prototol_CMD != null)
                 {
-                    for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+                    ListViewGroup group_cmd = new ListViewGroup();  //创建命令分组
+                    if (UI_language == 0)
                     {
-                        ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
-                        if (UI_language == 0)
-                        {
-                            grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
-                        }
-                        if (UI_language == 1)
-                        {
-                            grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
-                        }
-                        
-                        grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                        this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
+                        group_cmd.Header = "命令";  //设置组的标题。
+                    }
+                    if (UI_language == 1)
+                    {
+                        group_cmd.Header = "command";  //设置组的标题。
+                    }
 
-                        Protocol_Analysis.CSixImagePrototolAreaPart SixImagePrototolAreaPart = new Protocol_Analysis.CSixImagePrototolAreaPart();
-                        SixImagePrototolAreaPart = m_oonbon_Protocol.SixImage_Prototol_area_data[num];
-                        for (num1 = 0; num1 < SixImagePrototolAreaPart.Prototol_Area_Para.Length; num1++)
+                    group_cmd.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                    this.data_listView.Groups.Add(group_cmd);    //把命令分组添加到listview中
+                    for (num = 0; num < m_oonbon_Protocol.Prototol_CMD.Length; num++)
+                    {
+                        if (m_oonbon_Protocol.Prototol_CMD[num].bEnable == 1)
                         {
-                            Protocol_Analysis.CProtolPart ProtolPart = new Protocol_Analysis.CProtolPart();
-                            ProtolPart = SixImagePrototolAreaPart.Prototol_Area_Para[num1];
-                            if (ProtolPart.bEnable == 1)
+                            listView_to_myarray[listView_row].myarray_start = i;
+
+                            data = "";
+                            Protocol_data = new ListViewItem();
+                            Protocol_data.Group = group_cmd;
+                            Protocol_data.Text = m_oonbon_Protocol.Prototol_CMD[num].para;
+                            for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CMD[num].Leng; num1++)
                             {
-                                listView_to_myarray[listView_row].myarray_start = i;
-
-                                data = "";
-                                Protocol_data = new ListViewItem();
-                                Protocol_data.Group = grou_area_data;
-                                Protocol_data.Text = ProtolPart.para;
-                                for (num2 = 0; num2 < ProtolPart.Leng; num2++)
-                                {
-                                    data += ProtolPart.byteMemValue[ProtolPart.Leng - num2 - 1].ToString("X2");
-                                    i++;
-                                }
-                                Protocol_data.SubItems.Add(data);
-                                Protocol_data.SubItems.Add(ProtolPart.describe);
-                                data_listView.Items.Add(Protocol_data);
-
-                                listView_to_myarray[listView_row].myarray_end = i;
-                                listView_row++;
+                                data += m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[m_oonbon_Protocol.Prototol_CMD[num].Leng - num1 - 1].ToString("X2");
+                                i++;
                             }
+                            Protocol_data.SubItems.Add(data);
+                            Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CMD[num].describe);
+                            data_listView.Items.Add(Protocol_data);
+
+                            listView_to_myarray[listView_row].myarray_end = i;
+                            listView_row++;
                         }
+                    }
 
-
-
-                        for (num1 = 0; num1 < SixImagePrototolAreaPart.SixImage_Prototol_Page_Part.Length; num1++)
+                    if (oProtocol_Analysis.Protocol_type == 2)
+                    {
+                        for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
                         {
-
-                            ListViewGroup grou_page_data = new ListViewGroup();  //创建命令分组
+                            ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
                             if (UI_language == 0)
                             {
-                                grou_page_data.Header = "区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式";  //设置组的标题。
+                                grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
                             }
                             if (UI_language == 1)
                             {
-                                grou_page_data.Header = "Page " + num1.ToString() + " data format for area " + num.ToString() ;  //设置组的标题。
+                                grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
                             }
-                            
-                            grou_page_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                            this.data_listView.Groups.Add(grou_page_data);    //把命令分组添加到listview中
 
-                            Protocol_Analysis.CSixImagePrototolPagePart SixImagePrototolPagePart = new Protocol_Analysis.CSixImagePrototolPagePart();
-                            SixImagePrototolPagePart = SixImagePrototolAreaPart.SixImage_Prototol_Page_Part[num1];
+                            grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                            this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
 
-                            for (num2 = 0; num2 < SixImagePrototolPagePart.Prototol_Page_Part.Length; num2++)
+                            Protocol_Analysis.CSixImagePrototolAreaPart SixImagePrototolAreaPart = new Protocol_Analysis.CSixImagePrototolAreaPart();
+                            SixImagePrototolAreaPart = m_oonbon_Protocol.SixImage_Prototol_area_data[num];
+                            for (num1 = 0; num1 < SixImagePrototolAreaPart.Prototol_Area_Para.Length; num1++)
                             {
                                 Protocol_Analysis.CProtolPart ProtolPart = new Protocol_Analysis.CProtolPart();
-                                ProtolPart = SixImagePrototolPagePart.Prototol_Page_Part[num2];
-
+                                ProtolPart = SixImagePrototolAreaPart.Prototol_Area_Para[num1];
                                 if (ProtolPart.bEnable == 1)
                                 {
                                     listView_to_myarray[listView_row].myarray_start = i;
 
                                     data = "";
                                     Protocol_data = new ListViewItem();
-                                    Protocol_data.Group = grou_page_data;
+                                    Protocol_data.Group = grou_area_data;
                                     Protocol_data.Text = ProtolPart.para;
-                                    for (num3 = 0; num3 < ProtolPart.Leng; num3++)
+                                    for (num2 = 0; num2 < ProtolPart.Leng; num2++)
                                     {
-                                        data += ProtolPart.byteMemValue[ProtolPart.Leng - num3 - 1].ToString("X2");
+                                        data += ProtolPart.byteMemValue[ProtolPart.Leng - num2 - 1].ToString("X2");
+                                        i++;
+                                    }
+                                    Protocol_data.SubItems.Add(data);
+                                    Protocol_data.SubItems.Add(ProtolPart.describe);
+                                    data_listView.Items.Add(Protocol_data);
+
+                                    listView_to_myarray[listView_row].myarray_end = i;
+                                    listView_row++;
+                                }
+                            }
+
+
+
+                            for (num1 = 0; num1 < SixImagePrototolAreaPart.SixImage_Prototol_Page_Part.Length; num1++)
+                            {
+
+                                ListViewGroup grou_page_data = new ListViewGroup();  //创建命令分组
+                                if (UI_language == 0)
+                                {
+                                    grou_page_data.Header = "区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式";  //设置组的标题。
+                                }
+                                if (UI_language == 1)
+                                {
+                                    grou_page_data.Header = "Page " + num1.ToString() + " data format for area " + num.ToString();  //设置组的标题。
+                                }
+
+                                grou_page_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                                this.data_listView.Groups.Add(grou_page_data);    //把命令分组添加到listview中
+
+                                Protocol_Analysis.CSixImagePrototolPagePart SixImagePrototolPagePart = new Protocol_Analysis.CSixImagePrototolPagePart();
+                                SixImagePrototolPagePart = SixImagePrototolAreaPart.SixImage_Prototol_Page_Part[num1];
+
+                                for (num2 = 0; num2 < SixImagePrototolPagePart.Prototol_Page_Part.Length; num2++)
+                                {
+                                    Protocol_Analysis.CProtolPart ProtolPart = new Protocol_Analysis.CProtolPart();
+                                    ProtolPart = SixImagePrototolPagePart.Prototol_Page_Part[num2];
+
+                                    if (ProtolPart.bEnable == 1)
+                                    {
+                                        listView_to_myarray[listView_row].myarray_start = i;
+
+                                        data = "";
+                                        Protocol_data = new ListViewItem();
+                                        Protocol_data.Group = grou_page_data;
+                                        Protocol_data.Text = ProtolPart.para;
+                                        for (num3 = 0; num3 < ProtolPart.Leng; num3++)
+                                        {
+                                            data += ProtolPart.byteMemValue[ProtolPart.Leng - num3 - 1].ToString("X2");
+                                            i++;
+                                        }
+                                        Protocol_data.SubItems.Add(data);
+                                        Protocol_data.SubItems.Add(ProtolPart.describe);
+                                        data_listView.Items.Add(Protocol_data);
+
+                                        listView_to_myarray[listView_row].myarray_end = i;
+                                        listView_row++;
+                                    }
+                                }
+                            }
+                        }
+
+
+                        ListViewGroup grou_display_data = new ListViewGroup();  //创建命令分组
+                        if (UI_language == 0)
+                        {
+                            grou_display_data.Header = "数据区域";  //设置组的标题。
+                        }
+                        if (UI_language == 1)
+                        {
+                            grou_display_data.Header = "data of area";  //设置组的标题。
+                        }
+
+                        grou_display_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                        this.data_listView.Groups.Add(grou_display_data);    //把命令分组添加到listview中
+
+                        for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+                        {
+                            Protocol_Analysis.CSixImagePrototolAreaPart SixImagePrototolAreaPart = new Protocol_Analysis.CSixImagePrototolAreaPart();
+                            SixImagePrototolAreaPart = m_oonbon_Protocol.SixImage_Prototol_area_data[num];
+
+                            for (num1 = 0; num1 < SixImagePrototolAreaPart.Page_Num; num1++)
+                            {
+
+                                Protocol_Analysis.CSixImagePrototolPagePart SixImagePrototolPagePart = new Protocol_Analysis.CSixImagePrototolPagePart();
+                                SixImagePrototolPagePart = SixImagePrototolAreaPart.SixImage_Prototol_Page_Part[num1];
+
+                                listView_to_myarray[listView_row].myarray_start = i;
+                                data = "";
+
+                                Protocol_data = new ListViewItem();
+                                Protocol_data.Group = grou_display_data;
+
+                                if (UI_language == 0)
+                                {
+                                    Protocol_data.Text = "显示数据";
+                                }
+                                if (UI_language == 1)
+                                {
+                                    Protocol_data.Text = "Display data";
+                                }
+
+                                for (num2 = 0; num2 < SixImagePrototolPagePart.len; num2++)
+                                {
+                                    data += m_oonbon_Protocol.Disply_Data[SixImagePrototolPagePart.offset + num2].ToString("X2");
+                                    i++;
+                                }
+                                Protocol_data.SubItems.Add(data);
+                                if (UI_language == 0)
+                                {
+                                    Protocol_data.SubItems.Add("区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式");
+                                }
+                                if (UI_language == 1)
+                                {
+                                    Protocol_data.SubItems.Add("Page " + num1.ToString() + " data format for area " + num.ToString());
+                                }
+
+                                data_listView.Items.Add(Protocol_data);
+
+                                listView_to_myarray[listView_row].myarray_end = i;
+                                listView_row++;
+
+                            }
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+                        {
+                            ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
+                            if (UI_language == 0)
+                            {
+                                grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                            }
+                            if (UI_language == 1)
+                            {
+                                grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
+                            }
+
+                            grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                            this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
+                            for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part.Length; num1++)
+                            {
+                                Protocol_Analysis.CProtolPart ProtolPart = new Protocol_Analysis.CProtolPart();
+                                ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
+                                if (ProtolPart.bEnable == 1)
+                                {
+                                    listView_to_myarray[listView_row].myarray_start = i;
+
+                                    data = "";
+                                    Protocol_data = new ListViewItem();
+                                    Protocol_data.Group = grou_area_data;
+                                    Protocol_data.Text = ProtolPart.para;
+                                    for (num2 = 0; num2 < ProtolPart.Leng; num2++)
+                                    {
+                                        data += ProtolPart.byteMemValue[ProtolPart.Leng - num2 - 1].ToString("X2");
                                         i++;
                                     }
                                     Protocol_data.SubItems.Add(data);
@@ -307,222 +419,116 @@ namespace Onbon_Protocol_analysis
                         }
                     }
 
+                }
 
-                    ListViewGroup grou_display_data = new ListViewGroup();  //创建命令分组
+                if (m_oonbon_Protocol.Prototol_File_CRC != null)
+                {
+                    ListViewGroup File_CRC = new ListViewGroup();  //创建命令分组
                     if (UI_language == 0)
                     {
-                        grou_display_data.Header = "数据区域";  //设置组的标题。
+                        File_CRC.Header = "文件CRC校验";  //设置组的标题。
                     }
                     if (UI_language == 1)
                     {
-                        grou_display_data.Header = "data of area";  //设置组的标题。
+                        File_CRC.Header = "File CRC check";  //设置组的标题。
                     }
-                    
-                    grou_display_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                    this.data_listView.Groups.Add(grou_display_data);    //把命令分组添加到listview中
 
-                    for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
+                    File_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                    this.data_listView.Groups.Add(File_CRC);    //把命令分组添加到listview中
+                    if (m_oonbon_Protocol.Prototol_File_CRC.bEnable == 1)
                     {
-                        Protocol_Analysis.CSixImagePrototolAreaPart SixImagePrototolAreaPart = new Protocol_Analysis.CSixImagePrototolAreaPart();
-                        SixImagePrototolAreaPart = m_oonbon_Protocol.SixImage_Prototol_area_data[num];
+                        listView_to_myarray[listView_row].myarray_start = i;
 
-                        for (num1 = 0; num1 < SixImagePrototolAreaPart.Page_Num; num1++)
+                        data = "";
+                        Protocol_data = new ListViewItem();
+                        Protocol_data.Group = File_CRC;
+                        Protocol_data.Text = m_oonbon_Protocol.Prototol_File_CRC.para;
+                        for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_File_CRC.Leng; num1++)
                         {
-
-                            Protocol_Analysis.CSixImagePrototolPagePart SixImagePrototolPagePart = new Protocol_Analysis.CSixImagePrototolPagePart();
-                            SixImagePrototolPagePart = SixImagePrototolAreaPart.SixImage_Prototol_Page_Part[num1];
-
-                            listView_to_myarray[listView_row].myarray_start = i;
-                            data = "";
-
-                            Protocol_data = new ListViewItem();
-                            Protocol_data.Group = grou_display_data;
-                            
-                            if (UI_language == 0)
-                            {
-                                Protocol_data.Text = "显示数据";
-                            }
-                            if (UI_language == 1)
-                            {
-                                Protocol_data.Text = "Display data";
-                            }
-
-                            for (num2 = 0; num2 < SixImagePrototolPagePart.len; num2++)
-                            {
-                                data += m_oonbon_Protocol.Disply_Data[SixImagePrototolPagePart.offset + num2].ToString("X2");
-                                i++;
-                            }
-                            Protocol_data.SubItems.Add(data);
-                            if (UI_language == 0)
-                            {
-                                Protocol_data.SubItems.Add("区域" + num.ToString() + "的第" + num1.ToString() + "页" + "数据格式");
-                            }
-                            if (UI_language == 1)
-                            {
-                                Protocol_data.SubItems.Add("Page " + num1.ToString() + " data format for area " + num.ToString());
-                            }
-                            
-                            data_listView.Items.Add(Protocol_data);
-
-                            listView_to_myarray[listView_row].myarray_end = i;
-                            listView_row++;
-
+                            data += m_oonbon_Protocol.Prototol_File_CRC.byteMemValue[m_oonbon_Protocol.Prototol_File_CRC.Leng - num1 - 1].ToString("X2");
+                            i++;
                         }
-                    }
-
-
-
-                }
-                else
-                {
-                    for (num = 0; num < m_oonbon_Protocol.Area_Num; num++)
-                    {
-                        ListViewGroup grou_area_data = new ListViewGroup();  //创建命令分组
+                        Protocol_data.SubItems.Add(data);
                         if (UI_language == 0)
                         {
-                            grou_area_data.Header = "区域" + num.ToString() + "数据格式";  //设置组的标题。
+                            if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC校验错误")
+                            {
+                                Protocol_data.ForeColor = Color.Red;
+                            }
                         }
                         if (UI_language == 1)
                         {
-                            grou_area_data.Header = "data format of area" + num.ToString();  //设置组的标题。
-                        }
-                        
-                        grou_area_data.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                        this.data_listView.Groups.Add(grou_area_data);    //把命令分组添加到listview中
-                        for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part.Length; num1++)
-                        {
-                            Protocol_Analysis.CProtolPart ProtolPart = new Protocol_Analysis.CProtolPart();
-                            ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
-                            if (ProtolPart.bEnable == 1)
+                            if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC error")
                             {
-                                listView_to_myarray[listView_row].myarray_start = i;
-
-                                data = "";
-                                Protocol_data = new ListViewItem();
-                                Protocol_data.Group = grou_area_data;
-                                Protocol_data.Text = ProtolPart.para;
-                                for (num2 = 0; num2 < ProtolPart.Leng; num2++)
-                                {
-                                    data += ProtolPart.byteMemValue[ProtolPart.Leng - num2 - 1].ToString("X2");
-                                    i++;
-                                }
-                                Protocol_data.SubItems.Add(data);
-                                Protocol_data.SubItems.Add(ProtolPart.describe);
-                                data_listView.Items.Add(Protocol_data);
-
-                                listView_to_myarray[listView_row].myarray_end = i;
-                                listView_row++;
+                                Protocol_data.ForeColor = Color.Red;
                             }
                         }
+
+                        Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_File_CRC.describe);
+                        data_listView.Items.Add(Protocol_data);
+
+                        listView_to_myarray[listView_row].myarray_end = i;
+                        listView_row++;
                     }
                 }
 
-            }
 
-            if (m_oonbon_Protocol.Prototol_File_CRC != null)
-            {
-                ListViewGroup File_CRC = new ListViewGroup();  //创建命令分组
-                if (UI_language == 0)
-                {
-                    File_CRC.Header = "文件CRC校验";  //设置组的标题。
-                }
-                if (UI_language == 1)
-                {
-                    File_CRC.Header = "File CRC check";  //设置组的标题。
-                }
 
-                File_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                this.data_listView.Groups.Add(File_CRC);    //把命令分组添加到listview中
-                if (m_oonbon_Protocol.Prototol_File_CRC.bEnable == 1)
-                {
-                    listView_to_myarray[listView_row].myarray_start = i;
 
-                    data = "";
-                    Protocol_data = new ListViewItem();
-                    Protocol_data.Group = File_CRC;
-                    Protocol_data.Text = m_oonbon_Protocol.Prototol_File_CRC.para;
-                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_File_CRC.Leng; num1++)
-                    {
-                        data += m_oonbon_Protocol.Prototol_File_CRC.byteMemValue[m_oonbon_Protocol.Prototol_File_CRC.Leng - num1 - 1].ToString("X2");
-                        i++;
-                    }
-                    Protocol_data.SubItems.Add(data);
+                if (m_oonbon_Protocol.Prototol_CRC != null)
+                {
+                    ListViewGroup grou_CRC = new ListViewGroup();  //创建命令分组
                     if (UI_language == 0)
                     {
-                        if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC校验错误")
-                        {
-                            Protocol_data.ForeColor = Color.Red;
-                        }
+                        grou_CRC.Header = "CRC校验";  //设置组的标题。
                     }
                     if (UI_language == 1)
                     {
-                        if (m_oonbon_Protocol.Prototol_File_CRC.describe == "CRC error")
-                        {
-                            Protocol_data.ForeColor = Color.Red;
-                        }
+                        grou_CRC.Header = "CRC check";  //设置组的标题。
                     }
 
-                    Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_File_CRC.describe);
-                    data_listView.Items.Add(Protocol_data);
+                    grou_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
+                    this.data_listView.Groups.Add(grou_CRC);    //把命令分组添加到listview中
 
-                    listView_to_myarray[listView_row].myarray_end = i;
-                    listView_row++;
+                    if (m_oonbon_Protocol.Prototol_CRC.bEnable == 1)
+                    {
+                        listView_to_myarray[listView_row].myarray_start = i;
+
+                        data = "";
+                        Protocol_data = new ListViewItem();
+                        Protocol_data.Group = grou_CRC;
+                        Protocol_data.Text = m_oonbon_Protocol.Prototol_CRC.para;
+                        for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CRC.Leng; num1++)
+                        {
+                            data += m_oonbon_Protocol.Prototol_CRC.byteMemValue[m_oonbon_Protocol.Prototol_CRC.Leng - num1 - 1].ToString("X2");
+                            i++;
+                        }
+                        Protocol_data.SubItems.Add(data);
+                        if (UI_language == 0)
+                        {
+                            if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC校验错误")
+                            {
+                                Protocol_data.ForeColor = Color.Red;
+                            }
+                        }
+                        if (UI_language == 1)
+                        {
+                            if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC error")
+                            {
+                                Protocol_data.ForeColor = Color.Red;
+                            }
+                        }
+
+                        Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CRC.describe);
+                        data_listView.Items.Add(Protocol_data);
+
+                        listView_to_myarray[listView_row].myarray_end = i;
+                        listView_row++;
+                    }
                 }
             }
-
-
-
-
-            if (m_oonbon_Protocol.Prototol_CRC != null)
+            catch (Exception ex)
             {
-                ListViewGroup grou_CRC = new ListViewGroup();  //创建命令分组
-                if (UI_language == 0)
-                {
-                    grou_CRC.Header = "CRC校验";  //设置组的标题。
-                }
-                if (UI_language == 1)
-                {
-                    grou_CRC.Header = "CRC check";  //设置组的标题。
-                }
-               
-                grou_CRC.HeaderAlignment = HorizontalAlignment.Left;//设置组标题文本的对齐方式。（默认为Left）
-                this.data_listView.Groups.Add(grou_CRC);    //把命令分组添加到listview中
-
-                if (m_oonbon_Protocol.Prototol_CRC.bEnable == 1)
-                {
-                    listView_to_myarray[listView_row].myarray_start = i;
-
-                    data = "";
-                    Protocol_data = new ListViewItem();
-                    Protocol_data.Group = grou_CRC;
-                    Protocol_data.Text = m_oonbon_Protocol.Prototol_CRC.para;
-                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_CRC.Leng; num1++)
-                    {
-                        data += m_oonbon_Protocol.Prototol_CRC.byteMemValue[m_oonbon_Protocol.Prototol_CRC.Leng - num1 - 1].ToString("X2");
-                        i++;
-                    }
-                    Protocol_data.SubItems.Add(data);
-                    if (UI_language == 0)
-                    {
-                        if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC校验错误")
-                        {
-                            Protocol_data.ForeColor = Color.Red;
-                        }
-                    }
-                    if (UI_language == 1)
-                    {
-                        if (m_oonbon_Protocol.Prototol_CRC.describe == "CRC error")
-                        {
-                            Protocol_data.ForeColor = Color.Red;
-                        }
-                    }
-                    
-                    Protocol_data.SubItems.Add(m_oonbon_Protocol.Prototol_CRC.describe);
-                    data_listView.Items.Add(Protocol_data);
-
-                    listView_to_myarray[listView_row].myarray_end = i;
-                    listView_row++;
-                }
             }
             
 
@@ -2278,6 +2284,22 @@ namespace Onbon_Protocol_analysis
                             region_par.width = num3;
                         }
                         continue;
+                    }
+                    if (ProtolPart.para == "是否有边框")
+                    {
+                        ProtolPart.bEnable = 1;
+                        ProtolPart.byteMemValue[0] = myarray[i++];
+                        region_par.ID = (UInt32)ProtolPart.byteMemValue[0];
+                        if (ProtolPart.byteMemValue[0] == 1)
+                        {
+                            MessageBox.Show("不支持解析带有边框的动态区数据");
+                            return 0;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        
                     }
                     if (ProtolPart.para == "区域序号")
                     {
