@@ -1647,6 +1647,70 @@ namespace Onbon_Protocol_analysis
             }
 
         }
+        public void Font_Card_Protocol_A1_06_pra_string_init()
+        {
+            int num = 0;
+
+            num = 0;
+
+            if (language == 0)
+            {
+                Protol_File_str[num++] = new string[] { "1", "文件类型", "文件类型" };
+                Protol_File_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Protol_File_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+                Protol_File_str[num++] = new string[] { "8", "控制器名称", "控制器名称" };
+                Protol_File_str[num++] = new string[] { "2", "控制器地址", "控制器地址" };
+                Protol_File_str[num++] = new string[] { "1", "波特率", "波特率" };
+                Protol_File_str[num++] = new string[] { "2", "屏幕宽度", "屏幕宽度" };
+                Protol_File_str[num++] = new string[] { "2", "屏幕高度", "屏幕高度" };
+                Protol_File_str[num++] = new string[] { "1", "颜色模式", "颜色模式" };
+                Protol_File_str[num++] = new string[] { "1", "镜像属性", "镜像属性" };
+                Protol_File_str[num++] = new string[] { "1", "OE极性", "OE极性" };
+                Protol_File_str[num++] = new string[] { "1", "数据极性", "数据极性" };
+                Protol_File_str[num++] = new string[] { "1", "行顺序", "行顺序" };
+                Protol_File_str[num++] = new string[] { "1", "CLK分频倍数", "CLK分频倍数" };
+                Protol_File_str[num++] = new string[] { "1", "OE宽度", "OE宽度" };
+                Protol_File_str[num++] = new string[] { "1", "OE提前角", "OE提前角" };
+                Protol_File_str[num++] = new string[] { "1", "错误处理模式", "错误处理模式" };
+                Protol_File_str[num++] = new string[] { "1", "通讯超时时间", "通讯超时时间" };
+                Protol_File_str[num++] = new string[] { "1", "控制器运行模式", "控制器运行模式" };
+                Protol_File_str[num++] = new string[] { "1", "日志模式", "日志模式" };
+                Protol_File_str[num++] = new string[] { "1", "语言版本", "语言版本" };
+                Protol_File_str[num++] = new string[] { "1", "点阵模式", "点阵模式" };
+                Protol_File_str[num++] = new string[] { "6", "保留字节", "保留字节" };
+                //Protol_File_str[num++] = new string[] { "2", "CRC16校验值", "此工具不检测此校验值是否正确" };
+                Prototol_File_len = num;
+            }
+            if (language == 1)
+            {
+                Protol_File_str[num++] = new string[] { "1", "文件类型", "文件类型" };
+                Protol_File_str[num++] = new string[] { "4", "文件名", "文件名" };
+                Protol_File_str[num++] = new string[] { "4", "文件长度", "文件长度" };
+                Protol_File_str[num++] = new string[] { "8", "控制器名称", "控制器名称" };
+                Protol_File_str[num++] = new string[] { "2", "控制器地址", "控制器地址" };
+                Protol_File_str[num++] = new string[] { "1", "波特率", "波特率" };
+                Protol_File_str[num++] = new string[] { "2", "屏幕宽度", "屏幕宽度" };
+                Protol_File_str[num++] = new string[] { "2", "屏幕高度", "屏幕高度" };
+                Protol_File_str[num++] = new string[] { "1", "颜色模式", "颜色模式" };
+                Protol_File_str[num++] = new string[] { "1", "镜像属性", "镜像属性" };
+                Protol_File_str[num++] = new string[] { "1", "OE极性", "OE极性" };
+                Protol_File_str[num++] = new string[] { "1", "数据极性", "数据极性" };
+                Protol_File_str[num++] = new string[] { "1", "行顺序", "行顺序" };
+                Protol_File_str[num++] = new string[] { "1", "CLK分频倍数", "CLK分频倍数" };
+                Protol_File_str[num++] = new string[] { "1", "OE宽度", "OE宽度" };
+                Protol_File_str[num++] = new string[] { "1", "OE提前角", "OE提前角" };
+                Protol_File_str[num++] = new string[] { "1", "错误处理模式", "错误处理模式" };
+                Protol_File_str[num++] = new string[] { "1", "通讯超时时间", "通讯超时时间" };
+                Protol_File_str[num++] = new string[] { "1", "控制器运行模式", "控制器运行模式" };
+                Protol_File_str[num++] = new string[] { "1", "日志模式", "日志模式" };
+                Protol_File_str[num++] = new string[] { "1", "语言版本", "语言版本" };
+                Protol_File_str[num++] = new string[] { "1", "点阵模式", "点阵模式" };
+                Protol_File_str[num++] = new string[] { "6", "保留字节", "保留字节" };
+                //Protol_File_str[num++] = new string[] { "2", "CRC16校验值", "此工具不检测此校验值是否正确" };
+                Prototol_File_len = num;
+            }
+
+        }
 
         public void Font_Card_Protocol_A1_06_cmd_filecrc_string_init()
         {
@@ -3240,10 +3304,6 @@ namespace Onbon_Protocol_analysis
                             break;
                         case 0x06://写文件
                             Font_Card_Protocol_A1_06_cmd_string_init();
-                            Font_Card_Protocol_area_data_string_init();
-                            Font_Card_Protocol_A1_06_cmd_filecrc_string_init();
-                            Font_Card_Protocol_A1_06_pro_string_init();
-                            Protol_area_data_str[0][0] = "4";//特殊处理，发送节目时区域数据长度是4个字节，动态区是2个字节
                             i = Font_Card_A1_06_Protocol(myarray, i);
                             break;
                         default:
@@ -3787,6 +3847,19 @@ namespace Onbon_Protocol_analysis
                     {
                         m_oonbon_Protocol.Area_Num = m_oonbon_Protocol.Prototol_File[num].byteMemValue[0];
                     }
+                    if (m_oonbon_Protocol.Prototol_File[num].para == "文件名")
+                    {
+                        System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                        byte[] byteArray0 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[0] };
+                        byte[] byteArray1 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[1] };
+                        byte[] byteArray2 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[2] };
+                        byte[] byteArray3 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[3] };
+                        m_oonbon_Protocol.Prototol_File[num].describe = "文件名:" +
+                            asciiEncoding.GetString(byteArray0) +
+                            asciiEncoding.GetString(byteArray1) +
+                            asciiEncoding.GetString(byteArray2) +
+                            asciiEncoding.GetString(byteArray3);
+                    }
                     num++;
                 }
             }
@@ -3823,13 +3896,99 @@ namespace Onbon_Protocol_analysis
 
             
         }
+        public UInt32 Font_Card_A1_06_pra_Protocol(byte[] myarray, UInt32 i)
+        {
+            UInt32 num, num1, num2;
+            string data_str;
+            int File_CRC_flg = 0;
 
+            num = 0;
+            num1 = 0;
+            num2 = 0;
+            data_str = "";
+
+            m_oonbon_Protocol.Prototol_File = new CProtolPart[Prototol_File_len];
+            for (num = 0; num < Prototol_File_len; num++)
+            {
+                m_oonbon_Protocol.Prototol_File[num] = new CProtolPart();
+                m_oonbon_Protocol.Prototol_File[num].bEnable = 0;
+                m_oonbon_Protocol.Prototol_File[num].para = Protol_File_str[num][1];
+                m_oonbon_Protocol.Prototol_File[num].Leng = Convert.ToUInt32(Protol_File_str[num][0]);
+                m_oonbon_Protocol.Prototol_File[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_File[num].Leng];
+                m_oonbon_Protocol.Prototol_File[num].describe = Protol_File_str[num][2];
+            }
+
+            /*文件数据*/
+            for (num = 0; num < m_oonbon_Protocol.Prototol_File.Length;)
+            {
+                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_File[num].Leng; num1++)
+                {
+                    m_oonbon_Protocol.Prototol_File[num].bEnable = 1;
+                    m_oonbon_Protocol.Prototol_File[num].byteMemValue[num1] = myarray[i++];
+                }
+                if (m_oonbon_Protocol.Prototol_File[num].para == "文件名")
+                {
+                    System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                    byte[] byteArray0 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[0] };
+                    byte[] byteArray1 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[1] };
+                    byte[] byteArray2 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[2] };
+                    byte[] byteArray3 = new byte[] { (byte)m_oonbon_Protocol.Prototol_File[num].byteMemValue[3] };
+                    m_oonbon_Protocol.Prototol_File[num].describe = "文件名:" +
+                        asciiEncoding.GetString(byteArray0) +
+                        asciiEncoding.GetString(byteArray1) +
+                        asciiEncoding.GetString(byteArray2) +
+                        asciiEncoding.GetString(byteArray3);
+                }
+                if (m_oonbon_Protocol.Prototol_File[num].para == "屏幕宽度")
+                {
+                    num2 = (UInt32)(((m_oonbon_Protocol.Prototol_File[num].byteMemValue[1] & 0xff) << 8) | ((m_oonbon_Protocol.Prototol_File[num].byteMemValue[0] & 0xff) << 0));
+                    m_oonbon_Protocol.Prototol_File[num].describe = "屏幕宽度:" + num2.ToString();
+                }
+                if (m_oonbon_Protocol.Prototol_File[num].para == "屏幕高度")
+                {
+                    num2 = (UInt32)(((m_oonbon_Protocol.Prototol_File[num].byteMemValue[1] & 0xff) << 8) | ((m_oonbon_Protocol.Prototol_File[num].byteMemValue[0] & 0xff) << 0));
+                    m_oonbon_Protocol.Prototol_File[num].describe = "屏幕高度:" + num2.ToString();
+                }
+                num++;
+            }
+            if (File_CRC_flg == 1)
+            {
+                /*文件校验*/
+                m_oonbon_Protocol.Prototol_File_CRC = new CProtolPart();
+                m_oonbon_Protocol.Prototol_File_CRC.para = Protol_cmd_filecrc_str[0][1];
+                m_oonbon_Protocol.Prototol_File_CRC.Leng = Convert.ToUInt32(Protol_cmd_filecrc_str[0][0]);
+                m_oonbon_Protocol.Prototol_File_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_File_CRC.Leng];
+                m_oonbon_Protocol.Prototol_File_CRC.describe = Protol_cmd_filecrc_str[0][2];
+                m_oonbon_Protocol.Prototol_File_CRC.bEnable = 1;
+
+
+                if (language == 0)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.describe = "工具不检查文件的CRC值";
+                }
+                if (language == 1)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.describe = "This tool does not check the CRC value of the file";
+                }
+
+
+                for (num = 0; num < m_oonbon_Protocol.Prototol_File_CRC.Leng; num++)
+                {
+                    m_oonbon_Protocol.Prototol_File_CRC.byteMemValue[num] = myarray[i++];
+                }
+            }
+
+
+            return i;
+
+
+        }
         public UInt32 Font_Card_A1_06_Protocol(byte[] myarray, UInt32 i)
         {
             UInt32 num, num1;
 
             int File_CRC_flg = 0;
-            char File_type = 'P';
+            string File_type = "P";
 
 
             num = 0;
@@ -3873,16 +4032,48 @@ namespace Onbon_Protocol_analysis
                     m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[num1] = myarray[i++];
                     if (m_oonbon_Protocol.Prototol_CMD[num].para == "文件名")
                     {
-                        if (m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] == 0x50)
-                        {
-                            File_type = 'P';
-                        }
+                        System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+                        byte[] byteArray0 = new byte[] { (byte)m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[0] };
+                        byte[] byteArray1 = new byte[] { (byte)m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[1] };
+                        byte[] byteArray2 = new byte[] { (byte)m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[2] };
+                        byte[] byteArray3 = new byte[] { (byte)m_oonbon_Protocol.Prototol_CMD[num].byteMemValue[3] };
+                        m_oonbon_Protocol.Prototol_CMD[num].describe = "文件名:"+
+                            asciiEncoding.GetString(byteArray0) +
+                            asciiEncoding.GetString(byteArray1) +
+                            asciiEncoding.GetString(byteArray2) +
+                            asciiEncoding.GetString(byteArray3);
+                        File_type = asciiEncoding.GetString(byteArray0);
                     }
                 }
                 num++;
             }
-
-			i = Font_Card_A1_06_pro_Protocol(myarray, i);
+            switch (File_type)
+            {
+                case "P":
+                    Font_Card_Protocol_area_data_string_init();
+                    Font_Card_Protocol_A1_06_cmd_filecrc_string_init();
+                    Font_Card_Protocol_A1_06_pro_string_init();
+                    Protol_area_data_str[0][0] = "4";//特殊处理，发送节目时区域数据长度是4个字节，动态区是2个字节
+                    i = Font_Card_A1_06_pro_Protocol(myarray, i);//解析数据
+                    break;
+                case "C":
+                    Font_Card_Protocol_A1_06_cmd_filecrc_string_init();
+                    Font_Card_Protocol_A1_06_pra_string_init();
+                    i = Font_Card_A1_06_pra_Protocol(myarray, i);//解析数据
+                    break;
+                default:
+                    if (language == 0)
+                    {
+                        MessageBox.Show("目前版本不支持解析"+ File_type + "文件");
+                    }
+                    if (language == 1)
+                    {
+                        MessageBox.Show("The current version do not supports "+ File_type + "file");
+                    }
+                    return 0;
+                    break;
+            }
+            
             if (File_CRC_flg == 1)
             {
                 /*文件校验*/
