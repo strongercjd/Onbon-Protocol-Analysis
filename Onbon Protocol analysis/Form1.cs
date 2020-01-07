@@ -676,6 +676,17 @@ namespace Onbon_Protocol_analysis
                         }
                        
                         break;
+                    case 4:
+                        if (UI_language == 0)
+                        {
+                            MessageBox.Show("这是仰邦协议的ping命令，仰邦卡(除Y和YQ系列)都会响应此命令，开发者不用分析此数据包，回包也不用分析");
+                        }
+                        if (UI_language == 1)
+                        {
+                            MessageBox.Show("This is the ping command of the onbon protocol. When the onbon card goes out of the Y and YQ series, it will respond to this command. The developer does not care about this data package, nor does the command return the package.");
+                        }
+
+                        break;
                     default:
                         if (UI_language == 0)
                         {
@@ -4385,6 +4396,30 @@ namespace Onbon_Protocol_analysis
             UInt32 flg_5A,flg_A5;
             PHY0_flag1.Rcv_state = 0;
             PHY0_flag1.RCV_data_num = 0;
+            int size_temp;
+            byte[] ping_data = { 0xfe, 0xff, 0x00, 0x80, 0x00, 0x00, 0xfe, 0x00, 0x01, 0x00, 0x04, 0x00, 0x23, 0xb8, 0xe1, 0xa2, 0x00, 0x00, 0x00 };
+
+            size_temp = size;
+
+            for (UInt32 num = 0; num < size; num++)//如果末尾有多个0X5A，只留1个0X5A
+            {
+                if (data[size - num - 1] == 0x5A)
+                {
+                    if (data[size - num - 2] == 0x5A)
+                    {
+                        size_temp--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            size = size_temp;
 
             myarray = new byte[size];
             trsf_flg = new byte[size];
@@ -4517,10 +4552,6 @@ namespace Onbon_Protocol_analysis
                     }
                 }
             }
-            if ((flg_5A == 1)&&(flg_A5 == 1))
-            {
-                return 0;//收到帧头帧尾
-            }
             if ((flg_5A == 1) && (flg_A5 == 0))
             {
                 return 1;//收到帧尾，没有收到帧头
@@ -4532,6 +4563,17 @@ namespace Onbon_Protocol_analysis
             if ((flg_5A == 0) && (flg_A5 == 0))
             {
                 return 3;//帧头帧尾都没有收到
+            }
+            for (j = 0; j < ping_data.Length; j++)
+            {
+                if (myarray[j] != ping_data[j])
+                    break;
+            }
+            if(j == ping_data.Length)
+                return 4;//这一包数据是ping命令
+            if ((flg_5A == 1) && (flg_A5 == 1))
+            {
+                return 0;//收到帧头帧尾
             }
             return 0;
 

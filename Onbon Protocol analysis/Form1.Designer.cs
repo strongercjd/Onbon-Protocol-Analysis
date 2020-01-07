@@ -117,7 +117,7 @@
             this.Protocol_selection.FormattingEnabled = true;
             this.Protocol_selection.Location = new System.Drawing.Point(12, 60);
             this.Protocol_selection.Name = "Protocol_selection";
-            this.Protocol_selection.Size = new System.Drawing.Size(133, 20);
+            this.Protocol_selection.Size = new System.Drawing.Size(161, 20);
             this.Protocol_selection.TabIndex = 6;
             this.Protocol_selection.SelectedIndexChanged += new System.EventHandler(this.Protocol_selection_SelectedIndexChanged);
             // 
@@ -180,14 +180,14 @@
             // 中文ToolStripMenuItem
             // 
             this.中文ToolStripMenuItem.Name = "中文ToolStripMenuItem";
-            this.中文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.中文ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.中文ToolStripMenuItem.Text = "中文";
             this.中文ToolStripMenuItem.Click += new System.EventHandler(this.中文ToolStripMenuItem_Click);
             // 
             // 英文ToolStripMenuItem
             // 
             this.英文ToolStripMenuItem.Name = "英文ToolStripMenuItem";
-            this.英文ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.英文ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.英文ToolStripMenuItem.Text = "英文";
             this.英文ToolStripMenuItem.Click += new System.EventHandler(this.英文ToolStripMenuItem_Click);
             // 
