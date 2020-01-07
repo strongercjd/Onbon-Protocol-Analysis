@@ -966,7 +966,8 @@ namespace Onbon_Protocol_analysis
             }
             else
             {
-                MessageBox.Show("不存在README.pdf");
+                //MessageBox.Show("不存在README.pdf");
+                System.Diagnostics.Process.Start("https://github.com/strongercjd/Onbon-Protocol-Analysis/blob/master/README.md");
             }
 
         }
