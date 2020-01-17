@@ -2180,119 +2180,124 @@ namespace Onbon_Protocol_analysis
             num2 = 0;
             num3 = 0;
             data_str = "";
-
-            m_oonbon_Protocol = new Conbon_Protocol();
-
-            Six_Font_Protocol_header_string_init();
-
-            m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
-            for (num = 0; num < Protol_header_str_len; num++)
+            try
             {
-                m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
-                m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
-                m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
-                m_oonbon_Protocol.Prototol_Header[num].Leng = Convert.ToUInt32(Protol_header_str[num][0]);
-                m_oonbon_Protocol.Prototol_Header[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_Header[num].Leng];
-                m_oonbon_Protocol.Prototol_Header[num].describe = Protol_header_str[num][2];
-            }
+                m_oonbon_Protocol = new Conbon_Protocol();
 
-            /*包头数据*/
-            for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
-            {
-                if (m_oonbon_Protocol.Prototol_Header[num].para == "协议版本号")
+                Six_Font_Protocol_header_string_init();
+
+                m_oonbon_Protocol.Prototol_Header = new CProtolPart[Protol_header_str_len];
+                for (num = 0; num < Protol_header_str_len; num++)
                 {
-                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
-                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
-                    if (m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] != 0xF0)
-                    {
-                        MessageBox.Show("协议版本号不是0xf0，不是6代字库协议数据，请重选协议类型");
-                        return 1;
-                    }
-                    continue;
+                    m_oonbon_Protocol.Prototol_Header[num] = new CProtolPart();
+                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 0;
+                    m_oonbon_Protocol.Prototol_Header[num].para = Protol_header_str[num][1];
+                    m_oonbon_Protocol.Prototol_Header[num].Leng = Convert.ToUInt32(Protol_header_str[num][0]);
+                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_Header[num].Leng];
+                    m_oonbon_Protocol.Prototol_Header[num].describe = Protol_header_str[num][2];
                 }
-                m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
-                for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
-                {
-                    m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
-                }
-            }
-            m_region_par_init();
-            switch (myarray[i + 1])
-            {
-                case 0xa7:
-                    switch (myarray[i + 2])
-                    {
-                        case 0x00://更新点阵动态区
-                            Six_Image_Protocol_A7_00_cmd_string_init();
-                            Six_Image_Protocol_area_data_string_init();
-                            Six_Image_Protocol_Page_data_string_init();
-                            i = Six_Image_A7_00_Protocol(myarray, i);
-                            break;
-                        default:
-                            flg = 1;
-                            break;
-                    }
-                    break;
-                default:
-                    flg = 1;
-                    break;
-            }
-            if (flg == 1)
-            {
-                MessageBox.Show("目前版本不支持" + myarray[i+1].ToString("X2") + " " + myarray[i + 2].ToString("X2"));
-                return 1;
-            }
-            else
-            {
-                if (i != 0)
-                {
-                    Font_Card_Protocol_CRC_string_init();
 
-                    m_oonbon_Protocol.Prototol_CRC = new CProtolPart();
-                    m_oonbon_Protocol.Prototol_CRC.para = Protol_crc_str[0][1];
-                    m_oonbon_Protocol.Prototol_CRC.Leng = Convert.ToUInt32(Protol_crc_str[0][0]);
-                    m_oonbon_Protocol.Prototol_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_CRC.Leng];
-                    m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
-                    m_oonbon_Protocol.Prototol_CRC.bEnable = 1;
-
-                    data_value = (int)(((myarray[i + 1] & 0xff) << 8) |
-                                      ((myarray[i + 0] & 0xff) << 0));
-                    int mycrc = crc16(myarray, PHY0_flag1.RCV_data_num - 2);
-                    if (mycrc == data_value)
+                /*包头数据*/
+                for (num = 0; num < m_oonbon_Protocol.Prototol_Header.Length; num++)
+                {
+                    if (m_oonbon_Protocol.Prototol_Header[num].para == "协议版本号")
                     {
-                        m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
-                    }
-                    else
-                    {
-                        if (data_value == 0xffff)
+                        m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
+                        m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] = myarray[i++];
+                        if (m_oonbon_Protocol.Prototol_Header[num].byteMemValue[0] != 0xF0)
                         {
-                            m_oonbon_Protocol.Prototol_CRC.describe = "不进行CRC校验";
+                            MessageBox.Show("协议版本号不是0xf0，不是6代字库协议数据，请重选协议类型");
+                            return 1;
+                        }
+                        continue;
+                    }
+                    m_oonbon_Protocol.Prototol_Header[num].bEnable = 1;
+                    for (num1 = 0; num1 < m_oonbon_Protocol.Prototol_Header[num].Leng; num1++)
+                    {
+                        m_oonbon_Protocol.Prototol_Header[num].byteMemValue[num1] = myarray[i++];
+                    }
+                }
+                m_region_par_init();
+                switch (myarray[i + 1])
+                {
+                    case 0xa7:
+                        switch (myarray[i + 2])
+                        {
+                            case 0x00://更新点阵动态区
+                                Six_Image_Protocol_A7_00_cmd_string_init();
+                                Six_Image_Protocol_area_data_string_init();
+                                Six_Image_Protocol_Page_data_string_init();
+                                i = Six_Image_A7_00_Protocol(myarray, i);
+                                break;
+                            default:
+                                flg = 1;
+                                break;
+                        }
+                        break;
+                    default:
+                        flg = 1;
+                        break;
+                }
+                if (flg == 1)
+                {
+                    MessageBox.Show("目前版本不支持" + myarray[i + 1].ToString("X2") + " " + myarray[i + 2].ToString("X2"));
+                    return 1;
+                }
+                else
+                {
+                    if (i != 0)
+                    {
+                        Font_Card_Protocol_CRC_string_init();
+
+                        m_oonbon_Protocol.Prototol_CRC = new CProtolPart();
+                        m_oonbon_Protocol.Prototol_CRC.para = Protol_crc_str[0][1];
+                        m_oonbon_Protocol.Prototol_CRC.Leng = Convert.ToUInt32(Protol_crc_str[0][0]);
+                        m_oonbon_Protocol.Prototol_CRC.byteMemValue = new byte[m_oonbon_Protocol.Prototol_CRC.Leng];
+                        m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
+                        m_oonbon_Protocol.Prototol_CRC.bEnable = 1;
+
+                        data_value = (int)(((myarray[i + 1] & 0xff) << 8) |
+                                          ((myarray[i + 0] & 0xff) << 0));
+                        int mycrc = crc16(myarray, PHY0_flag1.RCV_data_num - 2);
+                        if (mycrc == data_value)
+                        {
+                            m_oonbon_Protocol.Prototol_CRC.describe = Protol_crc_str[0][2];
                         }
                         else
                         {
-                            if (language == 0)
+                            if (data_value == 0xffff)
                             {
-                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                                m_oonbon_Protocol.Prototol_CRC.describe = "不进行CRC校验";
                             }
-                            if (language == 1)
+                            else
                             {
-                                m_oonbon_Protocol.Prototol_CRC.describe = "CRC error";
-                            }
+                                if (language == 0)
+                                {
+                                    m_oonbon_Protocol.Prototol_CRC.describe = "CRC校验错误";
+                                }
+                                if (language == 1)
+                                {
+                                    m_oonbon_Protocol.Prototol_CRC.describe = "CRC error";
+                                }
 
-                            
+
+                            }
                         }
+
+                        for (num = 0; num < m_oonbon_Protocol.Prototol_CRC.Leng; num++)
+                        {
+                            m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
+                        }
+
                     }
 
-                    for (num = 0; num < m_oonbon_Protocol.Prototol_CRC.Leng; num++)
-                    {
-                        m_oonbon_Protocol.Prototol_CRC.byteMemValue[num] = myarray[i++];
-                    }
 
                 }
-
-
             }
-
+            catch (Exception ex)
+            {
+                return 0;
+            }
             return 0;
         }
 
