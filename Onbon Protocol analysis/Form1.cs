@@ -2466,9 +2466,9 @@ namespace Onbon_Protocol_analysis
                         if (num2 != 0)
                         {
                             ProtolPart = AreaPart.Prototol_Area_Para[num1];
-                            ProtolPart.Leng = num2;
+                            ProtolPart.Leng = num2*2;//关联的异步节目的ID编号是2个字节
                             ProtolPart.byteMemValue = new byte[ProtolPart.Leng];
-                            for (num3 = 0; num3 < num2; num3++)
+                            for (num3 = 0; num3 < num2*2; num3++)
                             {
                                 ProtolPart.bEnable = 1;
                                 ProtolPart.byteMemValue[num3] = myarray[i++];
@@ -3029,9 +3029,9 @@ namespace Onbon_Protocol_analysis
                             if (num2 != 0)
                             {
                                 ProtolPart = m_oonbon_Protocol.Prototol_area_data[num].Prototol_Area_Part[num1];
-                                ProtolPart.Leng = num2;
+                                ProtolPart.Leng = num2*2;//关联异步节目编号ID是2个字节
                                 ProtolPart.byteMemValue = new byte[ProtolPart.Leng];
-                                for (num1 = 0; num1 < num2; num1++)
+                                for (num1 = 0; num1 < num2*2; num1++)
                                 {
                                     ProtolPart.bEnable = 1;
                                     ProtolPart.byteMemValue[num1] = myarray[i++];
