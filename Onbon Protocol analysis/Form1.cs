@@ -4685,7 +4685,7 @@ namespace Onbon_Protocol_analysis
                     num++;
 
                     /*删除区域ID*/
-                    if (num2 != 0)
+                    if ((num2 != 0)&&(num2 != 0xff))
                     {
                         m_oonbon_Protocol.Prototol_CMD[num].Leng = num2;
                         m_oonbon_Protocol.Prototol_CMD[num].byteMemValue = new byte[m_oonbon_Protocol.Prototol_CMD[num].Leng];
