@@ -37,19 +37,25 @@ A501:02-030405*0607,08,095a
 
 微信
 
+
 ![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/006.jpg)
 
 # 2.协议区分
 
 字库卡协议
 
+
 ![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/001.png)
 
 6代字库动态区协议
 
+
 ![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/005.png)
 
-6代图文动态区协议![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/004.png)
+6代图文动态区协议
+
+
+![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/004.png)
 
 # 3.抓包说明
 
@@ -57,10 +63,12 @@ A501:02-030405*0607,08,095a
 
 百度：wireshark
 
+
 ![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/003.png)
 
 串口抓包
 
 百度：串口抓包
+
 
 ![](https://gitee.com/strongercjd/Onbon-Protocol-Analysis/raw/master/image/002.png)
